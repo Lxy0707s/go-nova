@@ -1,4 +1,4 @@
-module github.com/go-kratos/kratos/contrib/config/kubernetes/v2
+module github.com/go-nova/pkg/third_party/contrib/config/kubernetes/v2
 
 go 1.16
 
@@ -9,4 +9,4 @@ require (
 	k8s.io/client-go v0.26.3
 )
 
-replace github.com/go-nova => ../../../
+replace github.com/go-nova => ../../../../

@@ -1,4 +1,4 @@
-module github.com/go-kratos/kratos/contrib/log/fluent/v2
+module github.com/go-nova/pkg/third_party/contrib/log/fluent/v2
 
 go 1.16
 
@@ -10,4 +10,4 @@ require (
 	github.com/tinylib/msgp v1.1.6 // indirect
 )
 
-replace github.com/go-nova => ../../../
+replace github.com/go-nova => ../../../../

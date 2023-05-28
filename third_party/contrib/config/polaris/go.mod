@@ -1,4 +1,4 @@
-module github.com/go-kratos/kratos/contrib/config/polaris/v2
+module github.com/go-nova/pkg/third_party/contrib/config/polaris/v2
 
 go 1.16
 
@@ -17,4 +17,4 @@ require (
 	google.golang.org/genproto v0.0.0-20220628213854-d9e0b6570c03 // indirect
 )
 
-replace github.com/go-nova => ../../../
+replace github.com/go-nova => ../../../../

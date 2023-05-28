@@ -17,7 +17,7 @@ func main() {
 	router := gin.Default()
 	route := httpSrv.Route("/v1")
 	exec := app.New(
-		app.Name("gin-kratos"),
+		app.Name("my-kratos"),
 		app.Version(release),
 		app.BuildTime(buildTime),
 		app.Server(

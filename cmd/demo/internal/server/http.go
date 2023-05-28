@@ -2,8 +2,8 @@ package server
 
 import (
 	"github.com/gin-gonic/gin"
-	kgin "github.com/go-kratos/gin"
 	"github.com/go-nova/cmd/demo/internal/server/middleware"
+	kgin "github.com/go-nova/pkg/common/gin"
 	"github.com/go-nova/pkg/common/middleware/recovery"
 	khttp "github.com/go-nova/pkg/utils/transport/http"
 	"log"

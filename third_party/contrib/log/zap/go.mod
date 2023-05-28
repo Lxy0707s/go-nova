@@ -1,4 +1,4 @@
-module github.com/go-kratos/kratos/contrib/log/zap/v2
+module github.com/go-nova/pkg/third_party/contrib/log/zap/v2
 
 go 1.16
 
@@ -7,4 +7,4 @@ require (
 	go.uber.org/zap v1.23.0
 )
 
-replace github.com/go-nova => ../../../
+replace github.com/go-nova => ../../../../

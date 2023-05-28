@@ -1,4 +1,4 @@
-module github.com/go-kratos/kratos/contrib/registry/polaris/v2
+module github.com/go-nova/pkg/third_party/contrib/registry/polaris/v2
 
 go 1.16
 
@@ -7,4 +7,4 @@ require (
 	github.com/polarismesh/polaris-go v1.3.0
 )
 
-replace github.com/go-nova => ../../../
+replace github.com/go-nova => ../../../../

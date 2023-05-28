@@ -6,7 +6,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/go-nova/metadata"
+	"github.com/go-nova/pkg/utils/metadata"
 	"github.com/go-nova/pkg/utils/transport"
 	"github.com/go-nova/pkg/utils/transport/http"
 

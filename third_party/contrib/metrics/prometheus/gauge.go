@@ -1,9 +1,8 @@
 package prometheus
 
 import (
+	"github.com/go-nova/pkg/utils/metrics"
 	"github.com/prometheus/client_golang/prometheus"
-
-	"github.com/go-nova/metrics"
 )
 
 var _ metrics.Gauge = (*gauge)(nil)

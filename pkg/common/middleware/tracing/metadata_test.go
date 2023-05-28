@@ -2,10 +2,11 @@ package tracing
 
 import (
 	"context"
+	"github.com/go-kratos/kratos/v2"
 	"reflect"
 	"testing"
 
-	"github.com/go-nova/metadata"
+	"github.com/go-nova/pkg/utils/metadata"
 
 	"go.opentelemetry.io/otel/propagation"
 )

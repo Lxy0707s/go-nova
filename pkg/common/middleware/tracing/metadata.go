@@ -2,10 +2,9 @@ package tracing
 
 import (
 	"context"
-
+	"github.com/go-nova/pkg/common/app"
+	"github.com/go-nova/pkg/utils/metadata"
 	"go.opentelemetry.io/otel/propagation"
-
-	"github.com/go-nova/metadata"
 )
 
 const serviceHeader = "x-md-service-name"
@@ -17,9 +16,9 @@ var _ propagation.TextMapPropagator = Metadata{}
 
 // Inject sets metadata key-values from ctx into the carrier.
 func (b Metadata) Inject(ctx context.Context, carrier propagation.TextMapCarrier) {
-	app, ok := kratos.FromContext(ctx)
+	appCtx, ok := app.FromContext(ctx)
 	if ok {
-		carrier.Set(serviceHeader, app.Name())
+		carrier.Set(serviceHeader, appCtx.Name())
 	}
 }
 

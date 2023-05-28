@@ -2,8 +2,6 @@ package datadog
 
 import (
 	"time"
-
-	"github.com/go-nova/metrics"
 )
 
 var _ metrics.Observer = (*timing)(nil)

@@ -1,4 +1,4 @@
-module github.com/go-kratos/kratos/contrib/metrics/prometheus/v2
+module github.com/go-nova/pkg/third_party/contrib/metrics/prometheus/v2
 
 go 1.16
 
@@ -8,4 +8,4 @@ require (
 	github.com/prometheus/common v0.42.0
 )
 
-replace github.com/go-nova => ../../../
+replace github.com/go-nova => ../../../../

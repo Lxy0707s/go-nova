@@ -13,7 +13,7 @@ import (
 	"google.golang.org/grpc/peer"
 
 	"github.com/go-nova/internal/testdata/binding"
-	"github.com/go-nova/metadata"
+	"github.com/go-nova/pkg/utils/metadata"
 	"github.com/go-nova/pkg/utils/transport"
 )
 

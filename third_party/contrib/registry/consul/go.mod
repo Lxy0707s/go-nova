@@ -1,4 +1,4 @@
-module github.com/go-kratos/kratos/contrib/registry/consul/v2
+module github.com/go-nova/pkg/third_party/contrib/registry/consul/v2
 
 go 1.16
 
@@ -13,4 +13,4 @@ require (
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 )
 
-replace github.com/go-nova => ../../../
+replace github.com/go-nova => ../../../../

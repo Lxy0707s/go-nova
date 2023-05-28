@@ -1,4 +1,4 @@
-module github.com/go-kratos/kratos/contrib/config/apollo/v2
+module github.com/go-nova/pkg/third_party/contrib/config/apollo/v2
 
 go 1.16
 
@@ -8,4 +8,4 @@ require (
 
 require github.com/spf13/viper v1.11.0 // indirect
 
-replace github.com/go-nova => ../../../
+replace github.com/go-nova => ../../../../

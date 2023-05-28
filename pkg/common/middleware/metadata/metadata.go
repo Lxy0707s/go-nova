@@ -4,8 +4,8 @@ import (
 	"context"
 	"strings"
 
-	"github.com/go-nova/metadata"
 	"github.com/go-nova/pkg/common/middleware"
+	"github.com/go-nova/pkg/utils/metadata"
 	"github.com/go-nova/pkg/utils/transport"
 )
 

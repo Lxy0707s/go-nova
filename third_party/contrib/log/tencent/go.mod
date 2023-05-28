@@ -1,4 +1,4 @@
-module github.com/go-kratos/kratos/contrib/log/tencent/v2
+module github.com/go-nova/pkg/third_party/contrib/log/tencent/v2
 
 go 1.16
 
@@ -8,4 +8,4 @@ require (
 	google.golang.org/protobuf v1.28.0
 )
 
-replace github.com/go-nova => ../../../
+replace github.com/go-nova => ../../../../

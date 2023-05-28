@@ -1,4 +1,4 @@
-module github.com/go-kratos/kratos/contrib/registry/discovery/v2
+module github.com/go-nova/pkg/third_party/contrib/registry/discovery/v2
 
 go 1.16
 
@@ -8,4 +8,4 @@ require (
 	github.com/pkg/errors v0.9.1
 )
 
-replace github.com/go-nova => ../../../
+replace github.com/go-nova => ../../../../

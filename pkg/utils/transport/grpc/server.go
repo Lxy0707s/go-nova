@@ -14,11 +14,11 @@ import (
 	"google.golang.org/grpc/health/grpc_health_v1"
 	"google.golang.org/grpc/reflection"
 
-	apimd "github.com/go-nova/api/metadata"
 	"github.com/go-nova/internal/endpoint"
 	"github.com/go-nova/internal/host"
 	"github.com/go-nova/internal/matcher"
 	"github.com/go-nova/pkg/common/middleware"
+	apimd "github.com/go-nova/pkg/utils/api/metadata"
 	"github.com/go-nova/pkg/utils/log"
 	"github.com/go-nova/pkg/utils/transport"
 )

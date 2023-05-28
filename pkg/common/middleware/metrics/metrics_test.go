@@ -5,7 +5,6 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/go-nova/metrics"
 	"github.com/go-nova/pkg/utils/transport"
 	"github.com/go-nova/pkg/utils/transport/http"
 )

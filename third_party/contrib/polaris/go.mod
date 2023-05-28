@@ -1,9 +1,8 @@
-module github.com/go-kratos/kratos/contrib/polaris/v2
+module github.com/go-nova/pkg/third_party/contrib/polaris/v2
 
 go 1.18
 
 require (
-	github.com/go-kratos/aegis v0.2.0
 	github.com/go-nova v1.0.0
 	github.com/google/uuid v1.3.0
 	github.com/polarismesh/polaris-go v1.3.0

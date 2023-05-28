@@ -9,7 +9,7 @@ import (
 	"log"
 
 	"github.com/go-chassis/sc-client"
-	"github.com/go-kratos/kratos/contrib/registry/servicecomb/v2"
+	"github.com/go-nova/pkg/third_party/contrib/registry/servicecomb/v2"
 	"github.com/go-nova"
 )
 
@@ -40,7 +40,7 @@ import (
 	"log"
 
 	"github.com/go-chassis/sc-client"
-	"github.com/go-kratos/kratos/contrib/registry/servicecomb/v2"
+	"github.com/go-nova/pkg/third_party/contrib/registry/servicecomb/v2"
 	"github.com/go-nova/pkg/utils/transport/grpc"
 )
 

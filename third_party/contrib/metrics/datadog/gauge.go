@@ -1,9 +1,5 @@
 package datadog
 
-import (
-	"github.com/go-nova/metrics"
-)
-
 var _ metrics.Gauge = (*gauge)(nil)
 
 type gauge struct {
