@@ -20,4 +20,4 @@ require (
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 )
 
-replace github.com/go-nova => ../../../../../
+replace github.com/go-nova => ../../../../

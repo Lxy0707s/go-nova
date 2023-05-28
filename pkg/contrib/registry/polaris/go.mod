@@ -7,4 +7,4 @@ require (
 	github.com/polarismesh/polaris-go v1.3.0
 )
 
-replace github.com/go-nova => ../../../../../
+replace github.com/go-nova => ../../../../

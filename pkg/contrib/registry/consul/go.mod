@@ -13,4 +13,4 @@ require (
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 )
 
-replace github.com/go-nova => ../../../../../
+replace github.com/go-nova => ../../../../

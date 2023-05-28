@@ -8,4 +8,4 @@ require (
 	github.com/prometheus/common v0.42.0
 )
 
-replace github.com/go-nova => ../../../../../
+replace github.com/go-nova => ../../../../

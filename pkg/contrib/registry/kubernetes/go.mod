@@ -10,4 +10,4 @@ require (
 	k8s.io/client-go v0.24.3
 )
 
-replace github.com/go-nova => ../../../../../
+replace github.com/go-nova => ../../../../

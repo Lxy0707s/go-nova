@@ -8,4 +8,4 @@ require (
 	google.golang.org/grpc v1.50.1
 )
 
-replace github.com/go-nova => ../../../../../
+replace github.com/go-nova => ../../../../

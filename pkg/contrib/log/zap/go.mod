@@ -7,4 +7,4 @@ require (
 	go.uber.org/zap v1.23.0
 )
 
-replace github.com/go-nova => ../../../../../
+replace github.com/go-nova => ../../../../

@@ -7,4 +7,4 @@ require (
 	github.com/sirupsen/logrus v1.8.1
 )
 
-replace github.com/go-nova => ../../../../../
+replace github.com/go-nova => ../../../../

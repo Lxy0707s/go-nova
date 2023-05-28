@@ -8,4 +8,4 @@ require (
 	golang.org/x/sync v0.1.0
 )
 
-replace github.com/go-nova => ../../../../../
+replace github.com/go-nova => ../../../../

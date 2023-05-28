@@ -23,4 +23,4 @@ require (
 
 replace google.golang.org/genproto => github.com/google/go-genproto v0.0.0-20181219182458-5a97ab628bfb
 
-replace github.com/go-nova => ../../../../
+replace github.com/go-nova => ../../../

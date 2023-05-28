@@ -8,4 +8,4 @@ require (
 	google.golang.org/protobuf v1.28.0
 )
 
-replace github.com/go-nova => ../../../../../
+replace github.com/go-nova => ../../../../
