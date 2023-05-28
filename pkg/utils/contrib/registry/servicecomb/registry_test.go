@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	pb "github.com/go-chassis/cari/discovery"
+	sc "github.com/go-chassis/sc-client"
 	"github.com/gofrs/uuid"
 
 	"github.com/go-nova/pkg/common/registry"

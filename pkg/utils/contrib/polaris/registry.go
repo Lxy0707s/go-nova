@@ -3,6 +3,7 @@ package polaris
 import (
 	"context"
 	"fmt"
+	"github.com/polarismesh/polaris-go"
 	"net"
 	"net/url"
 	"strconv"

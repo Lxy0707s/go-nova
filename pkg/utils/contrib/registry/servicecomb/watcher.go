@@ -3,6 +3,7 @@ package servicecomb
 import (
 	"context"
 
+	sc "github.com/go-chassis/sc-client"
 	"github.com/go-nova/pkg/common/registry"
 )
 

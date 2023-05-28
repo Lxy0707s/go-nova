@@ -3,6 +3,7 @@ package polaris
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/polarismesh/polaris-go"
 	"io"
 	"net/http"
 	"reflect"
@@ -10,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/go-nova/config"
+	"github.com/go-nova/pkg/common/config"
 )
 
 var (

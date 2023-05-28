@@ -2,6 +2,7 @@ package polaris
 
 import (
 	"context"
+	"github.com/polarismesh/polaris-go"
 	"testing"
 	"time"
 

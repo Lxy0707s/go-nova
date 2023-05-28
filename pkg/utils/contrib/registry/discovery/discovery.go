@@ -3,6 +3,7 @@ package discovery
 import (
 	"context"
 	"fmt"
+	"github.com/go-resty/resty/v2"
 	"math/rand"
 	"net/url"
 	"strconv"

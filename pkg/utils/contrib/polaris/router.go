@@ -3,6 +3,8 @@ package polaris
 import (
 	"context"
 	"fmt"
+	"github.com/go-kratos/kratos/v2"
+	"github.com/polarismesh/polaris-go"
 	"net"
 	"strconv"
 	"strings"

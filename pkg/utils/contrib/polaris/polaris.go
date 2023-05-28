@@ -2,10 +2,11 @@ package polaris
 
 import (
 	"errors"
+	"github.com/polarismesh/polaris-go"
 
 	"github.com/polarismesh/polaris-go/api"
 
-	"github.com/go-nova/config"
+	"github.com/go-nova/pkg/common/config"
 )
 
 type Polaris struct {

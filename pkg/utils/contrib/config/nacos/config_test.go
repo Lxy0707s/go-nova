@@ -9,7 +9,7 @@ import (
 	"github.com/nacos-group/nacos-sdk-go/common/constant"
 	"github.com/nacos-group/nacos-sdk-go/vo"
 
-	"github.com/go-nova/config"
+	"github.com/go-nova/pkg/common/config"
 )
 
 func TestConfig_Load(t *testing.T) {

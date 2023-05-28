@@ -1,12 +1,13 @@
 package polaris
 
 import (
+	"github.com/polarismesh/polaris-go"
 	"path/filepath"
 	"strings"
 
 	"github.com/polarismesh/polaris-go/pkg/model"
 
-	"github.com/go-nova/config"
+	"github.com/go-nova/pkg/common/config"
 	"github.com/go-nova/pkg/utils/log"
 )
 
