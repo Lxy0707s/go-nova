@@ -3,8 +3,8 @@ module github.com/go-nova/pkg/third_party/contrib/config/consul/v2
 go 1.15
 
 require (
-	github.com/go-nova v1.0.0
 	github.com/armon/go-metrics v0.3.10 // indirect
+	github.com/go-nova v1.0.0
 	github.com/google/btree v1.0.0 // indirect
 	github.com/hashicorp/consul/api v1.20.0
 	github.com/hashicorp/go-hclog v0.14.1 // indirect
@@ -13,4 +13,4 @@ require (
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 )
 
-replace github.com/go-nova => ../../../../../
+replace github.com/go-nova => ../../../../
