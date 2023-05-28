@@ -1,6 +1,7 @@
 package datadog
 
 import (
+	"github.com/go-nova/pkg/utils/metrics"
 	"time"
 )
 

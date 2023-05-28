@@ -1,6 +1,7 @@
 package prometheus
 
 import (
+	"github.com/go-nova/pkg/utils/metrics"
 	"github.com/prometheus/client_golang/prometheus"
 )
 

@@ -3,6 +3,7 @@ package metrics
 import (
 	"context"
 	"errors"
+	"github.com/go-nova/pkg/utils/metrics"
 	"testing"
 
 	"github.com/go-nova/pkg/utils/transport"

@@ -2,6 +2,7 @@ package metrics
 
 import (
 	"context"
+	"github.com/go-nova/pkg/utils/metrics"
 	"strconv"
 	"time"
 
