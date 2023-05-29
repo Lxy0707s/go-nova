@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
 	"github.com/go-nova/cmd/demo/curtain"
 	"github.com/go-nova/cmd/demo/internal/server"
 	"github.com/go-nova/pkg/common/app"
@@ -14,10 +13,8 @@ import (
  */
 func main() {
 	httpSrv := http.NewServer(http.Address(":8080"))
-	router := gin.Default()
-	route := httpSrv.Route("/v1")
 	exec := app.New(
-		app.Name("my-kratos"),
+		app.Name("my-nova"),
 		app.Version(release),
 		app.BuildTime(buildTime),
 		app.Server(
@@ -27,9 +24,7 @@ func main() {
 
 	curtain.CurtainGenerator(exec.Name(), "xuanyu.li", exec.Version(), exec.BuildTime(), "")
 
-	go server.HttpSrv(router, httpSrv)
-	go server.HttpDeSrv(route)
-
+	server.RegisterRestful(httpSrv, false)
 	err := exec.Run()
 	if err != nil {
 		return

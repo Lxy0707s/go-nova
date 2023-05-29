@@ -5,15 +5,14 @@ import (
 	"github.com/go-nova/cmd/demo/service/hello"
 )
 
-var routeModuleName = "v1.0"
+var routeModuleV1 = "v1"
 
-func RegisterRoute(router *gin.RouterGroup) {
-	//	注册
-	registerRestfulApiV1(router)
+func RouteV1(router *gin.RouterGroup) {
+	router = router.Group(routeModuleV1)
+	restfulApiV1(router)
 }
 
-func registerRestfulApiV1(router *gin.RouterGroup) {
-	router = router.Group(routeModuleName)
+func restfulApiV1(router *gin.RouterGroup) {
 	// 代理接口，发起请求
 	router.GET("/test", hello.Hello)
 }

@@ -6,37 +6,23 @@ import (
 	kgin "github.com/go-nova/pkg/common/gin"
 	"github.com/go-nova/pkg/common/middleware/recovery"
 	khttp "github.com/go-nova/pkg/utils/transport/http"
-	"log"
-	"net/http"
 )
 
-func HttpSrv(r *gin.Engine, httpSrv *khttp.Server) {
+// RegisterRestful 各个服务注册路由总线
+func RegisterRestful(httpSrv *khttp.Server, useGin bool) {
+
+	if useGin {
+		// 使用gin代替默认的http服务
+		useGinHttpServer(httpSrv)
+	} else {
+		RegisterRestfulRouteV2(httpSrv)
+	}
+}
+
+func useGinHttpServer(httpSrv *khttp.Server) {
+	r := gin.Default()
 	// 使用kratos中间件
 	r.Use(kgin.Middlewares(recovery.Recovery(), middleware.CustomMiddleware)) //middleware.CustomMiddleware
-
-	// 各个服务注册路由总线
-	RegisterRestfulRoute(r, httpSrv)
-
+	go RegisterRestfulRouteV1(r, nil)
 	httpSrv.HandlePrefix("/", r)
-}
-
-type Test struct {
-	Name string
-}
-
-func HttpDeSrv(route *khttp.Router) {
-	route.GET("/users/{name}", func(ctx khttp.Context) error {
-		u := new(Test)
-		u.Name = ctx.Vars().Get("name")
-		return ctx.Result(200, u)
-	}, authFilter)
-}
-
-func authFilter(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Do stuff here
-		log.Println("auth:", r.Method, r.RequestURI)
-		// Call the next handler, which can be another middleware in the chain, or the final handler.
-		next.ServeHTTP(w, r)
-	})
 }
