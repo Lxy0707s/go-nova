@@ -24,7 +24,7 @@ func main() {
 
 	curtain.CurtainGenerator(exec.Name(), "xuanyu.li", exec.Version(), exec.BuildTime(), "")
 
-	server.RegisterRestful(httpSrv, false)
+	server.RegisterRestful(httpSrv, true)
 	err := exec.Run()
 	if err != nil {
 		return
