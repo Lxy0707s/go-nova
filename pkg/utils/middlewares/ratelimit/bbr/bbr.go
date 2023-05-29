@@ -1,14 +1,14 @@
 package bbr
 
 import (
-	"github.com/go-nova/pkg/utils/middlewares/v1/ratelimit"
+	"github.com/go-nova/pkg/utils/middlewares/ratelimit"
 	"math"
 	"runtime"
 	"sync/atomic"
 	"time"
 
-	"github.com/go-nova/pkg/utils/middlewares/v1/internal/cpu"
-	"github.com/go-nova/pkg/utils/middlewares/v1/internal/window"
+	"github.com/go-nova/pkg/utils/middlewares/internal/cpu"
+	"github.com/go-nova/pkg/utils/middlewares/internal/window"
 )
 
 var (

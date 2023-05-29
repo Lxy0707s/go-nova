@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/go-nova/pkg/utils/middlewares/v1/internal/window"
+	"github.com/go-nova/pkg/utils/middlewares/internal/window"
 	"github.com/stretchr/testify/assert"
 )
 

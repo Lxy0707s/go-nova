@@ -3,7 +3,7 @@ package circuitbreaker_test
 import (
 	"fmt"
 
-	"github.com/go-nova/pkg/utils/middlewares/v1/circuitbreaker/sre"
+	"github.com/go-nova/pkg/utils/middlewares/circuitbreaker/sre"
 )
 
 // This is a example of using a circuit breaker Do() when return nil.

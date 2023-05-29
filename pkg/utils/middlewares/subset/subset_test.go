@@ -6,7 +6,7 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/go-nova/pkg/utils/middlewares/v1/internal/consistent"
+	"github.com/go-nova/pkg/utils/middlewares/internal/consistent"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 )

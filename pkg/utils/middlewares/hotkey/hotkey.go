@@ -2,7 +2,7 @@ package hotkey
 
 import (
 	"fmt"
-	"github.com/go-nova/pkg/utils/middlewares/v1/topk"
+	"github.com/go-nova/pkg/utils/middlewares/topk"
 	"math"
 	"regexp"
 	"sync"

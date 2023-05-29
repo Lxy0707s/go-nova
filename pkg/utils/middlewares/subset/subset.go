@@ -1,7 +1,7 @@
 package subset
 
 import (
-	"github.com/go-nova/pkg/utils/middlewares/v1/internal/consistent"
+	"github.com/go-nova/pkg/utils/middlewares/internal/consistent"
 )
 
 func Subset[M consistent.Member](selectKey string, inss []M, num int) []M {
