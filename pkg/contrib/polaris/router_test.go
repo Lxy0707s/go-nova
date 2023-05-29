@@ -10,7 +10,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 	"github.com/go-nova/pkg/utils/selector"
 )
 
@@ -129,7 +129,7 @@ func TestRouter(t *testing.T) {
 		WithRegistryTTL(10),
 	)
 
-	ins := &registry.ServiceInstance{
+	ins := &registration.ServiceInstance{
 		ID:      "kratos",
 		Name:    "kratos",
 		Version: "v1.0.0",
@@ -145,21 +145,21 @@ func TestRouter(t *testing.T) {
 	}
 	time.Sleep(time.Second * 5)
 	nodes := []selector.Node{
-		selector.NewNode("grpc", "127.0.0.1:9000", &registry.ServiceInstance{
+		selector.NewNode("grpc", "127.0.0.1:9000", &registration.ServiceInstance{
 			ID:        "123",
 			Name:      "test-ut",
 			Version:   "v1.0.0",
 			Metadata:  map[string]string{"weight": "100", "az": "1"},
 			Endpoints: []string{"grpc://127.0.0.1:9000"},
 		}),
-		selector.NewNode("grpc", "127.0.0.2:9000", &registry.ServiceInstance{
+		selector.NewNode("grpc", "127.0.0.2:9000", &registration.ServiceInstance{
 			ID:        "123",
 			Name:      "test-ut",
 			Version:   "v1.0.0",
 			Metadata:  map[string]string{"weight": "100", "az": "2"},
 			Endpoints: []string{"grpc://127.0.0.2:9000"},
 		}),
-		selector.NewNode("grpc", "127.0.0.3:9000", &registry.ServiceInstance{
+		selector.NewNode("grpc", "127.0.0.3:9000", &registration.ServiceInstance{
 			ID:        "123",
 			Name:      "test-ut",
 			Version:   "v1.0.0",

@@ -9,7 +9,7 @@ import (
 
 	"google.golang.org/grpc/resolver"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
 type testClientConn struct {
@@ -28,13 +28,13 @@ type testWatch struct {
 	count uint
 }
 
-func (m *testWatch) Next() ([]*registry.ServiceInstance, error) {
+func (m *testWatch) Next() ([]*registration.ServiceInstance, error) {
 	time.Sleep(time.Millisecond * 200)
 	if m.count > 1 {
 		return nil, nil
 	}
 	m.count++
-	ins := []*registry.ServiceInstance{
+	ins := []*registration.ServiceInstance{
 		{
 			ID:        "mock_ID",
 			Name:      "mock_Name",

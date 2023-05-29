@@ -8,12 +8,12 @@ import (
 
 	clientv3 "go.etcd.io/etcd/client/v3"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
 var (
-	_ registry.Registrar = (*Registry)(nil)
-	_ registry.Discovery = (*Registry)(nil)
+	_ registration.Registrar = (*Registry)(nil)
+	_ registration.Discovery = (*Registry)(nil)
 )
 
 // Option is etcd registry option.
@@ -72,7 +72,7 @@ func New(client *clientv3.Client, opts ...Option) (r *Registry) {
 }
 
 // Register the registration.
-func (r *Registry) Register(ctx context.Context, service *registry.ServiceInstance) error {
+func (r *Registry) Register(ctx context.Context, service *registration.ServiceInstance) error {
 	key := fmt.Sprintf("%s/%s/%s", r.opts.namespace, service.Name, service.ID)
 	value, err := marshal(service)
 	if err != nil {
@@ -92,7 +92,7 @@ func (r *Registry) Register(ctx context.Context, service *registry.ServiceInstan
 }
 
 // Deregister the registration.
-func (r *Registry) Deregister(ctx context.Context, service *registry.ServiceInstance) error {
+func (r *Registry) Deregister(ctx context.Context, service *registration.ServiceInstance) error {
 	defer func() {
 		if r.lease != nil {
 			r.lease.Close()
@@ -104,13 +104,13 @@ func (r *Registry) Deregister(ctx context.Context, service *registry.ServiceInst
 }
 
 // GetService return the service instances in memory according to the service name.
-func (r *Registry) GetService(ctx context.Context, name string) ([]*registry.ServiceInstance, error) {
+func (r *Registry) GetService(ctx context.Context, name string) ([]*registration.ServiceInstance, error) {
 	key := fmt.Sprintf("%s/%s", r.opts.namespace, name)
 	resp, err := r.kv.Get(ctx, key, clientv3.WithPrefix())
 	if err != nil {
 		return nil, err
 	}
-	items := make([]*registry.ServiceInstance, 0, len(resp.Kvs))
+	items := make([]*registration.ServiceInstance, 0, len(resp.Kvs))
 	for _, kv := range resp.Kvs {
 		si, err := unmarshal(kv.Value)
 		if err != nil {
@@ -125,7 +125,7 @@ func (r *Registry) GetService(ctx context.Context, name string) ([]*registry.Ser
 }
 
 // Watch creates a watcher according to the service name.
-func (r *Registry) Watch(ctx context.Context, name string) (registry.Watcher, error) {
+func (r *Registry) Watch(ctx context.Context, name string) (registration.Watcher, error) {
 	key := fmt.Sprintf("%s/%s", r.opts.namespace, name)
 	return newWatcher(ctx, key, name, r.client)
 }

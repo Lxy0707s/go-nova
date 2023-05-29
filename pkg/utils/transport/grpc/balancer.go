@@ -5,7 +5,7 @@ import (
 	"google.golang.org/grpc/balancer/base"
 	"google.golang.org/grpc/metadata"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 	"github.com/go-nova/pkg/utils/selector"
 	"github.com/go-nova/pkg/utils/transport"
 )
@@ -42,7 +42,7 @@ func (b *balancerBuilder) Build(info base.PickerBuildInfo) balancer.Picker {
 	}
 	nodes := make([]selector.Node, 0, len(info.ReadySCs))
 	for conn, info := range info.ReadySCs {
-		ins, _ := info.Address.Attributes.Value("rawServiceInstance").(*registry.ServiceInstance)
+		ins, _ := info.Address.Attributes.Value("rawServiceInstance").(*registration.ServiceInstance)
 		nodes = append(nodes, &grpcNode{
 			Node:    selector.NewNode("grpc", info.Address.Addr, ins),
 			subConn: conn,

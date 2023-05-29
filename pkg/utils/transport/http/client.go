@@ -12,7 +12,7 @@ import (
 	"github.com/go-nova/internal/host"
 	"github.com/go-nova/internal/httputil"
 	"github.com/go-nova/pkg/common/middleware"
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 	"github.com/go-nova/pkg/utils/encoding"
 	"github.com/go-nova/pkg/utils/errors"
 	"github.com/go-nova/pkg/utils/selector"
@@ -50,7 +50,7 @@ type clientOptions struct {
 	errorDecoder DecodeErrorFunc
 	transport    http.RoundTripper
 	nodeFilters  []selector.NodeFilter
-	discovery    registry.Discovery
+	discovery    registration.Discovery
 	middleware   []middleware.Middleware
 	block        bool
 	subsetSize   int
@@ -121,7 +121,7 @@ func WithErrorDecoder(errorDecoder DecodeErrorFunc) ClientOption {
 }
 
 // WithDiscovery with client discovery.
-func WithDiscovery(d registry.Discovery) ClientOption {
+func WithDiscovery(d registration.Discovery) ClientOption {
 	return func(o *clientOptions) {
 		o.discovery = d
 	}

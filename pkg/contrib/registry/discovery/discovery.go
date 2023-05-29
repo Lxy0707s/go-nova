@@ -39,8 +39,8 @@ type appInfo struct {
 	lastTs   int64 // latest timestamp
 }
 
-// New construct a Discovery instance which implements registry.Registrar,
-// registry.Discovery and registry.Watcher.
+// New construct a Discovery instance which implements registration.Registrar,
+// registration.Discovery and registration.Watcher.
 func New(c *Config) *Discovery {
 	if c == nil {
 		c = new(Config)

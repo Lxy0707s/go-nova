@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 
 	appsv1 "k8s.io/api/apps/v1"
 	apiv1 "k8s.io/api/core/v1"
@@ -103,7 +103,7 @@ func TestRegistry(t *testing.T) {
 	r := NewRegistry(clientSet)
 	r.Start()
 
-	svrHello := &registry.ServiceInstance{
+	svrHello := &registration.ServiceInstance{
 		ID:        "1",
 		Name:      "hello",
 		Version:   "v1.0.0",

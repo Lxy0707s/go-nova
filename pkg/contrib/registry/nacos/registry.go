@@ -12,14 +12,14 @@ import (
 	"github.com/nacos-group/nacos-sdk-go/common/constant"
 	"github.com/nacos-group/nacos-sdk-go/vo"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
 var ErrServiceInstanceNameEmpty = errors.New("kratos/nacos: ServiceInstance.Name can not be empty")
 
 var (
-	_ registry.Registrar = (*Registry)(nil)
-	_ registry.Discovery = (*Registry)(nil)
+	_ registration.Registrar = (*Registry)(nil)
+	_ registration.Discovery = (*Registry)(nil)
 )
 
 type options struct {
@@ -83,7 +83,7 @@ func New(cli naming_client.INamingClient, opts ...Option) (r *Registry) {
 }
 
 // Register the registration.
-func (r *Registry) Register(_ context.Context, si *registry.ServiceInstance) error {
+func (r *Registry) Register(_ context.Context, si *registration.ServiceInstance) error {
 	if si.Name == "" {
 		return ErrServiceInstanceNameEmpty
 	}
@@ -134,7 +134,7 @@ func (r *Registry) Register(_ context.Context, si *registry.ServiceInstance) err
 }
 
 // Deregister the registration.
-func (r *Registry) Deregister(_ context.Context, service *registry.ServiceInstance) error {
+func (r *Registry) Deregister(_ context.Context, service *registration.ServiceInstance) error {
 	for _, endpoint := range service.Endpoints {
 		u, err := url.Parse(endpoint)
 		if err != nil {
@@ -163,12 +163,12 @@ func (r *Registry) Deregister(_ context.Context, service *registry.ServiceInstan
 }
 
 // Watch creates a watcher according to the service name.
-func (r *Registry) Watch(ctx context.Context, serviceName string) (registry.Watcher, error) {
+func (r *Registry) Watch(ctx context.Context, serviceName string) (registration.Watcher, error) {
 	return newWatcher(ctx, r.cli, serviceName, r.opts.group, r.opts.kind, []string{r.opts.cluster})
 }
 
 // GetService return the service instances in memory according to the service name.
-func (r *Registry) GetService(_ context.Context, serviceName string) ([]*registry.ServiceInstance, error) {
+func (r *Registry) GetService(_ context.Context, serviceName string) ([]*registration.ServiceInstance, error) {
 	res, err := r.cli.SelectInstances(vo.SelectInstancesParam{
 		ServiceName: serviceName,
 		GroupName:   r.opts.group,
@@ -177,13 +177,13 @@ func (r *Registry) GetService(_ context.Context, serviceName string) ([]*registr
 	if err != nil {
 		return nil, err
 	}
-	items := make([]*registry.ServiceInstance, 0, len(res))
+	items := make([]*registration.ServiceInstance, 0, len(res))
 	for _, in := range res {
 		kind := r.opts.kind
 		if k, ok := in.Metadata["kind"]; ok {
 			kind = k
 		}
-		items = append(items, &registry.ServiceInstance{
+		items = append(items, &registration.ServiceInstance{
 			ID:        in.InstanceId,
 			Name:      in.ServiceName,
 			Version:   in.Metadata["version"],

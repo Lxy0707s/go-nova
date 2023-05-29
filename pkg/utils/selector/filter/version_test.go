@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 	"github.com/go-nova/pkg/utils/selector"
 )
 
@@ -15,7 +15,7 @@ func TestVersion(t *testing.T) {
 	nodes = append(nodes, selector.NewNode(
 		"http",
 		"127.0.0.1:9090",
-		&registry.ServiceInstance{
+		&registration.ServiceInstance{
 			ID:        "127.0.0.1:9090",
 			Name:      "helloworld",
 			Version:   "v1.0.0",
@@ -25,7 +25,7 @@ func TestVersion(t *testing.T) {
 	nodes = append(nodes, selector.NewNode(
 		"http",
 		"127.0.0.2:9090",
-		&registry.ServiceInstance{
+		&registration.ServiceInstance{
 			ID:        "127.0.0.2:9090",
 			Name:      "helloworld",
 			Version:   "v2.0.0",

@@ -10,7 +10,7 @@ import (
 
 	clientv3 "go.etcd.io/etcd/client/v3"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
 func TestRegistry(t *testing.T) {
@@ -24,7 +24,7 @@ func TestRegistry(t *testing.T) {
 	defer client.Close()
 
 	ctx := context.Background()
-	s := &registry.ServiceInstance{
+	s := &registration.ServiceInstance{
 		ID:   "0",
 		Name: "helloworld",
 	}
@@ -89,7 +89,7 @@ func TestHeartBeat(t *testing.T) {
 	defer client.Close()
 
 	ctx := context.Background()
-	s := &registry.ServiceInstance{
+	s := &registration.ServiceInstance{
 		ID:   "0",
 		Name: "helloworld",
 	}

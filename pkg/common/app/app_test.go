@@ -9,17 +9,17 @@ import (
 	"testing"
 	"time"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 	"github.com/go-nova/pkg/utils/transport/grpc"
 	"github.com/go-nova/pkg/utils/transport/http"
 )
 
 type mockRegistry struct {
 	lk      sync.Mutex
-	service map[string]*registry.ServiceInstance
+	service map[string]*registration.ServiceInstance
 }
 
-func (r *mockRegistry) Register(_ context.Context, service *registry.ServiceInstance) error {
+func (r *mockRegistry) Register(_ context.Context, service *registration.ServiceInstance) error {
 	if service == nil || service.ID == "" {
 		return errors.New("no service id")
 	}
@@ -30,7 +30,7 @@ func (r *mockRegistry) Register(_ context.Context, service *registry.ServiceInst
 }
 
 // Deregister the registration.
-func (r *mockRegistry) Deregister(_ context.Context, service *registry.ServiceInstance) error {
+func (r *mockRegistry) Deregister(_ context.Context, service *registration.ServiceInstance) error {
 	r.lk.Lock()
 	defer r.lk.Unlock()
 	if r.service[service.ID] == nil {
@@ -63,7 +63,7 @@ func TestApp(t *testing.T) {
 			t.Log("AfterStop...")
 			return nil
 		}),
-		Registrar(&mockRegistry{service: make(map[string]*registry.ServiceInstance)}),
+		Registrar(&mockRegistry{service: make(map[string]*registration.ServiceInstance)}),
 	)
 	time.AfterFunc(time.Second, func() {
 		_ = app.Stop()
@@ -187,7 +187,7 @@ func TestApp_Context(t *testing.T) {
 		id       string
 		version  string
 		name     string
-		instance *registry.ServiceInstance
+		instance *registration.ServiceInstance
 		metadata map[string]string
 		want     struct {
 			id       string
@@ -201,7 +201,7 @@ func TestApp_Context(t *testing.T) {
 		{
 			id:       "1",
 			name:     "kratos-v1",
-			instance: &registry.ServiceInstance{Endpoints: []string{"https://go-nova.dev", "localhost"}},
+			instance: &registration.ServiceInstance{Endpoints: []string{"https://go-nova.dev", "localhost"}},
 			metadata: map[string]string{},
 			version:  "v1",
 			want: struct {
@@ -218,7 +218,7 @@ func TestApp_Context(t *testing.T) {
 		{
 			id:       "2",
 			name:     "kratos-v2",
-			instance: &registry.ServiceInstance{Endpoints: []string{"test"}},
+			instance: &registration.ServiceInstance{Endpoints: []string{"test"}},
 			metadata: map[string]string{"kratos": "https://github.com/go-nova/kratos"},
 			version:  "v2",
 			want: struct {

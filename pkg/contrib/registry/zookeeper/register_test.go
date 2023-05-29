@@ -8,7 +8,7 @@ import (
 
 	"github.com/go-zookeeper/zk"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
 func TestRegistry_GetService(t *testing.T) {
@@ -19,7 +19,7 @@ func TestRegistry_GetService(t *testing.T) {
 	}
 	r := New(conn)
 
-	svrHello := &registry.ServiceInstance{
+	svrHello := &registration.ServiceInstance{
 		ID:        "1",
 		Name:      "hello",
 		Version:   "v1.0.0",
@@ -37,7 +37,7 @@ func TestRegistry_GetService(t *testing.T) {
 		name      string
 		fields    fields
 		args      args
-		want      []*registry.ServiceInstance
+		want      []*registration.ServiceInstance
 		wantErr   bool
 		preFunc   func(t *testing.T)
 		deferFunc func(t *testing.T)
@@ -63,7 +63,7 @@ func TestRegistry_GetService(t *testing.T) {
 				ctx:         context.Background(),
 				serviceName: svrHello.Name,
 			},
-			want:    []*registry.ServiceInstance{svrHello},
+			want:    []*registration.ServiceInstance{svrHello},
 			wantErr: false,
 		},
 		{
@@ -124,7 +124,7 @@ func TestRegistry_Register(t *testing.T) {
 	}
 	r := New(conn)
 
-	svrHello := &registry.ServiceInstance{
+	svrHello := &registration.ServiceInstance{
 		ID:        "1",
 		Name:      "hello",
 		Version:   "v1.0.0",
@@ -136,7 +136,7 @@ func TestRegistry_Register(t *testing.T) {
 	}
 	type args struct {
 		ctx     context.Context
-		service *registry.ServiceInstance
+		service *registration.ServiceInstance
 	}
 	tests := []struct {
 		name      string
@@ -164,7 +164,7 @@ func TestRegistry_Register(t *testing.T) {
 			},
 			args: args{
 				ctx: context.Background(),
-				service: &registry.ServiceInstance{
+				service: &registration.ServiceInstance{
 					ID:        "1",
 					Name:      "hello1",
 					Version:   "v1.0.0",
@@ -186,7 +186,7 @@ func TestRegistry_Register(t *testing.T) {
 			},
 			args: args{
 				ctx: context.Background(),
-				service: &registry.ServiceInstance{
+				service: &registration.ServiceInstance{
 					ID:        "1",
 					Name:      "hello2",
 					Version:   "v1.0.0",
@@ -220,7 +220,7 @@ func TestRegistry_Deregister(t *testing.T) {
 	}
 	r := New(conn)
 
-	svrHello := &registry.ServiceInstance{
+	svrHello := &registration.ServiceInstance{
 		ID:        "1",
 		Name:      "hello",
 		Version:   "v1.0.0",
@@ -234,7 +234,7 @@ func TestRegistry_Deregister(t *testing.T) {
 	}
 	type args struct {
 		ctx     context.Context
-		service *registry.ServiceInstance
+		service *registration.ServiceInstance
 	}
 	tests := []struct {
 		name      string
@@ -296,7 +296,7 @@ func TestRegistry_Watch(t *testing.T) {
 	}
 	r := New(conn)
 
-	svrHello := &registry.ServiceInstance{
+	svrHello := &registration.ServiceInstance{
 		ID:        "1",
 		Name:      "hello",
 		Version:   "v1.0.0",
@@ -316,11 +316,11 @@ func TestRegistry_Watch(t *testing.T) {
 		fields  fields
 		args    args
 		wantErr bool
-		want    []*registry.ServiceInstance
+		want    []*registration.ServiceInstance
 
 		preFunc     func(t *testing.T)
 		deferFunc   func(t *testing.T)
-		processFunc func(t *testing.T, w registry.Watcher)
+		processFunc func(t *testing.T, w registration.Watcher)
 	}{
 		{
 			name: "normal",
@@ -332,14 +332,14 @@ func TestRegistry_Watch(t *testing.T) {
 				serviceName: svrHello.Name,
 			},
 			wantErr: false,
-			want:    []*registry.ServiceInstance{svrHello},
+			want:    []*registration.ServiceInstance{svrHello},
 			deferFunc: func(t *testing.T) {
 				err = r.Deregister(context.Background(), svrHello)
 				if err != nil {
 					t.Error(err)
 				}
 			},
-			processFunc: func(t *testing.T, w registry.Watcher) {
+			processFunc: func(t *testing.T, w registration.Watcher) {
 				err = r.Register(context.Background(), svrHello)
 				if err != nil {
 					t.Error(err)
@@ -357,7 +357,7 @@ func TestRegistry_Watch(t *testing.T) {
 			},
 			wantErr: true,
 			want:    nil,
-			processFunc: func(t *testing.T, w registry.Watcher) {
+			processFunc: func(t *testing.T, w registration.Watcher) {
 				cancel()
 			},
 		},
@@ -372,7 +372,7 @@ func TestRegistry_Watch(t *testing.T) {
 			},
 			wantErr: true,
 			want:    nil,
-			processFunc: func(t *testing.T, w registry.Watcher) {
+			processFunc: func(t *testing.T, w registration.Watcher) {
 				closeConn.Close()
 			},
 		},

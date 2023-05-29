@@ -9,7 +9,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 	"github.com/go-nova/pkg/utils/log"
 	"github.com/go-nova/pkg/utils/transport"
 
@@ -32,7 +32,7 @@ type App struct {
 	ctx      context.Context
 	cancel   func()
 	mu       sync.Mutex
-	instance *registry.ServiceInstance
+	instance *registration.ServiceInstance
 }
 
 // New create an application lifecycle manager.
@@ -171,7 +171,7 @@ func (a *App) Stop() (err error) {
 	return err
 }
 
-func (a *App) buildInstance() (*registry.ServiceInstance, error) {
+func (a *App) buildInstance() (*registration.ServiceInstance, error) {
 	endpoints := make([]string, 0, len(a.opts.endpoints))
 	for _, e := range a.opts.endpoints {
 		endpoints = append(endpoints, e.String())
@@ -187,7 +187,7 @@ func (a *App) buildInstance() (*registry.ServiceInstance, error) {
 			}
 		}
 	}
-	return &registry.ServiceInstance{
+	return &registration.ServiceInstance{
 		ID:        a.opts.id,
 		Name:      a.opts.name,
 		Version:   a.opts.version,

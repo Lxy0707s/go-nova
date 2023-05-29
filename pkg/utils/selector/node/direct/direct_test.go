@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 	"github.com/go-nova/pkg/utils/selector"
 )
 
@@ -15,7 +15,7 @@ func TestDirect(t *testing.T) {
 	wn := b.Build(selector.NewNode(
 		"http",
 		"127.0.0.1:9090",
-		&registry.ServiceInstance{
+		&registration.ServiceInstance{
 			ID:        "127.0.0.1:9090",
 			Name:      "helloworld",
 			Version:   "v1.0.0",
@@ -45,7 +45,7 @@ func TestDirectDefaultWeight(t *testing.T) {
 	wn := b.Build(selector.NewNode(
 		"http",
 		"127.0.0.1:9090",
-		&registry.ServiceInstance{
+		&registration.ServiceInstance{
 			ID:        "127.0.0.1:9090",
 			Name:      "helloworld",
 			Version:   "v1.0.0",

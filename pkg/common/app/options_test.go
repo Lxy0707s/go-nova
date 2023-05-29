@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 	xlog "github.com/go-nova/pkg/utils/log"
 	"github.com/go-nova/pkg/utils/transport"
 )
@@ -118,11 +118,11 @@ func TestSignal(t *testing.T) {
 
 type mockRegistrar struct{}
 
-func (m *mockRegistrar) Register(_ context.Context, _ *registry.ServiceInstance) error {
+func (m *mockRegistrar) Register(_ context.Context, _ *registration.ServiceInstance) error {
 	return nil
 }
 
-func (m *mockRegistrar) Deregister(_ context.Context, _ *registry.ServiceInstance) error {
+func (m *mockRegistrar) Deregister(_ context.Context, _ *registration.ServiceInstance) error {
 	return nil
 }
 

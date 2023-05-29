@@ -3,10 +3,10 @@ package eureka
 import (
 	"context"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
-var _ registry.Watcher = (*watcher)(nil)
+var _ registration.Watcher = (*watcher)(nil)
 
 type watcher struct {
 	ctx        context.Context
@@ -33,15 +33,15 @@ func newWatch(ctx context.Context, cli *API, serverName string) (*watcher, error
 	return w, e
 }
 
-func (w *watcher) Next() (services []*registry.ServiceInstance, err error) {
+func (w *watcher) Next() (services []*registration.ServiceInstance, err error) {
 	select {
 	case <-w.ctx.Done():
 		return nil, w.ctx.Err()
 	case <-w.watchChan:
 		instances := w.cli.GetService(w.ctx, w.serverName)
-		services = make([]*registry.ServiceInstance, 0, len(instances))
+		services = make([]*registration.ServiceInstance, 0, len(instances))
 		for _, instance := range instances {
-			services = append(services, &registry.ServiceInstance{
+			services = append(services, &registration.ServiceInstance{
 				ID:        instance.Metadata["ID"],
 				Name:      instance.Metadata["Name"],
 				Version:   instance.Metadata["Version"],

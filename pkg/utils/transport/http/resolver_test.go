@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 	"github.com/go-nova/pkg/utils/selector"
 )
 
@@ -65,13 +65,13 @@ type mockDiscoveries struct {
 	stopErr  bool
 }
 
-func (d *mockDiscoveries) GetService(_ context.Context, _ string) ([]*registry.ServiceInstance, error) {
+func (d *mockDiscoveries) GetService(_ context.Context, _ string) ([]*registration.ServiceInstance, error) {
 	return nil, nil
 }
 
 const errServiceName = "needErr"
 
-func (d *mockDiscoveries) Watch(ctx context.Context, serviceName string) (registry.Watcher, error) {
+func (d *mockDiscoveries) Watch(ctx context.Context, serviceName string) (registration.Watcher, error) {
 	if serviceName == errServiceName {
 		return nil, errors.New("mock test service name watch err")
 	}
@@ -88,7 +88,7 @@ type mockWatch struct {
 	stopErr bool
 }
 
-func (m *mockWatch) Next() ([]*registry.ServiceInstance, error) {
+func (m *mockWatch) Next() ([]*registration.ServiceInstance, error) {
 	select {
 	case <-m.ctx.Done():
 		return nil, m.ctx.Err()
@@ -101,7 +101,7 @@ func (m *mockWatch) Next() ([]*registry.ServiceInstance, error) {
 		return nil, errors.New("mock test error")
 	}
 	m.count++
-	instance := &registry.ServiceInstance{
+	instance := &registration.ServiceInstance{
 		ID:        "1",
 		Name:      "kratos",
 		Version:   "v1",
@@ -111,7 +111,7 @@ func (m *mockWatch) Next() ([]*registry.ServiceInstance, error) {
 	if m.count > 3 {
 		time.Sleep(time.Millisecond * 500)
 	}
-	return []*registry.ServiceInstance{instance}, nil
+	return []*registration.ServiceInstance{instance}, nil
 }
 
 func (m *mockWatch) Stop() error {

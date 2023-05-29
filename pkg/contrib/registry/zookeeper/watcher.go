@@ -8,10 +8,10 @@ import (
 
 	"github.com/go-zookeeper/zk"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
-var _ registry.Watcher = (*watcher)(nil)
+var _ registration.Watcher = (*watcher)(nil)
 
 var ErrWatcherStopped = errors.New("watcher stopped")
 
@@ -59,7 +59,7 @@ func (w *watcher) watch(ctx context.Context) {
 	}
 }
 
-func (w *watcher) Next() ([]*registry.ServiceInstance, error) {
+func (w *watcher) Next() ([]*registration.ServiceInstance, error) {
 	// todo 如果多处调用 next 可能会导致多实例信息不同步
 	if atomic.CompareAndSwapUint32(&w.first, 0, 1) {
 		return w.getServices()
@@ -83,12 +83,12 @@ func (w *watcher) Stop() error {
 	return nil
 }
 
-func (w *watcher) getServices() ([]*registry.ServiceInstance, error) {
+func (w *watcher) getServices() ([]*registration.ServiceInstance, error) {
 	servicesID, _, err := w.conn.Children(w.prefix)
 	if err != nil {
 		return nil, err
 	}
-	items := make([]*registry.ServiceInstance, 0, len(servicesID))
+	items := make([]*registration.ServiceInstance, 0, len(servicesID))
 	for _, id := range servicesID {
 		servicePath := path.Join(w.prefix, id)
 		b, _, err := w.conn.Get(servicePath)

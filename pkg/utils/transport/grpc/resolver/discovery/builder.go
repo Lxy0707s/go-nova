@@ -9,7 +9,7 @@ import (
 	"github.com/google/uuid"
 	"google.golang.org/grpc/resolver"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
 const name = "discovery"
@@ -54,7 +54,7 @@ func PrintDebugLog(p bool) Option {
 }
 
 type builder struct {
-	discoverer registry.Discovery
+	discoverer registration.Discovery
 	timeout    time.Duration
 	insecure   bool
 	subsetSize int
@@ -62,7 +62,7 @@ type builder struct {
 }
 
 // NewBuilder creates a builder which is used to factory registry resolvers.
-func NewBuilder(d registry.Discovery, opts ...Option) resolver.Builder {
+func NewBuilder(d registration.Discovery, opts ...Option) resolver.Builder {
 	b := &builder{
 		discoverer: d,
 		timeout:    time.Second * 10,
@@ -79,7 +79,7 @@ func NewBuilder(d registry.Discovery, opts ...Option) resolver.Builder {
 func (b *builder) Build(target resolver.Target, cc resolver.ClientConn, _ resolver.BuildOptions) (resolver.Resolver, error) {
 	watchRes := &struct {
 		err error
-		w   registry.Watcher
+		w   registration.Watcher
 	}{}
 
 	done := make(chan struct{}, 1)

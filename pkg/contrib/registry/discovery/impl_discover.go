@@ -7,16 +7,16 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
-func filterInstancesByZone(ins *disInstancesInfo, zone string) []*registry.ServiceInstance {
+func filterInstancesByZone(ins *disInstancesInfo, zone string) []*registration.ServiceInstance {
 	zoneInstance, ok := ins.Instances[zone]
 	if !ok || len(zoneInstance) == 0 {
 		return nil
 	}
 
-	out := make([]*registry.ServiceInstance, 0, len(zoneInstance))
+	out := make([]*registration.ServiceInstance, 0, len(zoneInstance))
 	for _, v := range zoneInstance {
 		if v == nil {
 			continue
@@ -27,7 +27,7 @@ func filterInstancesByZone(ins *disInstancesInfo, zone string) []*registry.Servi
 	return out
 }
 
-func (d *Discovery) GetService(ctx context.Context, serviceName string) ([]*registry.ServiceInstance, error) {
+func (d *Discovery) GetService(ctx context.Context, serviceName string) ([]*registration.ServiceInstance, error) {
 	r := d.resolveBuild(serviceName)
 	ins, ok := r.fetch(ctx)
 	if !ok {
@@ -42,7 +42,7 @@ func (d *Discovery) GetService(ctx context.Context, serviceName string) ([]*regi
 	return out, nil
 }
 
-func (d *Discovery) Watch(ctx context.Context, serviceName string) (registry.Watcher, error) {
+func (d *Discovery) Watch(ctx context.Context, serviceName string) (registration.Watcher, error) {
 	return &watcher{
 		Resolve:     d.resolveBuild(serviceName),
 		serviceName: serviceName,
@@ -57,7 +57,7 @@ type watcher struct {
 	serviceName string
 }
 
-func (w *watcher) Next() ([]*registry.ServiceInstance, error) {
+func (w *watcher) Next() ([]*registration.ServiceInstance, error) {
 	event := w.Resolve.Watch()
 
 	select {

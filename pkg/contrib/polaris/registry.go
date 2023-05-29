@@ -12,12 +12,12 @@ import (
 	"github.com/google/uuid"
 	"github.com/polarismesh/polaris-go/pkg/model"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
 var (
-	_ registry.Registrar = (*Registry)(nil)
-	_ registry.Discovery = (*Registry)(nil)
+	_ registration.Registrar = (*Registry)(nil)
+	_ registration.Discovery = (*Registry)(nil)
 )
 
 type registryOptions struct {
@@ -96,7 +96,7 @@ func WithRegistryRetryCount(retryCount int) RegistryOption {
 }
 
 // Register the registration.
-func (r *Registry) Register(_ context.Context, instance *registry.ServiceInstance) error {
+func (r *Registry) Register(_ context.Context, instance *registration.ServiceInstance) error {
 	id := uuid.NewString()
 	for _, endpoint := range instance.Endpoints {
 		u, err := url.Parse(endpoint)
@@ -154,7 +154,7 @@ func (r *Registry) Register(_ context.Context, instance *registry.ServiceInstanc
 }
 
 // Deregister the registration.
-func (r *Registry) Deregister(_ context.Context, serviceInstance *registry.ServiceInstance) error {
+func (r *Registry) Deregister(_ context.Context, serviceInstance *registration.ServiceInstance) error {
 	for _, endpoint := range serviceInstance.Endpoints {
 		// get url
 		u, err := url.Parse(endpoint)
@@ -195,7 +195,7 @@ func (r *Registry) Deregister(_ context.Context, serviceInstance *registry.Servi
 }
 
 // GetService return the service instances in memory according to the service name.
-func (r *Registry) GetService(_ context.Context, serviceName string) ([]*registry.ServiceInstance, error) {
+func (r *Registry) GetService(_ context.Context, serviceName string) ([]*registration.ServiceInstance, error) {
 	// get all instances
 	instancesResponse, err := r.consumer.GetInstances(&polaris.GetInstancesRequest{
 		GetInstancesRequest: model.GetInstancesRequest{
@@ -228,7 +228,7 @@ func merge(instances []model.Instance) map[string][]model.Instance {
 }
 
 // Watch creates a watcher according to the service name.
-func (r *Registry) Watch(ctx context.Context, serviceName string) (registry.Watcher, error) {
+func (r *Registry) Watch(ctx context.Context, serviceName string) (registration.Watcher, error) {
 	return newWatcher(ctx, r.opt.Namespace, serviceName, r.consumer)
 }
 
@@ -271,7 +271,7 @@ func newWatcher(ctx context.Context, namespace string, serviceName string, consu
 // 1.the first time to watch and the service instance list is not empty.
 // 2.any service instance changes found.
 // if the above two conditions are not met, it will block until context deadline exceeded or canceled
-func (w *Watcher) Next() ([]*registry.ServiceInstance, error) {
+func (w *Watcher) Next() ([]*registration.ServiceInstance, error) {
 	if !w.first {
 		w.first = true
 		if len(w.ServiceInstances) > 0 {
@@ -355,13 +355,13 @@ func (w *Watcher) Stop() error {
 	return nil
 }
 
-func instancesToServiceInstances(instances map[string][]model.Instance) []*registry.ServiceInstance {
-	serviceInstances := make([]*registry.ServiceInstance, 0, len(instances))
+func instancesToServiceInstances(instances map[string][]model.Instance) []*registration.ServiceInstance {
+	serviceInstances := make([]*registration.ServiceInstance, 0, len(instances))
 	for _, inss := range instances {
 		if len(inss) == 0 {
 			continue
 		}
-		ins := &registry.ServiceInstance{
+		ins := &registration.ServiceInstance{
 			ID:       inss[0].GetId(),
 			Name:     inss[0].GetService(),
 			Version:  inss[0].GetVersion(),

@@ -7,12 +7,12 @@ import (
 	"strings"
 	"time"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
 var (
-	_ registry.Registrar = (*Registry)(nil)
-	_ registry.Discovery = (*Registry)(nil)
+	_ registration.Registrar = (*Registry)(nil)
+	_ registration.Discovery = (*Registry)(nil)
 )
 
 type Option func(o *Registry)
@@ -60,21 +60,21 @@ func New(eurekaUrls []string, opts ...Option) (*Registry, error) {
 }
 
 // Register 这里的Context是每个注册器独享的
-func (r *Registry) Register(ctx context.Context, service *registry.ServiceInstance) error {
+func (r *Registry) Register(ctx context.Context, service *registration.ServiceInstance) error {
 	return r.api.Register(ctx, service.Name, r.Endpoints(service)...)
 }
 
 // Deregister registry service to zookeeper.
-func (r *Registry) Deregister(ctx context.Context, service *registry.ServiceInstance) error {
+func (r *Registry) Deregister(ctx context.Context, service *registration.ServiceInstance) error {
 	return r.api.Deregister(ctx, r.Endpoints(service))
 }
 
 // GetService get services from zookeeper
-func (r *Registry) GetService(ctx context.Context, serviceName string) ([]*registry.ServiceInstance, error) {
+func (r *Registry) GetService(ctx context.Context, serviceName string) ([]*registration.ServiceInstance, error) {
 	instances := r.api.GetService(ctx, serviceName)
-	items := make([]*registry.ServiceInstance, 0, len(instances))
+	items := make([]*registration.ServiceInstance, 0, len(instances))
 	for _, instance := range instances {
-		items = append(items, &registry.ServiceInstance{
+		items = append(items, &registration.ServiceInstance{
 			ID:        instance.Metadata["ID"],
 			Name:      instance.Metadata["Name"],
 			Version:   instance.Metadata["Version"],
@@ -87,11 +87,11 @@ func (r *Registry) GetService(ctx context.Context, serviceName string) ([]*regis
 }
 
 // Watch 是独立的ctx
-func (r *Registry) Watch(ctx context.Context, serviceName string) (registry.Watcher, error) {
+func (r *Registry) Watch(ctx context.Context, serviceName string) (registration.Watcher, error) {
 	return newWatch(ctx, r.api, serviceName)
 }
 
-func (r *Registry) Endpoints(service *registry.ServiceInstance) []Endpoint {
+func (r *Registry) Endpoints(service *registration.ServiceInstance) []Endpoint {
 	res := make([]Endpoint, 0, len(service.Endpoints))
 	for _, ep := range service.Endpoints {
 		start := strings.Index(ep, "//")

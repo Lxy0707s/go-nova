@@ -6,10 +6,10 @@ import (
 
 	clientv3 "go.etcd.io/etcd/client/v3"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
-var _ registry.Watcher = (*watcher)(nil)
+var _ registration.Watcher = (*watcher)(nil)
 
 type watcher struct {
 	key         string
@@ -41,7 +41,7 @@ func newWatcher(ctx context.Context, key, name string, client *clientv3.Client) 
 	return w, nil
 }
 
-func (w *watcher) Next() ([]*registry.ServiceInstance, error) {
+func (w *watcher) Next() ([]*registration.ServiceInstance, error) {
 	if w.first {
 		item, err := w.getInstance()
 		w.first = false
@@ -68,12 +68,12 @@ func (w *watcher) Stop() error {
 	return w.watcher.Close()
 }
 
-func (w *watcher) getInstance() ([]*registry.ServiceInstance, error) {
+func (w *watcher) getInstance() ([]*registration.ServiceInstance, error) {
 	resp, err := w.kv.Get(w.ctx, w.key, clientv3.WithPrefix())
 	if err != nil {
 		return nil, err
 	}
-	items := make([]*registry.ServiceInstance, 0, len(resp.Kvs))
+	items := make([]*registration.ServiceInstance, 0, len(resp.Kvs))
 	for _, kv := range resp.Kvs {
 		si, err := unmarshal(kv.Value)
 		if err != nil {

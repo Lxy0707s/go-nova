@@ -8,7 +8,7 @@ import (
 	sc "github.com/go-chassis/sc-client"
 	"github.com/gofrs/uuid"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
 var r *Registry
@@ -58,7 +58,7 @@ func TestRegistry(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	svc := &registry.ServiceInstance{
+	svc := &registration.ServiceInstance{
 		Name:      "KratosServicecomb",
 		Version:   "0.0.1",
 		Metadata:  map[string]string{"app": "kratos"},
@@ -73,7 +73,7 @@ func TestRegistry(t *testing.T) {
 		}
 	})
 	t.Run("GetService test, expected: success.", func(t *testing.T) {
-		var insts []*registry.ServiceInstance
+		var insts []*registration.ServiceInstance
 		insts, err = r.GetService(ctx, svc.Name)
 		if err != nil {
 			t.Fatal(err)
@@ -96,7 +96,7 @@ func TestWatcher(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	svc1 := &registry.ServiceInstance{
+	svc1 := &registration.ServiceInstance{
 		Name:      "WatcherTest",
 		Version:   "0.0.1",
 		Metadata:  map[string]string{"app": "kratos"},
@@ -118,7 +118,7 @@ func TestWatcher(t *testing.T) {
 	sbWatcher := w.(*Watcher)
 	t.Run("Watch register event, expected: success", func(t *testing.T) {
 		go sbWatcher.Put(svc1)
-		var instances []*registry.ServiceInstance
+		var instances []*registration.ServiceInstance
 		instances, err = w.Next()
 		if err != nil {
 			t.Fatal(err)
@@ -137,7 +137,7 @@ func TestWatcher(t *testing.T) {
 			t.Fatal(err)
 		}
 		go sbWatcher.Put(svc1)
-		var instances []*registry.ServiceInstance
+		var instances []*registration.ServiceInstance
 		instances, err = w.Next()
 		if err != nil {
 			t.Fatal(err)

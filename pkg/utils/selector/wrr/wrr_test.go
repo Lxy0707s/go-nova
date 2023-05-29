@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 	"github.com/go-nova/pkg/utils/selector"
 	"github.com/go-nova/pkg/utils/selector/filter"
 )
@@ -16,7 +16,7 @@ func TestWrr(t *testing.T) {
 	nodes = append(nodes, selector.NewNode(
 		"http",
 		"127.0.0.1:8080",
-		&registry.ServiceInstance{
+		&registration.ServiceInstance{
 			ID:       "127.0.0.1:8080",
 			Version:  "v2.0.0",
 			Metadata: map[string]string{"weight": "10"},
@@ -24,7 +24,7 @@ func TestWrr(t *testing.T) {
 	nodes = append(nodes, selector.NewNode(
 		"http",
 		"127.0.0.1:9090",
-		&registry.ServiceInstance{
+		&registration.ServiceInstance{
 			ID:       "127.0.0.1:9090",
 			Version:  "v2.0.0",
 			Metadata: map[string]string{"weight": "20"},

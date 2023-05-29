@@ -4,7 +4,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
 type serviceSet struct {
@@ -14,7 +14,7 @@ type serviceSet struct {
 	lock        sync.RWMutex
 }
 
-func (s *serviceSet) broadcast(ss []*registry.ServiceInstance) {
+func (s *serviceSet) broadcast(ss []*registration.ServiceInstance) {
 	s.services.Store(ss)
 	s.lock.RLock()
 	defer s.lock.RUnlock()

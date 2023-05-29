@@ -11,7 +11,7 @@ import (
 
 	"github.com/go-nova/pkg/utils/log"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 
 	"github.com/polarismesh/polaris-go/api"
 	"github.com/polarismesh/polaris-go/pkg/config"
@@ -19,8 +19,8 @@ import (
 )
 
 var (
-	_ registry.Registrar = (*Registry)(nil)
-	_ registry.Discovery = (*Registry)(nil)
+	_ registration.Registrar = (*Registry)(nil)
+	_ registration.Discovery = (*Registry)(nil)
 )
 
 // _instanceIDSeparator . Instance id Separator.
@@ -159,7 +159,7 @@ func NewRegistryWithConfig(conf config.Configuration, opts ...Option) (r *Regist
 }
 
 // Register the registration.
-func (r *Registry) Register(_ context.Context, serviceInstance *registry.ServiceInstance) error {
+func (r *Registry) Register(_ context.Context, serviceInstance *registration.ServiceInstance) error {
 	ids := make([]string, 0, len(serviceInstance.Endpoints))
 	for _, endpoint := range serviceInstance.Endpoints {
 		// get url
@@ -258,7 +258,7 @@ func (r *Registry) Register(_ context.Context, serviceInstance *registry.Service
 }
 
 // Deregister the registration.
-func (r *Registry) Deregister(_ context.Context, serviceInstance *registry.ServiceInstance) error {
+func (r *Registry) Deregister(_ context.Context, serviceInstance *registration.ServiceInstance) error {
 	split := strings.Split(serviceInstance.ID, _instanceIDSeparator)
 	for i, endpoint := range serviceInstance.Endpoints {
 		// get url
@@ -301,7 +301,7 @@ func (r *Registry) Deregister(_ context.Context, serviceInstance *registry.Servi
 }
 
 // GetService return the service instances in memory according to the service name.
-func (r *Registry) GetService(_ context.Context, serviceName string) ([]*registry.ServiceInstance, error) {
+func (r *Registry) GetService(_ context.Context, serviceName string) ([]*registration.ServiceInstance, error) {
 	// get all instances
 	instancesResponse, err := r.consumer.GetAllInstances(&api.GetAllInstancesRequest{
 		GetAllInstancesRequest: model.GetAllInstancesRequest{
@@ -321,7 +321,7 @@ func (r *Registry) GetService(_ context.Context, serviceName string) ([]*registr
 }
 
 // Watch creates a watcher according to the service name.
-func (r *Registry) Watch(ctx context.Context, serviceName string) (registry.Watcher, error) {
+func (r *Registry) Watch(ctx context.Context, serviceName string) (registration.Watcher, error) {
 	return newWatcher(ctx, r.opt.Namespace, serviceName, r.consumer)
 }
 
@@ -331,7 +331,7 @@ type Watcher struct {
 	Ctx              context.Context
 	Cancel           context.CancelFunc
 	Channel          <-chan model.SubScribeEvent
-	ServiceInstances []*registry.ServiceInstance
+	ServiceInstances []*registration.ServiceInstance
 }
 
 func newWatcher(ctx context.Context, namespace string, serviceName string, consumer api.ConsumerAPI) (*Watcher, error) {
@@ -361,7 +361,7 @@ func newWatcher(ctx context.Context, namespace string, serviceName string, consu
 // 1.the first time to watch and the service instance list is not empty.
 // 2.any service instance changes found.
 // if the above two conditions are not met, it will block until context deadline exceeded or canceled
-func (w *Watcher) Next() ([]*registry.ServiceInstance, error) {
+func (w *Watcher) Next() ([]*registration.ServiceInstance, error) {
 	select {
 	case <-w.Ctx.Done():
 		return nil, w.Ctx.Err()
@@ -411,8 +411,8 @@ func (w *Watcher) Stop() error {
 	return nil
 }
 
-func instancesToServiceInstances(instances []model.Instance) []*registry.ServiceInstance {
-	serviceInstances := make([]*registry.ServiceInstance, 0, len(instances))
+func instancesToServiceInstances(instances []model.Instance) []*registration.ServiceInstance {
+	serviceInstances := make([]*registration.ServiceInstance, 0, len(instances))
 	for _, instance := range instances {
 		if instance.IsHealthy() {
 			serviceInstances = append(serviceInstances, instanceToServiceInstance(instance))
@@ -421,14 +421,14 @@ func instancesToServiceInstances(instances []model.Instance) []*registry.Service
 	return serviceInstances
 }
 
-func instanceToServiceInstance(instance model.Instance) *registry.ServiceInstance {
+func instanceToServiceInstance(instance model.Instance) *registration.ServiceInstance {
 	metadata := instance.GetMetadata()
 	// Usually, it won't fail in kratos if register correctly
 	kind := ""
 	if k, ok := metadata["kind"]; ok {
 		kind = k
 	}
-	return &registry.ServiceInstance{
+	return &registration.ServiceInstance{
 		ID:        instance.GetId(),
 		Name:      instance.GetService(),
 		Version:   metadata["version"],

@@ -3,14 +3,14 @@ package zookeeper
 import (
 	"encoding/json"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
-func marshal(si *registry.ServiceInstance) ([]byte, error) {
+func marshal(si *registration.ServiceInstance) ([]byte, error) {
 	return json.Marshal(si)
 }
 
-func unmarshal(data []byte) (si *registry.ServiceInstance, err error) {
+func unmarshal(data []byte) (si *registration.ServiceInstance, err error) {
 	err = json.Unmarshal(data, &si)
 	return
 }

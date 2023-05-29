@@ -8,18 +8,18 @@ import (
 	"testing"
 	"time"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
 func TestRegistry(_ *testing.T) {
 	ctx := context.Background()
 	ctx, cancel := context.WithCancel(ctx)
-	s1 := &registry.ServiceInstance{
+	s1 := &registration.ServiceInstance{
 		ID:        "0",
 		Name:      "helloworld",
 		Endpoints: []string{"http://127.0.0.1:1111"},
 	}
-	s2 := &registry.ServiceInstance{
+	s2 := &registration.ServiceInstance{
 		ID:        "0",
 		Name:      "helloworld2",
 		Endpoints: []string{"http://127.0.0.1:222"},
@@ -35,7 +35,7 @@ func TestRegistry(_ *testing.T) {
 	time.Sleep(time.Second * 1)
 }
 
-func do(r *Registry, s *registry.ServiceInstance) {
+func do(r *Registry, s *registration.ServiceInstance) {
 	w, err := r.Watch(context.Background(), s.Name)
 	if err != nil {
 		log.Fatal(err)

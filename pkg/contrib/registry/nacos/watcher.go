@@ -8,10 +8,10 @@ import (
 	"github.com/nacos-group/nacos-sdk-go/model"
 	"github.com/nacos-group/nacos-sdk-go/vo"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
-var _ registry.Watcher = (*watcher)(nil)
+var _ registration.Watcher = (*watcher)(nil)
 
 type watcher struct {
 	serviceName string
@@ -46,7 +46,7 @@ func newWatcher(ctx context.Context, cli naming_client.INamingClient, serviceNam
 	return w, e
 }
 
-func (w *watcher) Next() ([]*registry.ServiceInstance, error) {
+func (w *watcher) Next() ([]*registration.ServiceInstance, error) {
 	select {
 	case <-w.ctx.Done():
 		return nil, w.ctx.Err()
@@ -60,13 +60,13 @@ func (w *watcher) Next() ([]*registry.ServiceInstance, error) {
 	if err != nil {
 		return nil, err
 	}
-	items := make([]*registry.ServiceInstance, 0, len(res.Hosts))
+	items := make([]*registration.ServiceInstance, 0, len(res.Hosts))
 	for _, in := range res.Hosts {
 		kind := w.kind
 		if k, ok := in.Metadata["kind"]; ok {
 			kind = k
 		}
-		items = append(items, &registry.ServiceInstance{
+		items = append(items, &registration.ServiceInstance{
 			ID:        in.InstanceId,
 			Name:      res.Name,
 			Version:   in.Metadata["version"],

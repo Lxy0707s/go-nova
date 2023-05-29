@@ -3,7 +3,7 @@ package selector
 import (
 	"context"
 	"errors"
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 	"math/rand"
 	"reflect"
 	"sync/atomic"
@@ -103,7 +103,7 @@ func TestDefault(t *testing.T) {
 	nodes = append(nodes, NewNode(
 		"http",
 		"127.0.0.1:8080",
-		&registry.ServiceInstance{
+		&registration.ServiceInstance{
 			ID:        "127.0.0.1:8080",
 			Name:      "helloworld",
 			Version:   "v2.0.0",
@@ -113,7 +113,7 @@ func TestDefault(t *testing.T) {
 	nodes = append(nodes, NewNode(
 		"http",
 		"127.0.0.1:9090",
-		&registry.ServiceInstance{
+		&registration.ServiceInstance{
 			ID:        "127.0.0.1:9090",
 			Name:      "helloworld",
 			Version:   "v1.0.0",
@@ -245,7 +245,7 @@ func TestNoPick(t *testing.T) {
 	nodes = append(nodes, NewNode(
 		"http",
 		"127.0.0.1:8080",
-		&registry.ServiceInstance{
+		&registration.ServiceInstance{
 			ID:        "127.0.0.1:8080",
 			Name:      "helloworld",
 			Version:   "v2.0.0",
@@ -255,7 +255,7 @@ func TestNoPick(t *testing.T) {
 	nodes = append(nodes, NewNode(
 		"http",
 		"127.0.0.1:9090",
-		&registry.ServiceInstance{
+		&registration.ServiceInstance{
 			ID:        "127.0.0.1:9090",
 			Name:      "helloworld",
 			Version:   "v1.0.0",

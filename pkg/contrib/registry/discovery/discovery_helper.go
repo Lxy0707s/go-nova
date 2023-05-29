@@ -9,7 +9,7 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
 var (
@@ -80,8 +80,8 @@ type discoveryInstance struct {
 
 const _reservedInstanceIDKey = "kratos.v2.serviceinstance.id"
 
-// fromServerInstance convert registry.ServiceInstance into discoveryInstance
-func fromServerInstance(ins *registry.ServiceInstance, config *Config) *discoveryInstance {
+// fromServerInstance convert registration.ServiceInstance into discoveryInstance
+func fromServerInstance(ins *registration.ServiceInstance, config *Config) *discoveryInstance {
 	if ins == nil {
 		return nil
 	}
@@ -106,8 +106,8 @@ func fromServerInstance(ins *registry.ServiceInstance, config *Config) *discover
 	}
 }
 
-// toServiceInstance convert discoveryInstance into registry.ServiceInstance
-func toServiceInstance(ins *discoveryInstance) *registry.ServiceInstance {
+// toServiceInstance convert discoveryInstance into registration.ServiceInstance
+func toServiceInstance(ins *discoveryInstance) *registration.ServiceInstance {
 	if ins == nil {
 		return nil
 	}
@@ -126,7 +126,7 @@ func toServiceInstance(ins *discoveryInstance) *registry.ServiceInstance {
 		}
 	}
 
-	return &registry.ServiceInstance{
+	return &registration.ServiceInstance{
 		ID:        ins.Metadata[_reservedInstanceIDKey],
 		Name:      ins.AppID,
 		Version:   ins.Version,

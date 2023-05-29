@@ -6,7 +6,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 	"github.com/go-nova/pkg/utils/log"
 	"github.com/go-nova/pkg/utils/transport"
 )
@@ -27,7 +27,7 @@ type options struct {
 	sigs []os.Signal
 
 	logger           log.Logger
-	registrar        registry.Registrar
+	registrar        registration.Registrar
 	registrarTimeout time.Duration
 	stopTimeout      time.Duration
 	servers          []transport.Server
@@ -90,7 +90,7 @@ func Signal(sigs ...os.Signal) Option {
 }
 
 // Registrar with service registry.
-func Registrar(r registry.Registrar) Option {
+func Registrar(r registration.Registrar) Option {
 	return func(o *options) { o.registrar = r }
 }
 

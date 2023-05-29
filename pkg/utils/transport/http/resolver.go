@@ -10,7 +10,7 @@ import (
 	"github.com/google/uuid"
 
 	"github.com/go-nova/internal/endpoint"
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 	"github.com/go-nova/pkg/utils/log"
 	"github.com/go-nova/pkg/utils/middlewares/subset"
 	"github.com/go-nova/pkg/utils/selector"
@@ -46,14 +46,14 @@ type resolver struct {
 	rebalancer selector.Rebalancer
 
 	target      *Target
-	watcher     registry.Watcher
+	watcher     registration.Watcher
 	selecterKey string
 	subsetSize  int
 
 	insecure bool
 }
 
-func newResolver(ctx context.Context, discovery registry.Discovery, target *Target,
+func newResolver(ctx context.Context, discovery registration.Discovery, target *Target,
 	rebalancer selector.Rebalancer, block, insecure bool, subsetSize int,
 ) (*resolver, error) {
 	// this is new resovler
@@ -119,8 +119,8 @@ func newResolver(ctx context.Context, discovery registry.Discovery, target *Targ
 	return r, nil
 }
 
-func (r *resolver) update(services []*registry.ServiceInstance) bool {
-	filtered := make([]*registry.ServiceInstance, 0, len(services))
+func (r *resolver) update(services []*registration.ServiceInstance) bool {
+	filtered := make([]*registration.ServiceInstance, 0, len(services))
 	for _, ins := range services {
 		ept, err := endpoint.ParseEndpoint(ins.Endpoints, endpoint.Scheme("http", !r.insecure))
 		if err != nil {

@@ -10,7 +10,7 @@ import (
 
 	"github.com/hashicorp/consul/api"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
 func tcpServer(lis net.Listener) {
@@ -32,13 +32,13 @@ func TestRegistry_Register(t *testing.T) {
 	type args struct {
 		ctx        context.Context
 		serverName string
-		server     []*registry.ServiceInstance
+		server     []*registration.ServiceInstance
 	}
 
 	test := []struct {
 		name    string
 		args    args
-		want    []*registry.ServiceInstance
+		want    []*registration.ServiceInstance
 		wantErr bool
 	}{
 		{
@@ -46,7 +46,7 @@ func TestRegistry_Register(t *testing.T) {
 			args: args{
 				ctx:        context.Background(),
 				serverName: "server-1",
-				server: []*registry.ServiceInstance{
+				server: []*registration.ServiceInstance{
 					{
 						ID:        "1",
 						Name:      "server-1",
@@ -56,7 +56,7 @@ func TestRegistry_Register(t *testing.T) {
 					},
 				},
 			},
-			want: []*registry.ServiceInstance{
+			want: []*registration.ServiceInstance{
 				{
 					ID:        "1",
 					Name:      "server-1",
@@ -72,7 +72,7 @@ func TestRegistry_Register(t *testing.T) {
 			args: args{
 				ctx:        context.Background(),
 				serverName: "server-1",
-				server: []*registry.ServiceInstance{
+				server: []*registration.ServiceInstance{
 					{
 						ID:        "2",
 						Name:      "server-1",
@@ -89,7 +89,7 @@ func TestRegistry_Register(t *testing.T) {
 					},
 				},
 			},
-			want: []*registry.ServiceInstance{
+			want: []*registration.ServiceInstance{
 				{
 					ID:        "2",
 					Name:      "server-1",
@@ -161,14 +161,14 @@ func TestRegistry_GetService(t *testing.T) {
 	}
 	r := New(cli, opts...)
 
-	instance1 := &registry.ServiceInstance{
+	instance1 := &registration.ServiceInstance{
 		ID:        "1",
 		Name:      "server-1",
 		Version:   "v0.0.1",
 		Endpoints: []string{fmt.Sprintf("tcp://%s?isSecure=false", addr)},
 	}
 
-	instance2 := &registry.ServiceInstance{
+	instance2 := &registration.ServiceInstance{
 		ID:        "2",
 		Name:      "server-1",
 		Version:   "v0.0.1",
@@ -186,7 +186,7 @@ func TestRegistry_GetService(t *testing.T) {
 		name      string
 		fields    fields
 		args      args
-		want      []*registry.ServiceInstance
+		want      []*registration.ServiceInstance
 		wantErr   bool
 		preFunc   func(t *testing.T)
 		deferFunc func(t *testing.T)
@@ -198,7 +198,7 @@ func TestRegistry_GetService(t *testing.T) {
 				ctx:         context.Background(),
 				serviceName: "server-1",
 			},
-			want:    []*registry.ServiceInstance{instance1},
+			want:    []*registration.ServiceInstance{instance1},
 			wantErr: false,
 			preFunc: func(t *testing.T) {
 				if err := r.Register(context.Background(), instance1); err != nil {
@@ -282,21 +282,21 @@ func TestRegistry_Watch(t *testing.T) {
 		t.Fatalf("create consul client failed: %v", err)
 	}
 
-	instance1 := &registry.ServiceInstance{
+	instance1 := &registration.ServiceInstance{
 		ID:        "1",
 		Name:      "server-1",
 		Version:   "v0.0.1",
 		Endpoints: []string{fmt.Sprintf("tcp://%s?isSecure=false", addr)},
 	}
 
-	instance2 := &registry.ServiceInstance{
+	instance2 := &registration.ServiceInstance{
 		ID:        "2",
 		Name:      "server-1",
 		Version:   "v0.0.1",
 		Endpoints: []string{fmt.Sprintf("tcp://%s?isSecure=false", addr)},
 	}
 
-	instance3 := &registry.ServiceInstance{
+	instance3 := &registration.ServiceInstance{
 		ID:        "3",
 		Name:      "server-1",
 		Version:   "v0.0.1",
@@ -307,14 +307,14 @@ func TestRegistry_Watch(t *testing.T) {
 		ctx      context.Context
 		cancel   func()
 		opts     []Option
-		instance *registry.ServiceInstance
+		instance *registration.ServiceInstance
 	}
 	canceledCtx, cancel := context.WithCancel(context.Background())
 
 	tests := []struct {
 		name    string
 		args    args
-		want    []*registry.ServiceInstance
+		want    []*registration.ServiceInstance
 		wantErr bool
 		preFunc func(t *testing.T)
 	}{
@@ -327,7 +327,7 @@ func TestRegistry_Watch(t *testing.T) {
 					WithHealthCheck(false),
 				},
 			},
-			want:    []*registry.ServiceInstance{instance1},
+			want:    []*registration.ServiceInstance{instance1},
 			wantErr: false,
 			preFunc: func(t *testing.T) {
 			},
@@ -358,7 +358,7 @@ func TestRegistry_Watch(t *testing.T) {
 					WithHealthCheckInterval(5),
 				},
 			},
-			want:    []*registry.ServiceInstance{instance3},
+			want:    []*registration.ServiceInstance{instance3},
 			wantErr: false,
 			preFunc: func(t *testing.T) {
 				lis, err := net.Listen("tcp", addr)

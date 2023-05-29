@@ -10,13 +10,13 @@ import (
 	"google.golang.org/grpc/resolver"
 
 	"github.com/go-nova/internal/endpoint"
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 	"github.com/go-nova/pkg/utils/log"
 	"github.com/go-nova/pkg/utils/middlewares/subset"
 )
 
 type discoveryResolver struct {
-	w  registry.Watcher
+	w  registration.Watcher
 	cc resolver.ClientConn
 
 	ctx    context.Context
@@ -48,10 +48,10 @@ func (r *discoveryResolver) watch() {
 	}
 }
 
-func (r *discoveryResolver) update(ins []*registry.ServiceInstance) {
+func (r *discoveryResolver) update(ins []*registration.ServiceInstance) {
 	var (
 		endpoints = make(map[string]struct{})
-		filtered  = make([]*registry.ServiceInstance, 0, len(ins))
+		filtered  = make([]*registration.ServiceInstance, 0, len(ins))
 	)
 	for _, in := range ins {
 		ept, err := endpoint.ParseEndpoint(in.Endpoints, endpoint.Scheme("grpc", !r.insecure))

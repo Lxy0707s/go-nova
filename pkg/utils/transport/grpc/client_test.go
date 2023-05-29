@@ -10,7 +10,7 @@ import (
 	"google.golang.org/grpc"
 
 	"github.com/go-nova/pkg/common/middleware"
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
 func TestWithEndpoint(t *testing.T) {
@@ -44,11 +44,11 @@ func TestWithMiddleware(t *testing.T) {
 
 type mockRegistry struct{}
 
-func (m *mockRegistry) GetService(_ context.Context, _ string) ([]*registry.ServiceInstance, error) {
+func (m *mockRegistry) GetService(_ context.Context, _ string) ([]*registration.ServiceInstance, error) {
 	return nil, nil
 }
 
-func (m *mockRegistry) Watch(_ context.Context, _ string) (registry.Watcher, error) {
+func (m *mockRegistry) Watch(_ context.Context, _ string) (registration.Watcher, error) {
 	return nil, nil
 }
 

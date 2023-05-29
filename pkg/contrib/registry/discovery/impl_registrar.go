@@ -9,11 +9,11 @@ import (
 
 	"github.com/pkg/errors"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 	"github.com/go-nova/pkg/utils/log"
 )
 
-func (d *Discovery) Register(ctx context.Context, service *registry.ServiceInstance) (err error) {
+func (d *Discovery) Register(ctx context.Context, service *registration.ServiceInstance) (err error) {
 	ins := fromServerInstance(service, d.config)
 
 	d.mutex.Lock()
@@ -122,7 +122,7 @@ func (d *Discovery) register(ctx context.Context, ins *discoveryInstance) (err e
 	return
 }
 
-func (d *Discovery) Deregister(_ context.Context, service *registry.ServiceInstance) error {
+func (d *Discovery) Deregister(_ context.Context, service *registration.ServiceInstance) error {
 	ins := fromServerInstance(service, d.config)
 	return d.cancel(ins)
 }

@@ -11,7 +11,7 @@ import (
 	"github.com/go-chassis/sc-client"
 	"github.com/gofrs/uuid"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 	"github.com/go-nova/pkg/utils/log"
 )
 
@@ -24,8 +24,8 @@ func init() {
 }
 
 var (
-	_ registry.Registrar = (*Registry)(nil)
-	_ registry.Discovery = (*Registry)(nil)
+	_ registration.Registrar = (*Registry)(nil)
+	_ registration.Discovery = (*Registry)(nil)
 )
 
 var (
@@ -65,14 +65,14 @@ func NewRegistry(client RegistryClient) *Registry {
 	return r
 }
 
-func (r *Registry) GetService(_ context.Context, serviceName string) ([]*registry.ServiceInstance, error) {
+func (r *Registry) GetService(_ context.Context, serviceName string) ([]*registration.ServiceInstance, error) {
 	instances, err := r.cli.FindMicroServiceInstances("", appID, serviceName, "")
 	if err != nil {
 		return nil, err
 	}
-	svcInstances := make([]*registry.ServiceInstance, 0, len(instances))
+	svcInstances := make([]*registration.ServiceInstance, 0, len(instances))
 	for _, instance := range instances {
-		svcInstances = append(svcInstances, &registry.ServiceInstance{
+		svcInstances = append(svcInstances, &registration.ServiceInstance{
 			ID:        instance.InstanceId,
 			Name:      serviceName,
 			Metadata:  instance.Properties,
@@ -83,11 +83,11 @@ func (r *Registry) GetService(_ context.Context, serviceName string) ([]*registr
 	return svcInstances, nil
 }
 
-func (r *Registry) Watch(ctx context.Context, serviceName string) (registry.Watcher, error) {
+func (r *Registry) Watch(ctx context.Context, serviceName string) (registration.Watcher, error) {
 	return newWatcher(ctx, r.cli, serviceName)
 }
 
-func (r *Registry) Register(_ context.Context, svcIns *registry.ServiceInstance) error {
+func (r *Registry) Register(_ context.Context, svcIns *registration.ServiceInstance) error {
 	fw := &discovery.FrameWork{
 		Name:    frameWorkName,
 		Version: frameWorkVersion,
@@ -162,7 +162,7 @@ func (r *Registry) Register(_ context.Context, svcIns *registry.ServiceInstance)
 	return nil
 }
 
-func (r *Registry) Deregister(_ context.Context, svcIns *registry.ServiceInstance) error {
+func (r *Registry) Deregister(_ context.Context, svcIns *registration.ServiceInstance) error {
 	sid, err := r.cli.GetMicroServiceID(appID, svcIns.Name, svcIns.Version, env)
 	if err != nil {
 		return err

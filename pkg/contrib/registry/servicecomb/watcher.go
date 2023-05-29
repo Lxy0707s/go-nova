@@ -4,14 +4,14 @@ import (
 	"context"
 
 	sc "github.com/go-chassis/sc-client"
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
-var _ registry.Watcher = (*Watcher)(nil)
+var _ registration.Watcher = (*Watcher)(nil)
 
 type Watcher struct {
 	cli RegistryClient
-	ch  chan *registry.ServiceInstance
+	ch  chan *registration.ServiceInstance
 }
 
 func newWatcher(_ context.Context, cli RegistryClient, serviceName string) (*Watcher, error) {
@@ -22,14 +22,14 @@ func newWatcher(_ context.Context, cli RegistryClient, serviceName string) (*Wat
 	}
 	w := &Watcher{
 		cli: cli,
-		ch:  make(chan *registry.ServiceInstance),
+		ch:  make(chan *registration.ServiceInstance),
 	}
 	go func() {
 		watchErr := w.cli.WatchMicroService(curServiceID, func(event *sc.MicroServiceInstanceChangedEvent) {
 			if event.Key.ServiceName != serviceName {
 				return
 			}
-			svcIns := &registry.ServiceInstance{
+			svcIns := &registration.ServiceInstance{
 				ID:        event.Instance.InstanceId,
 				Name:      event.Key.ServiceName,
 				Version:   event.Key.Version,
@@ -46,12 +46,12 @@ func newWatcher(_ context.Context, cli RegistryClient, serviceName string) (*Wat
 }
 
 // Put only for UT
-func (w *Watcher) Put(svcIns *registry.ServiceInstance) {
+func (w *Watcher) Put(svcIns *registration.ServiceInstance) {
 	w.ch <- svcIns
 }
 
-func (w *Watcher) Next() ([]*registry.ServiceInstance, error) {
-	var svcInstances []*registry.ServiceInstance
+func (w *Watcher) Next() ([]*registration.ServiceInstance, error) {
+	var svcInstances []*registration.ServiceInstance
 	svcIns := <-w.ch
 	svcInstances = append(svcInstances, svcIns)
 	return svcInstances, nil

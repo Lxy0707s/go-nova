@@ -8,12 +8,12 @@ import (
 	"github.com/go-zookeeper/zk"
 	"golang.org/x/sync/singleflight"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
 var (
-	_ registry.Registrar = (*Registry)(nil)
-	_ registry.Discovery = (*Registry)(nil)
+	_ registration.Registrar = (*Registry)(nil)
+	_ registration.Discovery = (*Registry)(nil)
 )
 
 // Option is etcd registry option.
@@ -59,7 +59,7 @@ func New(conn *zk.Conn, opts ...Option) *Registry {
 	}
 }
 
-func (r *Registry) Register(_ context.Context, service *registry.ServiceInstance) error {
+func (r *Registry) Register(_ context.Context, service *registration.ServiceInstance) error {
 	var (
 		data []byte
 		err  error
@@ -83,7 +83,7 @@ func (r *Registry) Register(_ context.Context, service *registry.ServiceInstance
 }
 
 // Deregister registry service to zookeeper.
-func (r *Registry) Deregister(ctx context.Context, service *registry.ServiceInstance) error {
+func (r *Registry) Deregister(ctx context.Context, service *registration.ServiceInstance) error {
 	ch := make(chan error, 1)
 	servicePath := path.Join(r.opts.namespace, service.Name, service.ID)
 	go func() {
@@ -100,14 +100,14 @@ func (r *Registry) Deregister(ctx context.Context, service *registry.ServiceInst
 }
 
 // GetService get services from zookeeper
-func (r *Registry) GetService(_ context.Context, serviceName string) ([]*registry.ServiceInstance, error) {
+func (r *Registry) GetService(_ context.Context, serviceName string) ([]*registration.ServiceInstance, error) {
 	instances, err, _ := r.group.Do(serviceName, func() (interface{}, error) {
 		serviceNamePath := path.Join(r.opts.namespace, serviceName)
 		servicesID, _, err := r.conn.Children(serviceNamePath)
 		if err != nil {
 			return nil, err
 		}
-		items := make([]*registry.ServiceInstance, 0, len(servicesID))
+		items := make([]*registration.ServiceInstance, 0, len(servicesID))
 		for _, service := range servicesID {
 			servicePath := path.Join(serviceNamePath, service)
 			serviceInstanceByte, _, err := r.conn.Get(servicePath)
@@ -125,10 +125,10 @@ func (r *Registry) GetService(_ context.Context, serviceName string) ([]*registr
 	if err != nil {
 		return nil, err
 	}
-	return instances.([]*registry.ServiceInstance), nil
+	return instances.([]*registration.ServiceInstance), nil
 }
 
-func (r *Registry) Watch(ctx context.Context, serviceName string) (registry.Watcher, error) {
+func (r *Registry) Watch(ctx context.Context, serviceName string) (registration.Watcher, error) {
 	prefix := path.Join(r.opts.namespace, serviceName)
 	return newWatcher(ctx, prefix, serviceName, r.conn)
 }

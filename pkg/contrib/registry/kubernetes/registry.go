@@ -21,7 +21,7 @@ import (
 	listerv1 "k8s.io/client-go/listers/core/v1"
 	"k8s.io/client-go/tools/cache"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
 // Defines the key name of specific fields
@@ -107,7 +107,7 @@ func NewRegistry(clientSet *kubernetes.Clientset) *Registry {
 // Register is used to register services
 // Note that on Kubernetes, it can only be used to update the id/name/version/metadata/protocols of the current service,
 // but it cannot be used to update node.
-func (s *Registry) Register(ctx context.Context, service *registry.ServiceInstance) error {
+func (s *Registry) Register(ctx context.Context, service *registration.ServiceInstance) error {
 	// GetMetadata
 	metadataVal, err := marshal(service.Metadata)
 	if err != nil {
@@ -151,21 +151,21 @@ func (s *Registry) Register(ctx context.Context, service *registry.ServiceInstan
 }
 
 // Deregister the registration.
-func (s *Registry) Deregister(ctx context.Context, _ *registry.ServiceInstance) error {
-	return s.Register(ctx, &registry.ServiceInstance{
+func (s *Registry) Deregister(ctx context.Context, _ *registration.ServiceInstance) error {
+	return s.Register(ctx, &registration.ServiceInstance{
 		Metadata: map[string]string{},
 	})
 }
 
 // GetService return the service instances in memory according to the service name.
-func (s *Registry) GetService(_ context.Context, name string) ([]*registry.ServiceInstance, error) {
+func (s *Registry) GetService(_ context.Context, name string) ([]*registration.ServiceInstance, error) {
 	pods, err := s.podLister.List(labels.SelectorFromSet(map[string]string{
 		LabelsKeyServiceName: name,
 	}))
 	if err != nil {
 		return nil, err
 	}
-	ret := make([]*registry.ServiceInstance, 0, len(pods))
+	ret := make([]*registration.ServiceInstance, 0, len(pods))
 	for _, pod := range pods {
 		if pod.Status.Phase != corev1.PodRunning {
 			continue
@@ -179,7 +179,7 @@ func (s *Registry) GetService(_ context.Context, name string) ([]*registry.Servi
 	return ret, nil
 }
 
-func (s *Registry) sendLatestInstances(ctx context.Context, name string, announcement chan []*registry.ServiceInstance) {
+func (s *Registry) sendLatestInstances(ctx context.Context, name string, announcement chan []*registration.ServiceInstance) {
 	instances, err := s.GetService(ctx, name)
 	if err != nil {
 		panic(err)
@@ -188,9 +188,9 @@ func (s *Registry) sendLatestInstances(ctx context.Context, name string, announc
 }
 
 // Watch creates a watcher according to the service name.
-func (s *Registry) Watch(ctx context.Context, name string) (registry.Watcher, error) {
+func (s *Registry) Watch(ctx context.Context, name string) (registration.Watcher, error) {
 	stopCh := make(chan struct{}, 1)
-	announcement := make(chan []*registry.ServiceInstance, 1)
+	announcement := make(chan []*registration.ServiceInstance, 1)
 	s.podInformer.AddEventHandler(cache.FilteringResourceEventHandler{
 		FilterFunc: func(obj interface{}) bool {
 			select {
@@ -275,15 +275,15 @@ func (m protocolMap) GetProtocol(port int32) string {
 // //////////// Iterator ////////////
 
 // Iterator performs the conversion from channel to iterator
-// It reads the latest changes from the `chan []*registry.ServiceInstance`
+// It reads the latest changes from the `chan []*registration.ServiceInstance`
 // And the outside can sense the closure of Iterator through stopCh
 type Iterator struct {
-	ch     chan []*registry.ServiceInstance
+	ch     chan []*registration.ServiceInstance
 	stopCh chan struct{}
 }
 
 // NewIterator is used to initialize Iterator
-func NewIterator(channel chan []*registry.ServiceInstance, stopCh chan struct{}) *Iterator {
+func NewIterator(channel chan []*registration.ServiceInstance, stopCh chan struct{}) *Iterator {
 	return &Iterator{
 		ch:     channel,
 		stopCh: stopCh,
@@ -291,7 +291,7 @@ func NewIterator(channel chan []*registry.ServiceInstance, stopCh chan struct{})
 }
 
 // Next will block until ServiceInstance changes
-func (iter *Iterator) Next() ([]*registry.ServiceInstance, error) {
+func (iter *Iterator) Next() ([]*registration.ServiceInstance, error) {
 	select {
 	case instances := <-iter.ch:
 		return instances, nil
@@ -362,7 +362,7 @@ func getMetadataFromPod(pod *corev1.Pod) (map[string]string, error) {
 	return metadata, nil
 }
 
-func getServiceInstanceFromPod(pod *corev1.Pod) (*registry.ServiceInstance, error) {
+func getServiceInstanceFromPod(pod *corev1.Pod) (*registration.ServiceInstance, error) {
 	podIP := pod.Status.PodIP
 	podLabels := pod.GetLabels()
 	// Get Metadata
@@ -393,7 +393,7 @@ func getServiceInstanceFromPod(pod *corev1.Pod) (*registry.ServiceInstance, erro
 			endpoints = append(endpoints, addr)
 		}
 	}
-	return &registry.ServiceInstance{
+	return &registration.ServiceInstance{
 		ID:        podLabels[LabelsKeyServiceID],
 		Name:      podLabels[LabelsKeyServiceName],
 		Version:   podLabels[LabelsKeyServiceVersion],

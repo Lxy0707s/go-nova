@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
 // TestRegistry
@@ -27,7 +27,7 @@ func TestRegistry(t *testing.T) {
 		WithRegistryTTL(1000),
 	)
 
-	ins := &registry.ServiceInstance{
+	ins := &registration.ServiceInstance{
 		ID:      "test-ut",
 		Name:    "test-ut",
 		Version: "v1.0.0",

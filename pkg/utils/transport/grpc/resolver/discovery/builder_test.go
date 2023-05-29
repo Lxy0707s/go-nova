@@ -10,7 +10,7 @@ import (
 	"google.golang.org/grpc/resolver"
 	"google.golang.org/grpc/serviceconfig"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
 func TestWithInsecure(t *testing.T) {
@@ -40,11 +40,11 @@ func TestDisableDebugLog(t *testing.T) {
 
 type mockDiscovery struct{}
 
-func (m *mockDiscovery) GetService(_ context.Context, _ string) ([]*registry.ServiceInstance, error) {
+func (m *mockDiscovery) GetService(_ context.Context, _ string) ([]*registration.ServiceInstance, error) {
 	return nil, nil
 }
 
-func (m *mockDiscovery) Watch(_ context.Context, _ string) (registry.Watcher, error) {
+func (m *mockDiscovery) Watch(_ context.Context, _ string) (registration.Watcher, error) {
 	time.Sleep(time.Microsecond * 500)
 	return &testWatch{}, nil
 }

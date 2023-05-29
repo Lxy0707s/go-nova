@@ -10,7 +10,7 @@ import (
 	"github.com/nacos-group/nacos-sdk-go/common/constant"
 	"github.com/nacos-group/nacos-sdk-go/vo"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
 func TestRegistry_Register(t *testing.T) {
@@ -41,13 +41,13 @@ func TestRegistry_Register(t *testing.T) {
 	}
 	r := New(client)
 
-	testServer := &registry.ServiceInstance{
+	testServer := &registration.ServiceInstance{
 		ID:        "1",
 		Name:      "test1",
 		Version:   "v1.0.0",
 		Endpoints: []string{"http://127.0.0.1:8080?isSecure=false"},
 	}
-	testServerWithMetadata := &registry.ServiceInstance{
+	testServerWithMetadata := &registration.ServiceInstance{
 		ID:        "1",
 		Name:      "test1",
 		Version:   "v1.0.0",
@@ -59,7 +59,7 @@ func TestRegistry_Register(t *testing.T) {
 	}
 	type args struct {
 		ctx     context.Context
-		service *registry.ServiceInstance
+		service *registration.ServiceInstance
 	}
 	tests := []struct {
 		name      string
@@ -109,7 +109,7 @@ func TestRegistry_Register(t *testing.T) {
 			},
 			args: args{
 				ctx: context.Background(),
-				service: &registry.ServiceInstance{
+				service: &registration.ServiceInstance{
 					ID:        "1",
 					Name:      "",
 					Version:   "v1.0.0",
@@ -125,7 +125,7 @@ func TestRegistry_Register(t *testing.T) {
 			},
 			args: args{
 				ctx: context.Background(),
-				service: &registry.ServiceInstance{
+				service: &registration.ServiceInstance{
 					ID:        "1",
 					Name:      "test",
 					Version:   "v1.0.0",
@@ -141,7 +141,7 @@ func TestRegistry_Register(t *testing.T) {
 			},
 			args: args{
 				ctx: context.Background(),
-				service: &registry.ServiceInstance{
+				service: &registration.ServiceInstance{
 					ID:        "1",
 					Name:      "test",
 					Version:   "v1.0.0",
@@ -206,7 +206,7 @@ func TestRegistry_Register(t *testing.T) {
 }
 
 func TestRegistry_Deregister(t *testing.T) {
-	testServer := &registry.ServiceInstance{
+	testServer := &registration.ServiceInstance{
 		ID:        "1",
 		Name:      "test2",
 		Version:   "v1.0.0",
@@ -215,7 +215,7 @@ func TestRegistry_Deregister(t *testing.T) {
 
 	type args struct {
 		ctx     context.Context
-		service *registry.ServiceInstance
+		service *registration.ServiceInstance
 	}
 	tests := []struct {
 		name    string
@@ -267,7 +267,7 @@ func TestRegistry_Deregister(t *testing.T) {
 			name: "error",
 			args: args{
 				ctx: context.Background(),
-				service: &registry.ServiceInstance{
+				service: &registration.ServiceInstance{
 					ID:        "1",
 					Name:      "test",
 					Version:   "v1.0.0",
@@ -280,7 +280,7 @@ func TestRegistry_Deregister(t *testing.T) {
 			name: "errorPort",
 			args: args{
 				ctx: context.Background(),
-				service: &registry.ServiceInstance{
+				service: &registration.ServiceInstance{
 					ID:        "1",
 					Name:      "notExist",
 					Version:   "v1.0.0",
@@ -355,7 +355,7 @@ func TestRegistry_GetService(t *testing.T) {
 		t.Fatal(err)
 	}
 	r := New(client)
-	testServer := &registry.ServiceInstance{
+	testServer := &registration.ServiceInstance{
 		ID:        "1",
 		Name:      "test3",
 		Version:   "v1.0.0",
@@ -373,7 +373,7 @@ func TestRegistry_GetService(t *testing.T) {
 		name      string
 		fields    fields
 		args      args
-		want      []*registry.ServiceInstance
+		want      []*registration.ServiceInstance
 		wantErr   bool
 		preFunc   func(t *testing.T)
 		deferFunc func(t *testing.T)
@@ -400,7 +400,7 @@ func TestRegistry_GetService(t *testing.T) {
 				ctx:         context.Background(),
 				serviceName: testServer.Name + "." + "grpc",
 			},
-			want: []*registry.ServiceInstance{{
+			want: []*registration.ServiceInstance{{
 				ID:        "127.0.0.1#8080#DEFAULT#DEFAULT_GROUP@@test3.grpc",
 				Name:      "DEFAULT_GROUP@@test3.grpc",
 				Version:   "v1.0.0",
@@ -472,7 +472,7 @@ func TestRegistry_Watch(t *testing.T) {
 	}
 	r := New(client)
 
-	testServer := &registry.ServiceInstance{
+	testServer := &registration.ServiceInstance{
 		ID:        "1",
 		Name:      "test4",
 		Version:   "v1.0.0",
@@ -492,7 +492,7 @@ func TestRegistry_Watch(t *testing.T) {
 		fields      fields
 		args        args
 		wantErr     bool
-		want        []*registry.ServiceInstance
+		want        []*registration.ServiceInstance
 		processFunc func(t *testing.T)
 	}{
 		{
@@ -505,7 +505,7 @@ func TestRegistry_Watch(t *testing.T) {
 				serviceName: testServer.Name + "." + "grpc",
 			},
 			wantErr: false,
-			want: []*registry.ServiceInstance{{
+			want: []*registration.ServiceInstance{{
 				ID:        "127.0.0.1#8080#DEFAULT#DEFAULT_GROUP@@test4.grpc",
 				Name:      "DEFAULT_GROUP@@test4.grpc",
 				Version:   "v1.0.0",

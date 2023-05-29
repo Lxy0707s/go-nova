@@ -9,12 +9,12 @@ import (
 
 	"github.com/hashicorp/consul/api"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
 var (
-	_ registry.Registrar = (*Registry)(nil)
-	_ registry.Discovery = (*Registry)(nil)
+	_ registration.Registrar = (*Registry)(nil)
+	_ registration.Discovery = (*Registry)(nil)
 )
 
 // Option is consul registry option.
@@ -123,22 +123,22 @@ func New(apiClient *api.Client, opts ...Option) *Registry {
 }
 
 // Register register service
-func (r *Registry) Register(ctx context.Context, svc *registry.ServiceInstance) error {
+func (r *Registry) Register(ctx context.Context, svc *registration.ServiceInstance) error {
 	return r.cli.Register(ctx, svc, r.enableHealthCheck)
 }
 
 // Deregister deregister service
-func (r *Registry) Deregister(ctx context.Context, svc *registry.ServiceInstance) error {
+func (r *Registry) Deregister(ctx context.Context, svc *registration.ServiceInstance) error {
 	return r.cli.Deregister(ctx, svc.ID)
 }
 
 // GetService return service by name
-func (r *Registry) GetService(ctx context.Context, name string) ([]*registry.ServiceInstance, error) {
+func (r *Registry) GetService(ctx context.Context, name string) ([]*registration.ServiceInstance, error) {
 	r.lock.RLock()
 	defer r.lock.RUnlock()
 	set := r.registry[name]
 
-	getRemote := func() []*registry.ServiceInstance {
+	getRemote := func() []*registration.ServiceInstance {
 		services, _, err := r.cli.Service(ctx, name, 0, true)
 		if err == nil && len(services) > 0 {
 			return services
@@ -152,7 +152,7 @@ func (r *Registry) GetService(ctx context.Context, name string) ([]*registry.Ser
 		}
 		return nil, fmt.Errorf("service %s not resolved in registry", name)
 	}
-	ss, _ := set.services.Load().([]*registry.ServiceInstance)
+	ss, _ := set.services.Load().([]*registration.ServiceInstance)
 	if ss == nil {
 		if s := getRemote(); len(s) > 0 {
 			return s, nil
@@ -163,13 +163,13 @@ func (r *Registry) GetService(ctx context.Context, name string) ([]*registry.Ser
 }
 
 // ListServices return service list.
-func (r *Registry) ListServices() (allServices map[string][]*registry.ServiceInstance, err error) {
+func (r *Registry) ListServices() (allServices map[string][]*registration.ServiceInstance, err error) {
 	r.lock.RLock()
 	defer r.lock.RUnlock()
-	allServices = make(map[string][]*registry.ServiceInstance)
+	allServices = make(map[string][]*registration.ServiceInstance)
 	for name, set := range r.registry {
-		var services []*registry.ServiceInstance
-		ss, _ := set.services.Load().([]*registry.ServiceInstance)
+		var services []*registration.ServiceInstance
+		ss, _ := set.services.Load().([]*registration.ServiceInstance)
 		if ss == nil {
 			continue
 		}
@@ -180,7 +180,7 @@ func (r *Registry) ListServices() (allServices map[string][]*registry.ServiceIns
 }
 
 // Watch resolve service by name
-func (r *Registry) Watch(ctx context.Context, name string) (registry.Watcher, error) {
+func (r *Registry) Watch(ctx context.Context, name string) (registration.Watcher, error) {
 	r.lock.Lock()
 	defer r.lock.Unlock()
 	set, ok := r.registry[name]
@@ -202,7 +202,7 @@ func (r *Registry) Watch(ctx context.Context, name string) (registry.Watcher, er
 	set.lock.Lock()
 	set.watcher[w] = struct{}{}
 	set.lock.Unlock()
-	ss, _ := set.services.Load().([]*registry.ServiceInstance)
+	ss, _ := set.services.Load().([]*registration.ServiceInstance)
 	if len(ss) > 0 {
 		// If the service has a value, it needs to be pushed to the watcher,
 		// otherwise the initial data may be blocked forever during the watch.

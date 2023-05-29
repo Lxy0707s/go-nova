@@ -3,7 +3,7 @@ package consul
 import (
 	"context"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
 type watcher struct {
@@ -15,7 +15,7 @@ type watcher struct {
 	cancel context.CancelFunc
 }
 
-func (w *watcher) Next() (services []*registry.ServiceInstance, err error) {
+func (w *watcher) Next() (services []*registration.ServiceInstance, err error) {
 	select {
 	case <-w.ctx.Done():
 		err = w.ctx.Err()
@@ -23,7 +23,7 @@ func (w *watcher) Next() (services []*registry.ServiceInstance, err error) {
 	case <-w.event:
 	}
 
-	ss, ok := w.set.services.Load().([]*registry.ServiceInstance)
+	ss, ok := w.set.services.Load().([]*registration.ServiceInstance)
 
 	if ok {
 		services = append(services, ss...)

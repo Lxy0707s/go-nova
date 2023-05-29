@@ -16,7 +16,7 @@ import (
 	"time"
 
 	"github.com/go-nova/pkg/common/middleware"
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 	kratoserrors "github.com/go-nova/pkg/utils/errors"
 	"github.com/go-nova/pkg/utils/selector"
 )
@@ -147,18 +147,18 @@ func TestWithErrorDecoder(t *testing.T) {
 
 type mockDiscovery struct{}
 
-func (*mockDiscovery) GetService(_ context.Context, _ string) ([]*registry.ServiceInstance, error) {
+func (*mockDiscovery) GetService(_ context.Context, _ string) ([]*registration.ServiceInstance, error) {
 	return nil, nil
 }
 
-func (*mockDiscovery) Watch(_ context.Context, _ string) (registry.Watcher, error) {
+func (*mockDiscovery) Watch(_ context.Context, _ string) (registration.Watcher, error) {
 	return &mockWatcher{}, nil
 }
 
 type mockWatcher struct{}
 
-func (m *mockWatcher) Next() ([]*registry.ServiceInstance, error) {
-	instance := &registry.ServiceInstance{
+func (m *mockWatcher) Next() ([]*registration.ServiceInstance, error) {
+	instance := &registration.ServiceInstance{
 		ID:        "1",
 		Name:      "kratos",
 		Version:   "v1",
@@ -166,7 +166,7 @@ func (m *mockWatcher) Next() ([]*registry.ServiceInstance, error) {
 		Endpoints: []string{fmt.Sprintf("http://127.0.0.1:9001?isSecure=%s", strconv.FormatBool(false))},
 	}
 	time.Sleep(time.Millisecond * 500)
-	return []*registry.ServiceInstance{instance}, nil
+	return []*registration.ServiceInstance{instance}, nil
 }
 
 func (*mockWatcher) Stop() error {

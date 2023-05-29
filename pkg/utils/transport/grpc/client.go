@@ -12,7 +12,7 @@ import (
 	grpcmd "google.golang.org/grpc/metadata"
 
 	"github.com/go-nova/pkg/common/middleware"
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 	"github.com/go-nova/pkg/utils/log"
 	"github.com/go-nova/pkg/utils/selector"
 	"github.com/go-nova/pkg/utils/selector/wrr"
@@ -62,7 +62,7 @@ func WithMiddleware(m ...middleware.Middleware) ClientOption {
 }
 
 // WithDiscovery with client discovery.
-func WithDiscovery(d registry.Discovery) ClientOption {
+func WithDiscovery(d registration.Discovery) ClientOption {
 	return func(o *clientOptions) {
 		o.discovery = d
 	}
@@ -121,7 +121,7 @@ type clientOptions struct {
 	subsetSize             int
 	tlsConf                *tls.Config
 	timeout                time.Duration
-	discovery              registry.Discovery
+	discovery              registration.Discovery
 	middleware             []middleware.Middleware
 	ints                   []grpc.UnaryClientInterceptor
 	streamInts             []grpc.StreamClientInterceptor

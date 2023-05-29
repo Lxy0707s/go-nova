@@ -3,7 +3,7 @@ package selector
 import (
 	"strconv"
 
-	"github.com/go-nova/pkg/common/registry"
+	"github.com/go-nova/pkg/common/registration"
 )
 
 var _ Node = (*DefaultNode)(nil)
@@ -49,7 +49,7 @@ func (n *DefaultNode) Metadata() map[string]string {
 }
 
 // NewNode new node
-func NewNode(scheme, addr string, ins *registry.ServiceInstance) Node {
+func NewNode(scheme, addr string, ins *registration.ServiceInstance) Node {
 	n := &DefaultNode{
 		scheme: scheme,
 		addr:   addr,
