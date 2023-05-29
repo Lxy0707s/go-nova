@@ -9,10 +9,10 @@ import (
 	"google.golang.org/grpc/attributes"
 	"google.golang.org/grpc/resolver"
 
-	"github.com/go-kratos/aegis/subset"
 	"github.com/go-nova/internal/endpoint"
 	"github.com/go-nova/pkg/common/registry"
 	"github.com/go-nova/pkg/utils/log"
+	"github.com/go-nova/pkg/utils/middlewares/subset"
 )
 
 type discoveryResolver struct {

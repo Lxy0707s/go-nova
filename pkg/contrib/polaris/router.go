@@ -3,7 +3,7 @@ package polaris
 import (
 	"context"
 	"fmt"
-	"github.com/go-kratos/kratos/v2"
+
 	"github.com/polarismesh/polaris-go"
 	"net"
 	"strconv"
@@ -15,6 +15,7 @@ import (
 	v1 "github.com/polarismesh/polaris-go/pkg/model/pb/v1"
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
+	apps "github.com/go-nova/pkg/common/app"
 	"github.com/go-nova/pkg/utils/log"
 	"github.com/go-nova/pkg/utils/selector"
 	"github.com/go-nova/pkg/utils/transport"
@@ -50,7 +51,7 @@ func (p *Polaris) NodeFilter(opts ...RouterOption) selector.NodeFilter {
 				DstInstances:  buildPolarisInstance(p.namespace, nodes),
 			},
 		}
-		if appInfo, ok := kratos.FromContext(ctx); ok {
+		if appInfo, ok := apps.FromContext(ctx); ok {
 			req.SourceService.Service = appInfo.Name()
 		}
 

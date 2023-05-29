@@ -3,7 +3,7 @@ package polaris
 import (
 	"time"
 
-	"github.com/go-kratos/aegis/ratelimit"
+	"github.com/go-nova/pkg/utils/middlewares/ratelimit"
 
 	"github.com/polarismesh/polaris-go"
 	"github.com/polarismesh/polaris-go/pkg/model"

@@ -99,7 +99,7 @@ func TestProtoEncodeDecode(t *testing.T) {
 		Price:   11.23,
 		D:       22.22,
 		Byte:    []byte("123"),
-		Map:     map[string]string{"kratos": "https://go-kratos.dev/"},
+		Map:     map[string]string{"kratos": "https://go-nova.dev/"},
 
 		Timestamp: &timestamppb.Timestamp{Seconds: 20, Nanos: 2},
 		Duration:  &durationpb.Duration{Seconds: 120, Nanos: 22},
@@ -111,7 +111,7 @@ func TestProtoEncodeDecode(t *testing.T) {
 		Uint64:    &wrapperspb.UInt64Value{Value: 64},
 		Uint32:    &wrapperspb.UInt32Value{Value: 32},
 		Bool:      &wrapperspb.BoolValue{Value: false},
-		String_:   &wrapperspb.StringValue{Value: "go-kratos"},
+		String_:   &wrapperspb.StringValue{Value: "go-nova"},
 		Bytes:     &wrapperspb.BytesValue{Value: []byte("123")},
 	}
 	content, err := encoding.GetCodec(Name).Marshal(in)
@@ -119,8 +119,8 @@ func TestProtoEncodeDecode(t *testing.T) {
 		t.Fatal(err)
 	}
 	if "a=19&age=18&b=true&bool=false&byte=MTIz&bytes=MTIz&count=3&d=22.22&double=12.33&duration="+
-		"2m0.000000022s&field=1%2C2&float=12.34&id=2233&int32=32&int64=64&map%5Bkratos%5D=https%3A%2F%2Fgo-kratos.dev%2F&"+
-		"numberOne=2233&price=11.23&sex=woman&simples=3344&simples=5566&string=go-kratos"+
+		"2m0.000000022s&field=1%2C2&float=12.34&id=2233&int32=32&int64=64&map%5Bkratos%5D=https%3A%2F%2Fgo-nova.dev%2F&"+
+		"numberOne=2233&price=11.23&sex=woman&simples=3344&simples=5566&string=go-nova"+
 		"&timestamp=1970-01-01T00%3A00%3A20.000000002Z&uint32=32&uint64=64&very_simple.component=5566" != string(content) {
 		t.Errorf("rawpath is not equal to %s", content)
 	}
@@ -157,7 +157,7 @@ func TestProtoEncodeDecode(t *testing.T) {
 
 func TestDecodeStructPb(t *testing.T) {
 	req := new(ectest.StructPb)
-	query := `data={"name":"kratos"}&data_list={"name1": "kratos"}&data_list={"name2": "go-kratos"}`
+	query := `data={"name":"kratos"}&data_list={"name1": "kratos"}&data_list={"name2": "go-nova"}`
 	if err := encoding.GetCodec(Name).Unmarshal([]byte(query), req); err != nil {
 		t.Fatal(err)
 	}
@@ -170,8 +170,8 @@ func TestDecodeStructPb(t *testing.T) {
 	if "kratos" != req.DataList[0].GetFields()["name1"].GetStringValue() {
 		t.Errorf("except %v, got %v", "kratos", req.Data.GetFields()["name1"].GetStringValue())
 	}
-	if "go-kratos" != req.DataList[1].GetFields()["name2"].GetStringValue() {
-		t.Errorf("except %v, got %v", "go-kratos", req.Data.GetFields()["name2"].GetStringValue())
+	if "go-nova" != req.DataList[1].GetFields()["name2"].GetStringValue() {
+		t.Errorf("except %v, got %v", "go-nova", req.Data.GetFields()["name2"].GetStringValue())
 	}
 }
 

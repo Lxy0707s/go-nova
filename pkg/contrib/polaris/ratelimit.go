@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"github.com/go-kratos/aegis/ratelimit"
+	"github.com/go-nova/pkg/utils/middlewares/ratelimit"
 
 	"github.com/go-nova/pkg/common/middleware"
 	"github.com/go-nova/pkg/utils/errors"

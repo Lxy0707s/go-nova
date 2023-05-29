@@ -5,7 +5,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/go-kratos/aegis/ratelimit"
+	"github.com/go-nova/pkg/utils/middlewares/ratelimit"
 )
 
 type (

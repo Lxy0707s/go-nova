@@ -4,7 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/go-kratos/kratos/v2"
+	apps "github.com/go-nova/pkg/common/app"
 	"github.com/polarismesh/polaris-go"
 	"net/http"
 	"testing"
@@ -169,7 +169,7 @@ func TestRouter(t *testing.T) {
 	}
 
 	f := p.NodeFilter()
-	ctx := kratos.NewContext(context.Background(), &mockApp{})
+	ctx := apps.NewContext(context.Background(), &mockApp{})
 	n := f(ctx, nodes)
 	for _, node := range n {
 		if node.Metadata()["az"] != "1" {

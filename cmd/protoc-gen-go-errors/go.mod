@@ -1,4 +1,4 @@
-module github.com/go-kratos/kratos/cmd/protoc-gen-go-errors/v2
+module github.com/go-nova/nova/cmd/protoc-gen-go-errors/v2
 
 go 1.16
 

@@ -9,10 +9,10 @@ import (
 
 	"github.com/google/uuid"
 
-	"github.com/go-kratos/aegis/subset"
 	"github.com/go-nova/internal/endpoint"
 	"github.com/go-nova/pkg/common/registry"
 	"github.com/go-nova/pkg/utils/log"
+	"github.com/go-nova/pkg/utils/middlewares/subset"
 	"github.com/go-nova/pkg/utils/selector"
 )
 

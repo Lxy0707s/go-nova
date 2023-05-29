@@ -3,8 +3,8 @@ package circuitbreaker
 import (
 	"context"
 
-	"github.com/go-kratos/aegis/circuitbreaker"
-	"github.com/go-kratos/aegis/circuitbreaker/sre"
+	"github.com/go-nova/pkg/utils/middlewares/circuitbreaker"
+	"github.com/go-nova/pkg/utils/middlewares/circuitbreaker/sre"
 
 	"github.com/go-nova/internal/group"
 	"github.com/go-nova/pkg/common/middleware"

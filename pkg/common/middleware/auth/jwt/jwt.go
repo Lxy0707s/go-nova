@@ -8,6 +8,7 @@ import (
 	"github.com/go-nova/pkg/common/middleware"
 	"github.com/go-nova/pkg/utils/errors"
 	"github.com/go-nova/pkg/utils/transport"
+	"github.com/golang-jwt/jwt/v4"
 )
 
 type authKey struct{}

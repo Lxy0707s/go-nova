@@ -17,14 +17,14 @@ func TestNewEndpoint(t *testing.T) {
 		want *url.URL
 	}{
 		{
-			name: "https://github.com/go-kratos/kratos/",
-			args: args{"https", "github.com/go-kratos/kratos/"},
-			want: &url.URL{Scheme: "https", Host: "github.com/go-kratos/kratos/"},
+			name: "https://github.com/go-nova/nova/",
+			args: args{"https", "github.com/go-nova/nova/"},
+			want: &url.URL{Scheme: "https", Host: "github.com/go-nova/nova/"},
 		},
 		{
-			name: "https://go-kratos.dev/",
-			args: args{"https", "go-kratos.dev/"},
-			want: &url.URL{Scheme: "https", Host: "go-kratos.dev/"},
+			name: "https://go-nova.dev/",
+			args: args{"https", "go-nova.dev/"},
+			want: &url.URL{Scheme: "https", Host: "go-nova.dev/"},
 		},
 		{
 			name: "https://www.google.com/",
@@ -54,13 +54,13 @@ func TestParseEndpoint(t *testing.T) {
 	}{
 		{
 			name:    "kratos",
-			args:    args{endpoints: []string{"https://github.com/go-kratos/kratos"}, scheme: "https"},
+			args:    args{endpoints: []string{"https://github.com/go-nova/kratos"}, scheme: "https"},
 			want:    "github.com",
 			wantErr: false,
 		},
 		{
 			name:    "test",
-			args:    args{endpoints: []string{"http://go-kratos.dev/"}, scheme: "https"},
+			args:    args{endpoints: []string{"http://go-nova.dev/"}, scheme: "https"},
 			want:    "",
 			wantErr: false,
 		},

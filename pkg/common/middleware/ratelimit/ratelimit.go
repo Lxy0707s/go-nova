@@ -3,8 +3,8 @@ package ratelimit
 import (
 	"context"
 
-	"github.com/go-kratos/aegis/ratelimit"
-	"github.com/go-kratos/aegis/ratelimit/bbr"
+	"github.com/go-nova/pkg/utils/middlewares/ratelimit"
+	"github.com/go-nova/pkg/utils/middlewares/ratelimit/bbr"
 
 	"github.com/go-nova/pkg/common/middleware"
 	"github.com/go-nova/pkg/utils/errors"
