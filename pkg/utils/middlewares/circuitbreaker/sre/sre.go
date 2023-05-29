@@ -7,8 +7,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/nova-api/middleware/circuitbreaker"
-	"github.com/nova-api/middleware/internal/window"
+	"github.com/go-nova/pkg/utils/middlewares/circuitbreaker"
+	"github.com/go-nova/pkg/utils/middlewares/internal/window"
 )
 
 // Option is sre breaker option function.

@@ -6,7 +6,7 @@ import (
 	"regexp"
 	"sync"
 
-	"github.com/nova-api/middleware/topk"
+	"github.com/go-nova/pkg/utils/middlewares/topk"
 )
 
 type CacheRuleConfig struct {

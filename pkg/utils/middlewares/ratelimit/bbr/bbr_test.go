@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/nova-api/middleware/internal/window"
-	"github.com/nova-api/middleware/ratelimit"
+	"github.com/go-nova/pkg/utils/middlewares/internal/window"
+	"github.com/go-nova/pkg/utils/middlewares/ratelimit"
 	"github.com/stretchr/testify/assert"
 )
 

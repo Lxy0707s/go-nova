@@ -6,9 +6,9 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/nova-api/middleware/internal/cpu"
-	"github.com/nova-api/middleware/internal/window"
-	"github.com/nova-api/middleware/ratelimit"
+	"github.com/go-nova/pkg/utils/middlewares/internal/cpu"
+	"github.com/go-nova/pkg/utils/middlewares/internal/window"
+	"github.com/go-nova/pkg/utils/middlewares/ratelimit"
 )
 
 var (
