@@ -1,14 +1,14 @@
 package sre
 
 import (
+	"github.com/go-nova/pkg/utils/middlewares/v1/circuitbreaker"
 	"math"
 	"math/rand"
 	"sync"
 	"sync/atomic"
 	"time"
 
-	"github.com/go-nova/pkg/utils/middlewares/circuitbreaker"
-	"github.com/go-nova/pkg/utils/middlewares/internal/window"
+	"github.com/go-nova/pkg/utils/middlewares/v1/internal/window"
 )
 
 // Option is sre breaker option function.

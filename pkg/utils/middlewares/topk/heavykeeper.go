@@ -7,7 +7,7 @@ import (
 	"math"
 	"math/rand"
 
-	"github.com/go-nova/pkg/utils/middlewares/internal/minheap"
+	"github.com/go-nova/pkg/utils/middlewares/v1/internal/minheap"
 
 	"github.com/twmb/murmur3"
 )

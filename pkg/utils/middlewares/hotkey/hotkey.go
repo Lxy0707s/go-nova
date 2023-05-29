@@ -2,11 +2,10 @@ package hotkey
 
 import (
 	"fmt"
+	"github.com/go-nova/pkg/utils/middlewares/v1/topk"
 	"math"
 	"regexp"
 	"sync"
-
-	"github.com/go-nova/pkg/utils/middlewares/topk"
 )
 
 type CacheRuleConfig struct {

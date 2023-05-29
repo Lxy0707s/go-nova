@@ -1,9 +1,8 @@
-module github.com/go-nova/pkg/utils/middlewares
+module github.com/go-nova/pkg/utils/middlewares/v1
 
 go 1.20
 
 require (
-	github.com/go-nova/pkg/utils/middlewares v0.1.0
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da
 	github.com/google/uuid v1.3.0
 	github.com/shirou/gopsutil/v3 v3.23.2
