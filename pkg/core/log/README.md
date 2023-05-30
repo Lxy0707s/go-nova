@@ -4,7 +4,7 @@
 
 ### Structured logging
 
-```go
+``` 
 logger := log.NewStdLogger(os.Stdout)
 // fields & valuer
 logger = log.With(logger,

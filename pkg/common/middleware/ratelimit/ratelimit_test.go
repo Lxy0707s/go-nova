@@ -5,7 +5,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/go-nova/pkg/utils/middlewares/ratelimit"
+	"github.com/go-nova/pkg/core/middlewares/ratelimit"
 )
 
 type (
