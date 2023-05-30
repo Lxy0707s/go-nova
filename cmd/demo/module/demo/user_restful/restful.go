@@ -1,8 +1,8 @@
-package service
+package user_restful
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/go-nova/cmd/demo/service/hello"
+	"github.com/go-nova/cmd/demo/module/demo/user_restful/hello"
 )
 
 var routeModuleV1 = "v1"

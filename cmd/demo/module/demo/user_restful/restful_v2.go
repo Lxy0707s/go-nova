@@ -1,7 +1,7 @@
-package service
+package user_restful
 
 import (
-	"github.com/go-nova/cmd/demo/service/hello"
+	"github.com/go-nova/cmd/demo/module/demo/user_restful/hello"
 	khttp "github.com/go-nova/pkg/core/transport/http"
 	"log"
 	"net/http"

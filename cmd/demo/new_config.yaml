@@ -1,0 +1,13 @@
+{
+  "database": {
+    "host": "localhost",
+    "password": "password",
+    "port": 3306,
+    "username": "root"
+  },
+  "server": {
+    "debug": true,
+    "name": "Nova",
+    "version": "1.0.0"
+  }
+}
