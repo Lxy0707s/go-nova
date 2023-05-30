@@ -4,8 +4,8 @@ import (
 	"context"
 	"github.com/gin-gonic/gin"
 	"github.com/go-nova/pkg/common/middleware"
+	thttp "github.com/go-nova/pkg/core/transport/http"
 	"github.com/go-nova/pkg/utils/errors"
-	thttp "github.com/go-nova/pkg/utils/transport/http"
 )
 
 // Middlewares return middlewares wrapper

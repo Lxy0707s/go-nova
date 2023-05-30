@@ -4,12 +4,12 @@ import (
 	"context"
 	"github.com/go-nova/pkg/infrastructure/group"
 
-	"github.com/go-nova/pkg/utils/middlewares/circuitbreaker"
-	"github.com/go-nova/pkg/utils/middlewares/circuitbreaker/sre"
+	"github.com/go-nova/pkg/core/middlewares/circuitbreaker"
+	"github.com/go-nova/pkg/core/middlewares/circuitbreaker/sre"
 
 	"github.com/go-nova/pkg/common/middleware"
+	"github.com/go-nova/pkg/core/transport"
 	"github.com/go-nova/pkg/utils/errors"
-	"github.com/go-nova/pkg/utils/transport"
 )
 
 // ErrNotAllowed is request failed due to circuit breaker triggered.

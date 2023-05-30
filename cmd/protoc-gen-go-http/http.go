@@ -17,8 +17,8 @@ import (
 
 const (
 	contextPackage       = protogen.GoImportPath("context")
-	transportHTTPPackage = protogen.GoImportPath("github.com/go-nova/pkg/utils/transport/http")
-	bindingPackage       = protogen.GoImportPath("github.com/go-nova/pkg/utils/transport/http/binding")
+	transportHTTPPackage = protogen.GoImportPath("github.com/go-nova/pkg/core/transport/http")
+	bindingPackage       = protogen.GoImportPath("github.com/go-nova/pkg/core/transport/http/binding")
 )
 
 var methodSets = make(map[string]int)

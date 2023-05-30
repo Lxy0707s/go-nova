@@ -2,14 +2,13 @@ package tracing
 
 import (
 	"context"
-
-	"github.com/go-nova/pkg/utils/log"
+	"github.com/go-nova/pkg/core/log"
 
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/trace"
 
 	"github.com/go-nova/pkg/common/middleware"
-	"github.com/go-nova/pkg/utils/transport"
+	"github.com/go-nova/pkg/core/transport"
 )
 
 // Option is tracing option.

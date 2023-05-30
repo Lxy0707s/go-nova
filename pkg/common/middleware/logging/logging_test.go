@@ -4,11 +4,11 @@ import (
 	"bytes"
 	"context"
 	"errors"
+	log2 "github.com/go-nova/pkg/core/log"
 	"testing"
 
 	"github.com/go-nova/pkg/common/middleware"
-	"github.com/go-nova/pkg/utils/log"
-	"github.com/go-nova/pkg/utils/transport"
+	"github.com/go-nova/pkg/core/transport"
 )
 
 var _ transport.Transporter = (*Transport)(nil)
@@ -42,11 +42,11 @@ func (tr *Transport) ReplyHeader() transport.Header {
 func TestHTTP(t *testing.T) {
 	err := errors.New("reply.error")
 	bf := bytes.NewBuffer(nil)
-	logger := log.NewStdLogger(bf)
+	logger := log2.NewStdLogger(bf)
 
 	tests := []struct {
 		name string
-		kind func(logger log.Logger) middleware.Middleware
+		kind func(logger log2.Logger) middleware.Middleware
 		err  error
 		ctx  context.Context
 	}{
@@ -155,14 +155,14 @@ func TestExtractError(t *testing.T) {
 	tests := []struct {
 		name       string
 		err        error
-		wantLevel  log.Level
+		wantLevel  log2.Level
 		wantErrStr string
 	}{
 		{
-			"no error", nil, log.LevelInfo, "",
+			"no error", nil, log2.LevelInfo, "",
 		},
 		{
-			"error", errors.New("test error"), log.LevelError, "test error",
+			"error", errors.New("test error"), log2.LevelError, "test error",
 		},
 	}
 	for _, test := range tests {

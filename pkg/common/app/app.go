@@ -3,6 +3,7 @@ package app
 import (
 	"context"
 	"errors"
+	"github.com/go-nova/pkg/core/log"
 	"os"
 	"os/signal"
 	"sync"
@@ -10,8 +11,7 @@ import (
 	"time"
 
 	"github.com/go-nova/pkg/common/registration"
-	"github.com/go-nova/pkg/utils/log"
-	"github.com/go-nova/pkg/utils/transport"
+	"github.com/go-nova/pkg/core/transport"
 
 	"github.com/google/uuid"
 	"golang.org/x/sync/errgroup"

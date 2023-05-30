@@ -6,8 +6,8 @@ package helloworld
 
 import (
 	context "context"
-	http "github.com/go-nova/pkg/utils/transport/http"
-	binding "github.com/go-nova/pkg/utils/transport/http/binding"
+	http "github.com/go-nova/pkg/core/transport/http"
+	binding "github.com/go-nova/pkg/core/transport/http/binding"
 )
 
 // This is a compile-time assertion to ensure that this generated file

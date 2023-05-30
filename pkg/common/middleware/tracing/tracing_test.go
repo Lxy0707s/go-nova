@@ -2,6 +2,7 @@ package tracing
 
 import (
 	"context"
+	log2 "github.com/go-nova/pkg/core/log"
 	"net/http"
 	"os"
 	"reflect"
@@ -11,8 +12,7 @@ import (
 	tracesdk "go.opentelemetry.io/otel/sdk/trace"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/go-nova/pkg/utils/log"
-	"github.com/go-nova/pkg/utils/transport"
+	"github.com/go-nova/pkg/core/transport"
 )
 
 var _ transport.Transporter = (*mockTransport)(nil)
@@ -119,16 +119,16 @@ func TestServer(t *testing.T) {
 		WithTracerProvider(tracesdk.NewTracerProvider()),
 	)
 
-	logger := log.NewStdLogger(os.Stdout)
-	logger = log.With(logger, "span_id", SpanID())
-	logger = log.With(logger, "trace_id", TraceID())
+	logger := log2.NewStdLogger(os.Stdout)
+	logger = log2.With(logger, "span_id", SpanID())
+	logger = log2.With(logger, "trace_id", TraceID())
 
 	var (
 		childSpanID  string
 		childTraceID string
 	)
 	next := func(ctx context.Context, req interface{}) (interface{}, error) {
-		_ = log.WithContext(ctx, logger).Log(log.LevelInfo,
+		_ = log2.WithContext(ctx, logger).Log(log2.LevelInfo,
 			"kind", "server",
 		)
 		childSpanID = SpanID()(ctx).(string)
@@ -191,16 +191,16 @@ func TestClient(t *testing.T) {
 		WithTracerProvider(tracesdk.NewTracerProvider()),
 	)
 
-	logger := log.NewStdLogger(os.Stdout)
-	logger = log.With(logger, "span_id", SpanID())
-	logger = log.With(logger, "trace_id", TraceID())
+	logger := log2.NewStdLogger(os.Stdout)
+	logger = log2.With(logger, "span_id", SpanID())
+	logger = log2.With(logger, "trace_id", TraceID())
 
 	var (
 		childSpanID  string
 		childTraceID string
 	)
 	next := func(ctx context.Context, req interface{}) (interface{}, error) {
-		_ = log.WithContext(ctx, logger).Log(log.LevelInfo,
+		_ = log2.WithContext(ctx, logger).Log(log2.LevelInfo,
 			"kind", "client",
 		)
 		childSpanID = SpanID()(ctx).(string)

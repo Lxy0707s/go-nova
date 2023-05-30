@@ -2,7 +2,7 @@
 
 ## example
 ### server
-```go
+```
 package main
 
 import (
@@ -57,7 +57,7 @@ import (
 	"github.com/nacos-group/nacos-sdk-go/vo"
 
 	"github.com/go-nova/pkg/third_party/contrib/registry/nacos/v2"
-	"github.com/go-nova/pkg/utils/transport/grpc"
+	"github.com/go-nova/pkg/core/transport/grpc"
 )
 
 func main() {

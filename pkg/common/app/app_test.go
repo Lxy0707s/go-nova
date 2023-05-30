@@ -10,8 +10,8 @@ import (
 	"time"
 
 	"github.com/go-nova/pkg/common/registration"
-	"github.com/go-nova/pkg/utils/transport/grpc"
-	"github.com/go-nova/pkg/utils/transport/http"
+	"github.com/go-nova/pkg/core/transport/grpc"
+	"github.com/go-nova/pkg/core/transport/http"
 )
 
 type mockRegistry struct {

@@ -12,7 +12,7 @@ import (
 	"github.com/gofrs/uuid"
 
 	"github.com/go-nova/pkg/common/registration"
-	"github.com/go-nova/pkg/utils/log"
+	"github.com/go-nova/pkg/core/log"
 )
 
 func init() {

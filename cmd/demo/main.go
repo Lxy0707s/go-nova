@@ -4,7 +4,7 @@ import (
 	"github.com/go-nova/cmd/demo/curtain"
 	"github.com/go-nova/cmd/demo/internal/server"
 	"github.com/go-nova/pkg/common/app"
-	"github.com/go-nova/pkg/utils/transport/http"
+	"github.com/go-nova/pkg/core/transport/http"
 )
 
 /**

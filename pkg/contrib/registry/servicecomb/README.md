@@ -2,7 +2,7 @@
 
 ## example
 ### server
-```go
+```
 package main
 
 import (
@@ -41,7 +41,7 @@ import (
 
 	"github.com/go-chassis/sc-client"
 	"github.com/go-nova/pkg/third_party/contrib/registry/servicecomb/v2"
-	"github.com/go-nova/pkg/utils/transport/grpc"
+	"github.com/go-nova/pkg/core/transport/grpc"
 )
 
 func main() {

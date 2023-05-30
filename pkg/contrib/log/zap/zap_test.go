@@ -6,7 +6,7 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
-	"github.com/go-nova/pkg/utils/log"
+	"github.com/go-nova/pkg/core/log"
 )
 
 type testWriteSyncer struct {

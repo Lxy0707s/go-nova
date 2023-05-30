@@ -10,7 +10,7 @@ import (
 	"github.com/aliyun/aliyun-log-go-sdk/producer"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/go-nova/pkg/utils/log"
+	"github.com/go-nova/pkg/core/log"
 )
 
 // Logger see more detail https://github.com/aliyun/aliyun-log-go-sdk

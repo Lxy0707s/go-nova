@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/go-nova/pkg/common/registration"
-	"github.com/go-nova/pkg/utils/log"
+	"github.com/go-nova/pkg/core/log"
 
 	"github.com/hashicorp/consul/api"
 )

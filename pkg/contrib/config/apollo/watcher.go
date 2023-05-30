@@ -7,8 +7,8 @@ import (
 	"github.com/apolloconfig/agollo/v4/storage"
 
 	"github.com/go-nova/pkg/common/config"
+	"github.com/go-nova/pkg/core/log"
 	"github.com/go-nova/pkg/utils/encoding"
-	"github.com/go-nova/pkg/utils/log"
 )
 
 type watcher struct {

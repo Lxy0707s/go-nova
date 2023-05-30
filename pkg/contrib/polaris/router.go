@@ -16,10 +16,10 @@ import (
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
 	apps "github.com/go-nova/pkg/common/app"
-	"github.com/go-nova/pkg/utils/log"
-	"github.com/go-nova/pkg/utils/selector"
-	"github.com/go-nova/pkg/utils/transport"
-	"github.com/go-nova/pkg/utils/transport/http"
+	"github.com/go-nova/pkg/core/log"
+	"github.com/go-nova/pkg/core/selector"
+	"github.com/go-nova/pkg/core/transport"
+	"github.com/go-nova/pkg/core/transport/http"
 )
 
 type router struct {

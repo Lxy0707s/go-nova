@@ -10,7 +10,7 @@ import (
 	"github.com/pkg/errors"
 
 	"github.com/go-nova/pkg/common/registration"
-	"github.com/go-nova/pkg/utils/log"
+	"github.com/go-nova/pkg/core/log"
 )
 
 func (d *Discovery) Register(ctx context.Context, service *registration.ServiceInstance) (err error) {

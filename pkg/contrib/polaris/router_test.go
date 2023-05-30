@@ -11,7 +11,7 @@ import (
 	"time"
 
 	"github.com/go-nova/pkg/common/registration"
-	"github.com/go-nova/pkg/utils/selector"
+	"github.com/go-nova/pkg/core/selector"
 )
 
 func TestRouter(t *testing.T) {

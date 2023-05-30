@@ -8,7 +8,7 @@ This module implements a `registry.Registrar` and `registry.Discovery` interface
 
 **_Register a service_**
 
-```go
+```
 import (
 	"github.com/go-nova/pkg/third_party/contrib/registry/discovery/v2"
 )
@@ -48,7 +48,7 @@ func main() {
 ```go
 import (
 	"github.com/go-nova/pkg/third_party/contrib/registry/discovery/v2"
-	"github.com/go-nova/pkg/utils/transport/grpc"
+	"github.com/go-nova/pkg/core/transport/grpc"
 )
 
 func main() {

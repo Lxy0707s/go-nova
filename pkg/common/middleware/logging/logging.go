@@ -3,12 +3,12 @@ package logging
 import (
 	"context"
 	"fmt"
+	log2 "github.com/go-nova/pkg/core/log"
 	"time"
 
 	"github.com/go-nova/pkg/common/middleware"
+	"github.com/go-nova/pkg/core/transport"
 	"github.com/go-nova/pkg/utils/errors"
-	"github.com/go-nova/pkg/utils/log"
-	"github.com/go-nova/pkg/utils/transport"
 )
 
 // Redacter defines how to log an object
@@ -17,7 +17,7 @@ type Redacter interface {
 }
 
 // Server is an server logging middleware.
-func Server(logger log.Logger) middleware.Middleware {
+func Server(logger log2.Logger) middleware.Middleware {
 	return func(handler middleware.Handler) middleware.Handler {
 		return func(ctx context.Context, req interface{}) (reply interface{}, err error) {
 			var (
@@ -37,7 +37,7 @@ func Server(logger log.Logger) middleware.Middleware {
 				reason = se.Reason
 			}
 			level, stack := extractError(err)
-			_ = log.WithContext(ctx, logger).Log(level,
+			_ = log2.WithContext(ctx, logger).Log(level,
 				"kind", "server",
 				"component", kind,
 				"operation", operation,
@@ -53,7 +53,7 @@ func Server(logger log.Logger) middleware.Middleware {
 }
 
 // Client is a client logging middleware.
-func Client(logger log.Logger) middleware.Middleware {
+func Client(logger log2.Logger) middleware.Middleware {
 	return func(handler middleware.Handler) middleware.Handler {
 		return func(ctx context.Context, req interface{}) (reply interface{}, err error) {
 			var (
@@ -73,7 +73,7 @@ func Client(logger log.Logger) middleware.Middleware {
 				reason = se.Reason
 			}
 			level, stack := extractError(err)
-			_ = log.WithContext(ctx, logger).Log(level,
+			_ = log2.WithContext(ctx, logger).Log(level,
 				"kind", "client",
 				"component", kind,
 				"operation", operation,
@@ -100,9 +100,9 @@ func extractArgs(req interface{}) string {
 }
 
 // extractError returns the string of the error
-func extractError(err error) (log.Level, string) {
+func extractError(err error) (log2.Level, string) {
 	if err != nil {
-		return log.LevelError, fmt.Sprintf("%+v", err)
+		return log2.LevelError, fmt.Sprintf("%+v", err)
 	}
-	return log.LevelInfo, ""
+	return log2.LevelInfo, ""
 }

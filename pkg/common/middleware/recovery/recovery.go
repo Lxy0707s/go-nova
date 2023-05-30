@@ -2,12 +2,12 @@ package recovery
 
 import (
 	"context"
+	"github.com/go-nova/pkg/core/log"
 	"runtime"
 	"time"
 
 	"github.com/go-nova/pkg/common/middleware"
 	"github.com/go-nova/pkg/utils/errors"
-	"github.com/go-nova/pkg/utils/log"
 )
 
 // Latency is recovery latency context key

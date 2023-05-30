@@ -6,8 +6,8 @@ import (
 	"github.com/go-nova/pkg/utils/metrics"
 	"testing"
 
-	"github.com/go-nova/pkg/utils/transport"
-	"github.com/go-nova/pkg/utils/transport/http"
+	"github.com/go-nova/pkg/core/transport"
+	"github.com/go-nova/pkg/core/transport/http"
 )
 
 type (

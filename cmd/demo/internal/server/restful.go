@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-nova/cmd/demo/service"
-	khttp "github.com/go-nova/pkg/utils/transport/http"
+	khttp "github.com/go-nova/pkg/core/transport/http"
 )
 
 // RegisterRestfulRouteV1 注册gin路由

@@ -3,6 +3,7 @@ package config
 import (
 	"context"
 	"errors"
+	"github.com/go-nova/pkg/core/log"
 	"reflect"
 	"sync"
 	"time"
@@ -12,7 +13,6 @@ import (
 	_ "github.com/go-nova/pkg/utils/encoding/proto"
 	_ "github.com/go-nova/pkg/utils/encoding/xml"
 	_ "github.com/go-nova/pkg/utils/encoding/yaml"
-	"github.com/go-nova/pkg/utils/log"
 )
 
 var _ Config = (*config)(nil)

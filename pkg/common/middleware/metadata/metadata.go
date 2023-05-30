@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	"github.com/go-nova/pkg/common/middleware"
+	"github.com/go-nova/pkg/core/transport"
 	"github.com/go-nova/pkg/utils/metadata"
-	"github.com/go-nova/pkg/utils/transport"
 )
 
 // Option is metadata option.

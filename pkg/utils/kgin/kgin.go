@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
+	thttp "github.com/go-nova/pkg/core/transport/http"
 	"github.com/go-nova/pkg/utils/errors"
-	thttp "github.com/go-nova/pkg/utils/transport/http"
 )
 
 const (

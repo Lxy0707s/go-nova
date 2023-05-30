@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/golang-jwt/jwt/v4"
 	"math/rand"
 	"net/http"
 	"reflect"
@@ -13,7 +14,7 @@ import (
 	"time"
 
 	"github.com/go-nova/pkg/common/middleware"
-	"github.com/go-nova/pkg/utils/transport"
+	"github.com/go-nova/pkg/core/transport"
 )
 
 type headerCarrier http.Header

@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/go-nova/pkg/common/middleware"
-	"github.com/go-nova/pkg/utils/transport"
+	"github.com/go-nova/pkg/core/transport"
 )
 
 type (

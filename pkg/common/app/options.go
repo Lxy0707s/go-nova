@@ -2,13 +2,13 @@ package app
 
 import (
 	"context"
+	"github.com/go-nova/pkg/core/log"
 	"net/url"
 	"os"
 	"time"
 
 	"github.com/go-nova/pkg/common/registration"
-	"github.com/go-nova/pkg/utils/log"
-	"github.com/go-nova/pkg/utils/transport"
+	"github.com/go-nova/pkg/core/transport"
 )
 
 // Option is an application option.

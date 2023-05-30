@@ -1,7 +1,7 @@
 package hello
 
 import (
-	khttp "github.com/go-nova/pkg/utils/transport/http"
+	khttp "github.com/go-nova/pkg/core/transport/http"
 )
 
 type Test struct {

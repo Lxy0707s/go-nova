@@ -6,8 +6,8 @@ import (
 	"github.com/go-nova/pkg/infrastructure/group"
 	"testing"
 
+	"github.com/go-nova/pkg/core/transport"
 	kratoserrors "github.com/go-nova/pkg/utils/errors"
-	"github.com/go-nova/pkg/utils/transport"
 )
 
 type transportMock struct {

@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/go-nova/pkg/core/log"
 	"io"
 	"sort"
 	"sync"
@@ -18,8 +19,6 @@ import (
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/reflect/protoregistry"
 	dpb "google.golang.org/protobuf/types/descriptorpb"
-
-	"github.com/go-nova/pkg/utils/log"
 )
 
 // Server is api meta server

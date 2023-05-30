@@ -2,11 +2,11 @@ package config
 
 import (
 	"fmt"
+	"github.com/go-nova/pkg/core/log"
 	"regexp"
 	"strings"
 
 	"github.com/go-nova/pkg/utils/encoding"
-	"github.com/go-nova/pkg/utils/log"
 )
 
 // Decoder is config decoder.

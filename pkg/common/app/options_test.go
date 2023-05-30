@@ -2,6 +2,7 @@ package app
 
 import (
 	"context"
+	log2 "github.com/go-nova/pkg/core/log"
 	"log"
 	"net/url"
 	"os"
@@ -10,8 +11,7 @@ import (
 	"time"
 
 	"github.com/go-nova/pkg/common/registration"
-	xlog "github.com/go-nova/pkg/utils/log"
-	"github.com/go-nova/pkg/utils/transport"
+	"github.com/go-nova/pkg/core/transport"
 )
 
 func TestID(t *testing.T) {
@@ -77,10 +77,10 @@ func TestContext(t *testing.T) {
 
 func TestLogger(t *testing.T) {
 	o := &options{}
-	v := xlog.NewStdLogger(log.Writer())
+	v := log2.NewStdLogger(log.Writer())
 	Logger(v)(o)
 	if !reflect.DeepEqual(v, o.logger) {
-		t.Fatalf("o.logger:%v is not equal to xlog.NewHelper(v):%v", o.logger, xlog.NewHelper(v))
+		t.Fatalf("o.logger:%v is not equal to xlog.NewHelper(v):%v", o.logger, log2.NewHelper(v))
 	}
 }
 

@@ -8,7 +8,7 @@ import (
 	"github.com/polarismesh/polaris-go/pkg/model"
 
 	"github.com/go-nova/pkg/common/config"
-	"github.com/go-nova/pkg/utils/log"
+	"github.com/go-nova/pkg/core/log"
 )
 
 // ConfigOption is polaris config option.

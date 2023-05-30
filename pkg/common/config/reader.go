@@ -5,14 +5,13 @@ import (
 	"encoding/gob"
 	"encoding/json"
 	"fmt"
+	"github.com/go-nova/pkg/core/log"
 	"strings"
 	"sync"
 
 	"github.com/imdario/mergo"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/proto"
-
-	"github.com/go-nova/pkg/utils/log"
 )
 
 // Reader is config reader.

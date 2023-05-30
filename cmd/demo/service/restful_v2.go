@@ -2,7 +2,7 @@ package service
 
 import (
 	"github.com/go-nova/cmd/demo/service/hello"
-	khttp "github.com/go-nova/pkg/utils/transport/http"
+	khttp "github.com/go-nova/pkg/core/transport/http"
 	"log"
 	"net/http"
 )

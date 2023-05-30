@@ -7,8 +7,8 @@ import (
 	"reflect"
 	"testing"
 
+	"github.com/go-nova/pkg/core/transport"
 	"github.com/go-nova/pkg/utils/metadata"
-	"github.com/go-nova/pkg/utils/transport"
 )
 
 type headerCarrier http.Header

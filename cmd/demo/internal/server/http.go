@@ -4,8 +4,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-nova/cmd/demo/internal/server/middleware"
 	"github.com/go-nova/pkg/common/middleware/recovery"
+	khttp "github.com/go-nova/pkg/core/transport/http"
 	"github.com/go-nova/pkg/utils/kgin"
-	khttp "github.com/go-nova/pkg/utils/transport/http"
 )
 
 // RegisterRestful 各个服务注册路由总线
