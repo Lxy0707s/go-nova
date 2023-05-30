@@ -1,10 +1,9 @@
 package proto
 
 import (
+	testData "github.com/go-nova/pkg/infrastructure/testdata/encoding"
 	"reflect"
 	"testing"
-
-	testData "github.com/go-nova/internal/testdata/encoding"
 )
 
 func TestName(t *testing.T) {

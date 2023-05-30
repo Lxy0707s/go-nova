@@ -4,12 +4,12 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"github.com/go-nova/pkg/infrastructure/endpoint"
 	"time"
 
 	"google.golang.org/grpc/attributes"
 	"google.golang.org/grpc/resolver"
 
-	"github.com/go-nova/internal/endpoint"
 	"github.com/go-nova/pkg/common/registration"
 	"github.com/go-nova/pkg/utils/log"
 	"github.com/go-nova/pkg/utils/middlewares/subset"

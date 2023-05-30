@@ -2,6 +2,7 @@ package tracing
 
 import (
 	"context"
+	"github.com/go-nova/pkg/infrastructure/testdata/binding"
 	"net"
 	"net/http"
 	"reflect"
@@ -12,7 +13,6 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc/peer"
 
-	"github.com/go-nova/internal/testdata/binding"
 	"github.com/go-nova/pkg/utils/metadata"
 	"github.com/go-nova/pkg/utils/transport"
 )

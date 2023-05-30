@@ -3,9 +3,9 @@ package circuitbreaker
 import (
 	"context"
 	"errors"
+	"github.com/go-nova/pkg/infrastructure/group"
 	"testing"
 
-	"github.com/go-nova/internal/group"
 	kratoserrors "github.com/go-nova/pkg/utils/errors"
 	"github.com/go-nova/pkg/utils/transport"
 )

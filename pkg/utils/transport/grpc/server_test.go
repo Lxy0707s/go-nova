@@ -4,6 +4,8 @@ import (
 	"context"
 	"crypto/tls"
 	"fmt"
+	"github.com/go-nova/pkg/infrastructure/matcher"
+	"github.com/go-nova/pkg/infrastructure/testdata/helloworld"
 	"net"
 	"net/url"
 	"reflect"
@@ -13,8 +15,6 @@ import (
 
 	"google.golang.org/grpc"
 
-	"github.com/go-nova/internal/matcher"
-	pb "github.com/go-nova/internal/testdata/helloworld"
 	"github.com/go-nova/pkg/common/middleware"
 	"github.com/go-nova/pkg/utils/errors"
 	"github.com/go-nova/pkg/utils/transport"
@@ -22,10 +22,10 @@ import (
 
 // server is used to implement helloworld.GreeterServer.
 type server struct {
-	pb.UnimplementedGreeterServer
+	helloworld.UnimplementedGreeterServer
 }
 
-func (s *server) SayHelloStream(streamServer pb.Greeter_SayHelloStreamServer) error {
+func (s *server) SayHelloStream(streamServer helloworld.Greeter_SayHelloStreamServer) error {
 	tctx, ok := transport.FromServerContext(streamServer.Context())
 	if ok {
 		tctx.ReplyHeader().Set("123", "123")
@@ -42,7 +42,7 @@ func (s *server) SayHelloStream(streamServer pb.Greeter_SayHelloStreamServer) er
 		if in.Name == "panic" {
 			panic("server panic")
 		}
-		err = streamServer.Send(&pb.HelloReply{
+		err = streamServer.Send(&helloworld.HelloReply{
 			Message: fmt.Sprintf("hello %s", in.Name),
 		})
 		if err != nil {
@@ -56,14 +56,14 @@ func (s *server) SayHelloStream(streamServer pb.Greeter_SayHelloStreamServer) er
 }
 
 // SayHello implements helloworld.GreeterServer
-func (s *server) SayHello(_ context.Context, in *pb.HelloRequest) (*pb.HelloReply, error) {
+func (s *server) SayHello(_ context.Context, in *helloworld.HelloRequest) (*helloworld.HelloReply, error) {
 	if in.Name == "error" {
 		return nil, errors.BadRequest("custom_error", fmt.Sprintf("invalid argument %s", in.Name))
 	}
 	if in.Name == "panic" {
 		panic("server panic")
 	}
-	return &pb.HelloReply{Message: fmt.Sprintf("Hello %+v", in.Name)}, nil
+	return &helloworld.HelloReply{Message: fmt.Sprintf("Hello %+v", in.Name)}, nil
 }
 
 type testKey struct{}
@@ -88,7 +88,7 @@ func TestServer(t *testing.T) {
 		}),
 		Options(grpc.InitialConnWindowSize(0)),
 	)
-	pb.RegisterGreeterServer(srv, &server{})
+	helloworld.RegisterGreeterServer(srv, &server{})
 
 	if e, err := srv.Endpoint(); err != nil || e == nil || strings.HasSuffix(e.Host, ":0") {
 		t.Fatal(e, err)
@@ -134,8 +134,8 @@ func testClient(t *testing.T, srv *Server) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	client := pb.NewGreeterClient(conn)
-	reply, err := client.SayHello(context.Background(), &pb.HelloRequest{Name: "kratos"})
+	client := helloworld.NewGreeterClient(conn)
+	reply, err := client.SayHello(context.Background(), &helloworld.HelloRequest{Name: "kratos"})
 	t.Log(err)
 	if err != nil {
 		t.Errorf("failed to call: %v", err)
@@ -152,7 +152,7 @@ func testClient(t *testing.T, srv *Server) {
 	defer func() {
 		_ = streamCli.CloseSend()
 	}()
-	err = streamCli.Send(&pb.HelloRequest{Name: "cc"})
+	err = streamCli.Send(&helloworld.HelloRequest{Name: "cc"})
 	if err != nil {
 		t.Error(err)
 		return

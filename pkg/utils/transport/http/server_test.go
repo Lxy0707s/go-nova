@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/go-nova/pkg/infrastructure/host"
 	"io"
 	"net"
 	"net/http"
@@ -14,7 +15,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/go-nova/internal/host"
 	kratoserrors "github.com/go-nova/pkg/utils/errors"
 )
 

@@ -4,14 +4,13 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"github.com/go-nova/pkg/infrastructure/host"
 	"log"
 	"net/http"
 	"reflect"
 	"strings"
 	"testing"
 	"time"
-
-	"github.com/go-nova/internal/host"
 )
 
 const appJSONStr = "application/json"

@@ -3,13 +3,13 @@ package http
 import (
 	"context"
 	"errors"
+	"github.com/go-nova/pkg/infrastructure/endpoint"
 	"net/url"
 	"strings"
 	"time"
 
 	"github.com/google/uuid"
 
-	"github.com/go-nova/internal/endpoint"
 	"github.com/go-nova/pkg/common/registration"
 	"github.com/go-nova/pkg/utils/log"
 	"github.com/go-nova/pkg/utils/middlewares/subset"

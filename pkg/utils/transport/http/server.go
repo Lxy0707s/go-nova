@@ -4,6 +4,9 @@ import (
 	"context"
 	"crypto/tls"
 	"errors"
+	"github.com/go-nova/pkg/infrastructure/endpoint"
+	"github.com/go-nova/pkg/infrastructure/host"
+	"github.com/go-nova/pkg/infrastructure/matcher"
 	"net"
 	"net/http"
 	"net/url"
@@ -11,9 +14,6 @@ import (
 
 	"github.com/gorilla/mux"
 
-	"github.com/go-nova/internal/endpoint"
-	"github.com/go-nova/internal/host"
-	"github.com/go-nova/internal/matcher"
 	"github.com/go-nova/pkg/common/middleware"
 	"github.com/go-nova/pkg/utils/log"
 	"github.com/go-nova/pkg/utils/transport"

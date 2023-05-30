@@ -1,11 +1,10 @@
 package binding
 
 import (
+	"github.com/go-nova/pkg/infrastructure/testdata/binding"
 	"testing"
 
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
-
-	"github.com/go-nova/internal/testdata/binding"
 )
 
 func TestEncodeURL(t *testing.T) {

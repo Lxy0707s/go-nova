@@ -3,11 +3,10 @@ package tracing
 import (
 	"context"
 	"errors"
+	"github.com/go-nova/pkg/infrastructure/testdata/binding"
 	"testing"
 
 	"go.opentelemetry.io/otel/trace"
-
-	"github.com/go-nova/internal/testdata/binding"
 )
 
 func TestNewTracer(t *testing.T) {

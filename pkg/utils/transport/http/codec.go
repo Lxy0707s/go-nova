@@ -3,13 +3,13 @@ package http
 import (
 	"bytes"
 	"fmt"
+	"github.com/go-nova/pkg/infrastructure/httputil"
 	"io"
 	"net/http"
 	"net/url"
 
 	"github.com/gorilla/mux"
 
-	"github.com/go-nova/internal/httputil"
 	"github.com/go-nova/pkg/utils/encoding"
 	"github.com/go-nova/pkg/utils/errors"
 	"github.com/go-nova/pkg/utils/transport/http/binding"

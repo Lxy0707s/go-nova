@@ -2,6 +2,9 @@ package form
 
 import (
 	"encoding/base64"
+	bdtest "github.com/go-nova/pkg/infrastructure/testdata/binding"
+	complex2 "github.com/go-nova/pkg/infrastructure/testdata/complex"
+	ectest "github.com/go-nova/pkg/infrastructure/testdata/encoding"
 	"reflect"
 	"testing"
 
@@ -10,9 +13,6 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
-	bdtest "github.com/go-nova/internal/testdata/binding"
-	"github.com/go-nova/internal/testdata/complex"
-	ectest "github.com/go-nova/internal/testdata/encoding"
 	"github.com/go-nova/pkg/utils/encoding"
 )
 
@@ -86,13 +86,13 @@ func TestFormCodecUnmarshal(t *testing.T) {
 }
 
 func TestProtoEncodeDecode(t *testing.T) {
-	in := &complex.Complex{
+	in := &complex2.Complex{
 		Id:      2233,
 		NoOne:   "2233",
-		Simple:  &complex.Simple{Component: "5566"},
+		Simple:  &complex2.Simple{Component: "5566"},
 		Simples: []string{"3344", "5566"},
 		B:       true,
-		Sex:     complex.Sex_woman,
+		Sex:     complex2.Sex_woman,
 		Age:     18,
 		A:       19,
 		Count:   3,
@@ -124,7 +124,7 @@ func TestProtoEncodeDecode(t *testing.T) {
 		"&timestamp=1970-01-01T00%3A00%3A20.000000002Z&uint32=32&uint64=64&very_simple.component=5566" != string(content) {
 		t.Errorf("rawpath is not equal to %s", content)
 	}
-	in2 := &complex.Complex{}
+	in2 := &complex2.Complex{}
 	err = encoding.GetCodec(Name).Unmarshal(content, in2)
 	if err != nil {
 		t.Fatal(err)
@@ -179,7 +179,7 @@ func TestDecodeBytesValuePb(t *testing.T) {
 	url := "https://example.com/xx/?a=1&b=2&c=3"
 	val := base64.URLEncoding.EncodeToString([]byte(url))
 	content := "bytes=" + val
-	in2 := &complex.Complex{}
+	in2 := &complex2.Complex{}
 	if err := encoding.GetCodec(Name).Unmarshal([]byte(content), in2); err != nil {
 		t.Error(err)
 	}

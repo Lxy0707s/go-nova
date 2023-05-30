@@ -2,11 +2,11 @@ package grpc
 
 import (
 	"context"
+	ic "github.com/go-nova/pkg/infrastructure/context"
 
 	"google.golang.org/grpc"
 	grpcmd "google.golang.org/grpc/metadata"
 
-	ic "github.com/go-nova/internal/context"
 	"github.com/go-nova/pkg/common/middleware"
 	"github.com/go-nova/pkg/utils/transport"
 )

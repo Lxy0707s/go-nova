@@ -2,14 +2,13 @@ package form
 
 import (
 	"fmt"
+	complex2 "github.com/go-nova/pkg/infrastructure/testdata/complex"
 	"net/url"
 	"reflect"
 	"strconv"
 	"testing"
 
 	"google.golang.org/protobuf/reflect/protoreflect"
-
-	"github.com/go-nova/internal/testdata/complex"
 )
 
 func TestDecodeValues(t *testing.T) {
@@ -20,7 +19,7 @@ func TestDecodeValues(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	comp := &complex.Complex{}
+	comp := &complex2.Complex{}
 	err = DecodeValues(comp, form)
 	if err != nil {
 		t.Fatal(err)
@@ -49,7 +48,7 @@ func TestDecodeValues(t *testing.T) {
 }
 
 func TestGetFieldDescriptor(t *testing.T) {
-	comp := &complex.Complex{}
+	comp := &complex2.Complex{}
 
 	field := getFieldDescriptor(comp.ProtoReflect(), "id")
 	if field.Kind() != protoreflect.Int64Kind {
@@ -67,7 +66,7 @@ func TestPopulateRepeatedField(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	comp := &complex.Complex{}
+	comp := &complex2.Complex{}
 	field := getFieldDescriptor(comp.ProtoReflect(), "simples")
 
 	err = populateRepeatedField(field, comp.ProtoReflect().Mutable(field).List(), query["simples"])
@@ -84,7 +83,7 @@ func TestPopulateMapField(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	comp := &complex.Complex{}
+	comp := &complex2.Complex{}
 	field := getFieldDescriptor(comp.ProtoReflect(), "map")
 	// Fill the comp map field with the url query values
 	err = populateMapField(field, comp.ProtoReflect().Mutable(field).Map(), []string{"kratos"}, query["map[kratos]"])
@@ -141,7 +140,7 @@ func TestParseField(t *testing.T) {
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			comp := &complex.Complex{}
+			comp := &complex2.Complex{}
 			field := getFieldDescriptor(comp.ProtoReflect(), test.fieldName)
 			if test.protoReflectKind != field.Kind() {
 				t.Fatalf("want: %d, got: %d", test.protoReflectKind, field.Kind())

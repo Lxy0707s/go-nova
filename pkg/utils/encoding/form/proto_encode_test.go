@@ -1,24 +1,23 @@
 package form
 
 import (
+	complex2 "github.com/go-nova/pkg/infrastructure/testdata/complex"
 	"testing"
 
 	"google.golang.org/protobuf/types/known/durationpb"
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
 	"google.golang.org/protobuf/types/known/timestamppb"
 	"google.golang.org/protobuf/types/known/wrapperspb"
-
-	"github.com/go-nova/internal/testdata/complex"
 )
 
 func TestEncodeValues(t *testing.T) {
-	in := &complex.Complex{
+	in := &complex2.Complex{
 		Id:      2233,
 		NoOne:   "2233",
-		Simple:  &complex.Simple{Component: "5566"},
+		Simple:  &complex2.Simple{Component: "5566"},
 		Simples: []string{"3344", "5566"},
 		B:       true,
-		Sex:     complex.Sex_woman,
+		Sex:     complex2.Sex_woman,
 		Age:     18,
 		A:       19,
 		Count:   3,

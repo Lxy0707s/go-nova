@@ -2,11 +2,10 @@ package json
 
 import (
 	"encoding/json"
+	testData "github.com/go-nova/pkg/infrastructure/testdata/encoding"
 	"reflect"
 	"strings"
 	"testing"
-
-	testData "github.com/go-nova/internal/testdata/encoding"
 )
 
 type testEmbed struct {

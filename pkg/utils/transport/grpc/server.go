@@ -3,6 +3,9 @@ package grpc
 import (
 	"context"
 	"crypto/tls"
+	"github.com/go-nova/pkg/infrastructure/endpoint"
+	"github.com/go-nova/pkg/infrastructure/host"
+	"github.com/go-nova/pkg/infrastructure/matcher"
 	"net"
 	"net/url"
 	"time"
@@ -14,11 +17,8 @@ import (
 	"google.golang.org/grpc/health/grpc_health_v1"
 	"google.golang.org/grpc/reflection"
 
-	"github.com/go-nova/internal/endpoint"
-	"github.com/go-nova/internal/host"
-	"github.com/go-nova/internal/matcher"
 	"github.com/go-nova/pkg/common/middleware"
-	apimd "github.com/go-nova/pkg/utils/api/metadata"
+	apimd "github.com/go-nova/pkg/infrastructure/api/metadata"
 	"github.com/go-nova/pkg/utils/log"
 	"github.com/go-nova/pkg/utils/transport"
 )
