@@ -7,29 +7,39 @@ import (
 	"github.com/go-nova/pkg/common/app"
 	"github.com/go-nova/pkg/common/dao"
 	"github.com/go-nova/pkg/core/transport/http"
+	"strconv"
 )
 
-const configName = "config.yaml"
+const (
+	configName  = "config.yaml"
+	appName     = "nova"
+	defaultPort = ":8080"
+)
 
 /**
  * 基于kratos开源方案魔改
  * 使用http服务整合gin框架服务
  */
 func main() {
+	// 展示欢迎logo
+	curtain.CurtainGenerator(appName, "xuanyu.li", release, buildTime, "")
+	// 加载配置
+	config.InitConfig(configName)
+	port := defaultPort
+	if config.AppCfg.Server.Port != 0 {
+		port = ":" + strconv.Itoa(config.AppCfg.Server.Port)
+	}
 	// 创建服务
-	httpSrv := http.NewServer(http.Address(":8080"))
+	httpSrv := http.NewServer(http.Address(port))
 	exec := app.New(
-		app.Name("my-nova"),
+		app.Name(appName),
 		app.Version(release),
 		app.BuildTime(buildTime),
 		app.Server(
 			httpSrv,
 		),
 	)
-	// 展示欢迎logo
-	curtain.CurtainGenerator(exec.Name(), "xuanyu.li", exec.Version(), exec.BuildTime(), "")
-	// 加载配置
-	config.InitConfig(configName)
+
 	// 加载数据库
 	dao.Setup(config.AppCfg.Database)
 

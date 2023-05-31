@@ -60,7 +60,7 @@ func initDbConfig(option Option) map[string]*gorm.DB {
 	if DBMap == nil {
 		DBMap = make(map[string]*gorm.DB)
 	}
-	fmt.Println("00000000", option.DBNames)
+
 	var err error
 	for _, name := range option.DBNames {
 		key := option.DBPrefix + name

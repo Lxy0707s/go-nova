@@ -15,15 +15,22 @@ const defaultConfigName = "./cmd/demo/config.yml"
 var AppCfg *Config
 
 type Config struct {
+	App      AppConfig    `yaml:"app" json:"app" xml:"app"`
 	Server   ServerConfig `yaml:"server" json:"server" xml:"server"`
 	Database dao.Option   `yaml:"database" json:"database" xml:"database"`
 }
 
 type (
-	ServerConfig struct {
+	AppConfig struct {
 		Name    string `json:"name"`
 		Version string `json:"version"`
 		Debug   bool   `json:"debug"`
+	}
+	ServerConfig struct {
+		Host          string `json:"host"`
+		Port          int    `json:"port"`
+		ProfileSwitch bool   `json:"profile_switch"`
+		ProfilePort   int    `json:"profile_port"`
 	}
 	DatabaseConfig struct {
 		Username       string   `json:"username,omitempty"`

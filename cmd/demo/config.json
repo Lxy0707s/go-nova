@@ -1,8 +1,14 @@
 {
-    "server": {
+    "app": {
         "name": "My_App",
         "version": "1.0.0",
         "debug": true
+    },
+    "server": {
+        "host": "127.0.0.1",
+        "port": 8089,
+        "profile_switch": true,
+        "profile_port": 8081
     },
     "database": {
         "driver": "mysql",
