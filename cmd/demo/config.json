@@ -1,13 +1,16 @@
 {
     "server": {
-        "name": "My_Json",
+        "name": "My_App",
         "version": "1.0.0",
         "debug": true
     },
     "database": {
-        "host": "localhost",
-        "port": 3306,
+        "driver": "mysql",
         "username": "root",
-        "password": "password"
+        "password": "admin123",
+        "network": "127.0.0.1:3306",
+        "db_names": [
+            "nova"
+        ]
     }
 }

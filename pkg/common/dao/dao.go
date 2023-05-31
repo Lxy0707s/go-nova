@@ -20,12 +20,12 @@ var (
 
 // Option 数据库配置
 type Option struct {
-	Driver         string
-	Username       string
-	Password       string
-	Addr           string
-	DBNames        []string // 多数据库
-	DatabasePrefix string
+	Driver   string   `json:"driver,omitempty" yaml:"driver"`
+	Username string   `json:"username,omitempty" yaml:"username"`
+	Password string   `json:"password,omitempty" yaml:"password"`
+	Network  string   `json:"network,omitempty" yaml:"network"`
+	DBNames  []string `json:"db_names,omitempty" yaml:"db_names"` // 多数据库
+	DBPrefix string   `json:"db_prefix,omitempty" yaml:"db_prefix"`
 }
 
 // Model 基本类型，自带添加时间和更新时间
@@ -54,20 +54,21 @@ func Setup(option interface{}) map[string]*gorm.DB {
 }
 
 func initDbConfig(option Option) map[string]*gorm.DB {
-	if option.Addr == "" {
+	if option.Network == "" {
 		return nil
 	}
 	if DBMap == nil {
 		DBMap = make(map[string]*gorm.DB)
 	}
+	fmt.Println("00000000", option.DBNames)
 	var err error
 	for _, name := range option.DBNames {
-		key := option.DatabasePrefix + name
+		key := option.DBPrefix + name
 		// // 连接数据库
 		dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local&maxAllowedPacket=%d",
 			option.Username,
 			option.Password,
-			option.Addr,
+			option.Network,
 			key,
 			0,
 		)
@@ -95,7 +96,7 @@ func CloseDB(option interface{}) {
 
 func _closeDB(option Option) {
 	for _, name := range option.DBNames {
-		key := option.DatabasePrefix + name
+		key := option.DBPrefix + name
 		db, err := DBMap[key].DB()
 
 		if err != nil {

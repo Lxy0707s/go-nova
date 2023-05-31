@@ -4,7 +4,8 @@ server:
   debug: true
 
 database:
-  host: localhost
-  port: 3306
-  username: root
-  password: password
+  driver: "mysql"
+  db_names: ["nova"]
+  username: "root"
+  password: "admin123"
+  network: "127.0.0.1:3306"

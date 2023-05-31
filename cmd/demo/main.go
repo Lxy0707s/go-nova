@@ -4,8 +4,8 @@ import (
 	"github.com/go-nova/cmd/demo/curtain"
 	"github.com/go-nova/cmd/demo/internal/config"
 	"github.com/go-nova/cmd/demo/internal/server"
-	"github.com/go-nova/cmd/demo/module/demo/user_service"
 	"github.com/go-nova/pkg/common/app"
+	"github.com/go-nova/pkg/common/dao"
 	"github.com/go-nova/pkg/core/transport/http"
 )
 
@@ -30,8 +30,8 @@ func main() {
 	curtain.CurtainGenerator(exec.Name(), "xuanyu.li", exec.Version(), exec.BuildTime(), "")
 	// 加载配置
 	config.InitConfig(configName)
-	// 数据库查询示例
-	user_service.QueryUser()
+	// 加载数据库
+	dao.Setup(config.AppCfg.Database)
 
 	// http服务注册
 	server.RegisterRestful(httpSrv, true)

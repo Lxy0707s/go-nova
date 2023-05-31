@@ -3,6 +3,7 @@ package user_restful
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-nova/cmd/demo/module/demo/user_restful/hello"
+	"github.com/go-nova/cmd/demo/module/demo/user_restful/user"
 )
 
 var routeModuleV1 = "v1"
@@ -15,4 +16,5 @@ func RouteV1(router *gin.RouterGroup) {
 func restfulApiV1(router *gin.RouterGroup) {
 	// 代理接口，发起请求
 	router.GET("/test", hello.Hello)
+	router.GET("/user", user.GetUser)
 }
