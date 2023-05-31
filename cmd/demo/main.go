@@ -33,7 +33,7 @@ func main() {
 	// 加载数据库
 	dao.Setup(config.AppCfg.Database)
 
-	// http服务注册
+	// http服务注册,开启http server服务，可选择使用自带服务和gin服务
 	server.RegisterRestful(httpSrv, true)
 	err := exec.Run()
 	if err != nil {
