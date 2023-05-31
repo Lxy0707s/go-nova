@@ -1,8 +1,8 @@
-package server
+package api_server
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/go-nova/cmd/demo/internal/server/middleware"
+	"github.com/go-nova/cmd/demo/internal/api_server/middleware"
 	"github.com/go-nova/pkg/common/middleware/recovery"
 	khttp "github.com/go-nova/pkg/core/transport/http"
 	"github.com/go-nova/pkg/utils/kgin"

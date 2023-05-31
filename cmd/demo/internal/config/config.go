@@ -5,6 +5,7 @@ import (
 	"github.com/go-nova/pkg/common/config"
 	"github.com/go-nova/pkg/common/config/file"
 	"github.com/go-nova/pkg/common/dao"
+	"github.com/go-nova/pkg/common/datas/base_struct"
 	"github.com/go-nova/pkg/utils/fileops"
 	"github.com/tomwright/dasel"
 	"github.com/tomwright/dasel/storage"
@@ -15,9 +16,10 @@ const defaultConfigName = "./cmd/demo/config.yml"
 var AppCfg *Config
 
 type Config struct {
-	App      AppConfig    `yaml:"app" json:"app" xml:"app"`
-	Server   ServerConfig `yaml:"server" json:"server" xml:"server"`
-	Database dao.Option   `yaml:"database" json:"database" xml:"database"`
+	App      AppConfig          `yaml:"app" json:"app" xml:"app"`
+	Server   ServerConfig       `yaml:"server" json:"server" xml:"server"`
+	Database dao.Option         `yaml:"database" json:"database" xml:"database"`
+	Apis     []base_struct.APIs `yaml:"apis" json:"apis" xml:"apis"`
 }
 
 type (

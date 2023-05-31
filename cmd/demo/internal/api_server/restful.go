@@ -1,4 +1,4 @@
-package server
+package api_server
 
 import (
 	"github.com/go-nova/cmd/demo/module/demo/user_restful"
