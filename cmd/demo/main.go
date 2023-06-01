@@ -10,6 +10,7 @@ import (
 	"github.com/go-nova/pkg/core/transport"
 	"github.com/go-nova/pkg/core/transport/grpc"
 	"github.com/go-nova/pkg/core/transport/http"
+	"github.com/go-nova/pkg/core/transport/tcp/tcp_server"
 	"strconv"
 )
 
@@ -57,11 +58,12 @@ func GenServer() []transport.Server {
 	httpSrv := http.NewServer(http.Address(port))
 	// grpcSrv
 	grpcSrv := grpc.NewServer()
+	// tcpServer服务
+	tcpServer := tcp_server.NewServer(config.AppCfg.Zinx)
 	// 自定义服务,用于根据配置的apis发起请求，同步资源
 	selfServ := sync_client.NewServer(config.AppCfg.Apis)
-
 	// 服务列表
-	servers = append(servers, httpSrv, grpcSrv, selfServ)
+	servers = append(servers, httpSrv, grpcSrv, selfServ, tcpServer)
 
 	// 加载数据库
 	dao.Setup(config.AppCfg.Database)

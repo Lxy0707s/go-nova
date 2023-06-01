@@ -1,6 +1,7 @@
 package tcp_client
 
 import (
+	"context"
 	"fmt"
 	"github.com/aceld/zinx/ziface"
 	"github.com/aceld/zinx/zpack"
@@ -51,9 +52,18 @@ func NewClient() *TcpClient {
 	return instance
 }
 
-func (cli *TcpClient) Start() {
+func (cli *TcpClient) Start(ctx context.Context) error {
 	//go cli.loopSend()
 	cli.waitRecv()
+	return nil
+}
+func (cli *TcpClient) Stop(ctx context.Context) error {
+	//go cli.loopSend()
+	err := cli.conn.Close()
+	if err != nil {
+		return err
+	}
+	return nil
 }
 
 func (cli *TcpClient) Send(data []byte) {

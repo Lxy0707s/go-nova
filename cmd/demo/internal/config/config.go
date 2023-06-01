@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"github.com/aceld/zinx/zconf"
 	"github.com/go-nova/pkg/common/config"
 	"github.com/go-nova/pkg/common/config/file"
 	"github.com/go-nova/pkg/common/dao"
@@ -18,6 +19,7 @@ var AppCfg *Config
 type Config struct {
 	App      AppConfig          `yaml:"app" json:"app" xml:"app"`
 	Server   ServerConfig       `yaml:"server" json:"server" xml:"server"`
+	Zinx     *zconf.Config      `yaml:"zinx" json:"zinx" xml:"zinx"`
 	Database dao.Option         `yaml:"database" json:"database" xml:"database"`
 	Apis     []base_struct.APIs `yaml:"apis" json:"apis" xml:"apis"`
 }

@@ -16,6 +16,13 @@ database:
   password: "admin123"
   network: "127.0.0.1:3306"
 
+zinx:
+  Name: "nova-zinx"
+  Host: "0.0.0.0"
+  TCPPort: 8889
+  MaxConn: 20
+  WorkerPoolSize: 5
+
 apis:
   - { name: "test",
       address: "http://127.0.0.1:8089/api/v1/user",

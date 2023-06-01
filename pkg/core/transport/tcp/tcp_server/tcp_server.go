@@ -1,6 +1,8 @@
 package tcp_server
 
 import (
+	"context"
+	"github.com/aceld/zinx/zconf"
 	"github.com/aceld/zinx/ziface"
 	"github.com/aceld/zinx/znet"
 	"sync"
@@ -13,9 +15,10 @@ type TcpServer struct {
 
 var instance *TcpServer
 
-func NewServer() *TcpServer {
+func NewServer(config *zconf.Config) *TcpServer {
+	// 创建 Zinx 服务器
 	if instance == nil {
-		server := znet.NewServer()
+		server := znet.NewUserConfServer(config)
 
 		server.SetOnConnStart(ConnStart)
 		server.SetOnConnStop(ConnLost)
@@ -24,7 +27,7 @@ func NewServer() *TcpServer {
 	return instance
 }
 
-func (ts *TcpServer) Start() {
+func (ts *TcpServer) Start(ctx context.Context) error {
 	//s.AddRouter(1001, &RSimple{}) // 单向通信，边缘主动，服务端收到信息后，只返回收到
 	//s.AddRouter(1002, &RDuplex{}) // 双工通信， 边缘和中心即时通信
 
@@ -45,6 +48,7 @@ func (ts *TcpServer) RegisterRouter(uid uint32, router ziface.IRouter) {
 	ts.server.AddRouter(uid, router)
 }
 
-func (ts *TcpServer) Stop() {
+func (ts *TcpServer) Stop(ctx context.Context) error {
 	ts.server.Stop()
+	return nil
 }
