@@ -26,7 +26,8 @@ const (
 func main() {
 	// 展示欢迎logo
 	curtain.CurtainGenerator(appName, "xuanyu.li", release, buildTime, "")
-	servers := ServerInit()
+	// 服务生成，初始化，特殊服务启动
+	servers := GenServer()
 	// 服务集成
 	exec := app.New(
 		app.Name(appName),
@@ -36,13 +37,15 @@ func main() {
 			servers...,
 		),
 	)
+
+	// 总线服务启动
 	err := exec.Run()
 	if err != nil {
 		return
 	}
 }
 
-func ServerInit() []transport.Server {
+func GenServer() []transport.Server {
 	var servers []transport.Server
 	// 加载配置
 	config.InitConfig(configName)
@@ -57,6 +60,7 @@ func ServerInit() []transport.Server {
 	// 自定义服务,用于根据配置的apis发起请求，同步资源
 	selfServ := sync_client.NewServer(config.AppCfg.Apis)
 
+	// 服务列表
 	servers = append(servers, httpSrv, grpcSrv, selfServ)
 
 	// 加载数据库
