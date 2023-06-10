@@ -2,7 +2,7 @@ package dasel_test
 
 import (
 	"fmt"
-	"github.com/go-nova/third_party/config/storage"
+	"github.com/go-nova/third/config/storage"
 	"github.com/tomwright/dasel"
 	"reflect"
 	"testing"

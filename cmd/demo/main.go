@@ -38,7 +38,6 @@ func main() {
 			servers...,
 		),
 	)
-
 	// 总线服务启动
 	err := exec.Run()
 	if err != nil {

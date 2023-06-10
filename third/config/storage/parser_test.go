@@ -3,7 +3,7 @@ package storage_test
 import (
 	"bytes"
 	"errors"
-	"github.com/go-nova/third_party/config/storage"
+	"github.com/go-nova/third/config/storage"
 	"reflect"
 	"strings"
 	"testing"

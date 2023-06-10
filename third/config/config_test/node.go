@@ -2,7 +2,7 @@ package dasel
 
 import (
 	"fmt"
-	"github.com/go-nova/third_party/config/storage"
+	"github.com/go-nova/third/config/storage"
 	"reflect"
 	"regexp"
 	"strconv"

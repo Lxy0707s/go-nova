@@ -1,0 +1,41 @@
+interface IdInterface {
+    id: Int
+}
+
+input IDArgs {
+    id: Int!
+}
+
+# paginate request parameter
+input Pagination {
+    # 当前所在页数
+    pageNum: Int!,
+    # 当前每页条数
+    pageSize: Int!,
+}
+
+# 分页信息
+type PageInfoType {
+    # 分页的总页数
+    total: Int
+    # 当前页总条数
+    currentNum: Int
+    # 单页设置的条数
+    perPage: Int
+    # 当前分页数
+    currentPage: Int
+}
+
+# 分页信息
+type ResponseType {
+    # 响应码
+    code: Int
+    # 响应消息
+    msg: String
+}
+
+# 时间
+scalar Time
+
+# Json: map[string]interface{}
+scalar Json

@@ -1,0 +1,13 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+# 宙斯graphql所有查询接口
+type Query {
+    net_detect: NetTaskQueryObjectType
+}
+# 宙斯graphql所有修改接口
+type Mutation {
+    net_detect: NetTaskMutationObjectType
+}
+

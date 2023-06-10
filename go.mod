@@ -7,6 +7,8 @@ require (
 	github.com/fsnotify/fsnotify v1.5.4
 	github.com/gin-gonic/gin v1.9.0
 	github.com/go-playground/form/v4 v4.2.0
+	github.com/99designs/gqlgen  v0.17.31
+	github.com/urfave/cli/v2 v2.25.5
 	// github.com/dgrijalva/jwt-go v3
 	github.com/golang-jwt/jwt/v4 v4.4.1
 	github.com/google/uuid v1.3.0
