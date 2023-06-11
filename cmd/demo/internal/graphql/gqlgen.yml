@@ -11,11 +11,12 @@ exec:
 #  package: generated
 
 model:
-  filename: ../dao/model/base_gen.go
-  package: model
+  filename: ../dao/model/gen_model/base_gen.go
+  package: gen_model
 
 autobind:
-  - "../dao/gen_model/user.go"
+  #- "github.com/go-nova/cmd/demo/internal/dao/model"
+  - "github.com/go-nova/cmd/demo/internal/dao/model/gen_model"
 
 resolver:
   layout: follow-schema
@@ -42,7 +43,7 @@ skip_mod_tidy: true
 models:
   User:
     model:
-        - ../dao/model/model_gen.User
+        - ../dao/model.User
   ID:
     model:
       - github.com/99designs/gqlgen/graphql.ID
