@@ -16,6 +16,7 @@ model:
 
 autobind:
   - "github.com/go-nova/cmd/demo/internal/dao/gen_model"
+  - "github.com/go-nova/cmd/demo/internal/dao/model"
 
 resolver:
   layout: follow-schema
@@ -30,7 +31,7 @@ resolver:
 #struct_fields_always_pointers: false
 
 # Optional: set to speed up generation time by not performing a final validation pass.
-skip_validation: true
+# skip_validation: true
 skip_mod_tidy: true
 
 # This section declares type mapping between the GraphQL and go type systems
@@ -40,9 +41,9 @@ skip_mod_tidy: true
 # modelgen, the others will be allowed when binding to fields. Configure them to
 # your liking
 models:
-  User:
-    model:
-        - ../dao/model.User
+#  User:
+#    model:
+#        - ../dao/model.User
   ID:
     model:
       - github.com/99designs/gqlgen/graphql.ID
