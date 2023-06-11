@@ -11,12 +11,11 @@ exec:
 #  package: generated
 
 model:
-  filename: ../dao/model/gen_model/base_gen.go
+  filename: ../dao/gen_model/base_gen.go
   package: gen_model
 
 autobind:
-  #- "github.com/go-nova/cmd/demo/internal/dao/model"
-  - "github.com/go-nova/cmd/demo/internal/dao/model/gen_model"
+  - "github.com/go-nova/cmd/demo/internal/dao/gen_model"
 
 resolver:
   layout: follow-schema
