@@ -1,18 +1,19 @@
 # 声明自定义标量类型
 scalar Int64
 
+type UserQueryObject {
+    user_list(input: UserID): [User!]!
+}
+
+type UserMutationObject {
+    register(input: NewUser!): User!
+}
+
+
 type Mutation {
     User: UserMutationObject
 }
 
 type Query {
     User: UserQueryObject
-}
-
-type UserQueryObject {
-    userList: [User!]!
-}
-
-type UserMutationObject {
-    register(input: NewUser!): [User!]!
 }

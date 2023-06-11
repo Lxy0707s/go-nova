@@ -3,7 +3,7 @@ module github.com/go-nova
 go 1.20
 
 require (
-	github.com/99designs/gqlgen v0.17.32
+	github.com/99designs/gqlgen v0.17.31
 	github.com/fatih/color v1.15.0
 	github.com/fsnotify/fsnotify v1.5.4
 	github.com/gin-gonic/gin v1.9.0
@@ -14,8 +14,7 @@ require (
 	github.com/gorilla/mux v1.8.0
 	github.com/imdario/mergo v0.3.12
 	github.com/tomwright/dasel v1.27.3
-	github.com/urfave/cli/v2 v2.25.5
-	github.com/vektah/gqlparser/v2 v2.5.2-0.20230422221642-25e09f9d292d // indirect
+	github.com/vektah/gqlparser/v2 v2.5.1
 	go.opentelemetry.io/otel v1.10.0
 	go.opentelemetry.io/otel/sdk v1.7.0
 	go.opentelemetry.io/otel/trace v1.10.0
@@ -111,9 +110,14 @@ require (
 	gorm.io/plugin/dbresolver v1.3.0
 )
 
+require github.com/olivere/elastic v6.2.37+incompatible
+
 require (
 	github.com/agnivade/levenshtein v1.1.1 // indirect
-	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
-	github.com/russross/blackfriday/v2 v2.1.0 // indirect
-	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
+	github.com/fortytw2/leaktest v1.3.0 // indirect
+	github.com/hashicorp/golang-lru/v2 v2.0.1 // indirect
+	github.com/josharian/intern v1.0.0 // indirect
+	github.com/mailru/easyjson v0.7.7 // indirect
+	github.com/mitchellh/mapstructure v1.5.0 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
 )
