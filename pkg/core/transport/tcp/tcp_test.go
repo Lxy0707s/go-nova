@@ -20,10 +20,15 @@ func TestName(t *testing.T) {
 	ctx := context.Background()
 	go ins.Start(ctx)
 
-	time.Sleep(time.Second * 5)
-	cli := tcp_client.NewClient()
-	go send(cli)
+	time.Sleep(time.Second * 10)
+
+	cli := tcp_client.NewClient(tcp_client.Option{
+		ServerAddr: "127.0.0.1:8899",
+		Retry:      3,
+	})
 	go cli.Start(ctx)
+	go send(cli)
+
 	<-time.After(time.Second * 15)
 	ins.Stop(ctx)
 	cli.Stop(ctx)

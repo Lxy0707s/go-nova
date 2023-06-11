@@ -1,0 +1,16 @@
+type User {
+    id: Int64!
+    name: String!
+    address: String!
+    email: String!
+}
+
+input NewUser {
+    name: String!
+    address: String!
+    email: String!
+}
+
+input UserID {
+    id: Int64!
+}

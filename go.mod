@@ -3,18 +3,19 @@ module github.com/go-nova
 go 1.20
 
 require (
+	github.com/99designs/gqlgen v0.17.32
 	github.com/fatih/color v1.15.0
 	github.com/fsnotify/fsnotify v1.5.4
 	github.com/gin-gonic/gin v1.9.0
 	github.com/go-playground/form/v4 v4.2.0
-	github.com/99designs/gqlgen  v0.17.31
-	github.com/urfave/cli/v2 v2.25.5
 	// github.com/dgrijalva/jwt-go v3
 	github.com/golang-jwt/jwt/v4 v4.4.1
 	github.com/google/uuid v1.3.0
 	github.com/gorilla/mux v1.8.0
 	github.com/imdario/mergo v0.3.12
 	github.com/tomwright/dasel v1.27.3
+	github.com/urfave/cli/v2 v2.25.5
+	github.com/vektah/gqlparser/v2 v2.5.2-0.20230422221642-25e09f9d292d // indirect
 	go.opentelemetry.io/otel v1.10.0
 	go.opentelemetry.io/otel/sdk v1.7.0
 	go.opentelemetry.io/otel/trace v1.10.0
@@ -62,17 +63,17 @@ require (
 )
 
 require (
+	github.com/aceld/zinx v1.1.21
 	github.com/clbanning/mxj/v2 v2.3.3-0.20201214204241-e937bdee5a3e
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da
+	github.com/gorilla/websocket v1.5.0 // indirect
 	//github.com/panjf2000/gnet v1.6.7
 	github.com/shirou/gopsutil/v3 v3.23.4
 	github.com/stretchr/testify v1.8.2
 	github.com/tidwall/gjson v1.14.4
-	github.com/twmb/murmur3 v1.1.7
-	github.com/aceld/zinx v1.1.21
-	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/tidwall/match v1.1.1 // indirect
 	github.com/tidwall/pretty v1.2.0 // indirect
+	github.com/twmb/murmur3 v1.1.7
 )
 
 require (
@@ -100,12 +101,19 @@ require (
 	github.com/tklauser/go-sysconf v0.3.11 // indirect
 	github.com/tklauser/numcpus v0.6.0 // indirect
 	github.com/yusufpapurcu/wmi v1.2.2 // indirect
-	golang.org/x/mod v0.6.0-dev.0.20220419223038-86c51ed26bb4 // indirect
-	golang.org/x/tools v0.1.12 // indirect
+	golang.org/x/mod v0.8.0 // indirect
+	golang.org/x/tools v0.6.0 // indirect
 	gorm.io/datatypes v1.1.1-0.20230130040222-c43177d3cf8c // indirect
 	gorm.io/driver/mysql v1.4.4
 	gorm.io/gen v0.3.22
 	gorm.io/gorm v1.24.2
 	gorm.io/hints v1.1.0 // indirect
 	gorm.io/plugin/dbresolver v1.3.0
+)
+
+require (
+	github.com/agnivade/levenshtein v1.1.1 // indirect
+	github.com/cpuguy83/go-md2man/v2 v2.0.2 // indirect
+	github.com/russross/blackfriday/v2 v2.1.0 // indirect
+	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
 )

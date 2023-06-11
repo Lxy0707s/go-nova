@@ -35,21 +35,27 @@ type (
 
 var instance *TcpClient
 
-func NewClient() *TcpClient {
+func NewClient(opt Option) *TcpClient {
 	if instance == nil {
-		conn, err := net.Dial("tcp", "127.0.0.1:8899")
-		if err != nil {
-			fmt.Println("client start err, exit!")
-			return nil
-		}
 		instance = &TcpClient{
+			option:  opt,
 			revChan: make(chan int, 1),
-			conn:    conn,
 			dp:      zpack.Factory().NewPack(ziface.ZinxDataPack),
 		}
 	}
-	fmt.Println("tcp client start.")
+	instance.initTcpClient()
 	return instance
+}
+
+func (cli *TcpClient) initTcpClient() error {
+	conn, err := net.Dial("tcp", cli.option.ServerAddr) //"127.0.0.1:8899")
+	if err != nil {
+		fmt.Println("client start err, exit!")
+		return nil
+	}
+	cli.conn = conn
+	fmt.Println("tcp client start.")
+	return nil
 }
 
 func (cli *TcpClient) Start(ctx context.Context) error {
@@ -88,9 +94,9 @@ func (cli *TcpClient) recv() {
 		fmt.Println(err.Error())
 	}
 
-	if msgHead.GetDataLen() == 0 {
-		fmt.Println(err.Error())
-	}
+	//if msgHead.GetDataLen() == 0 {
+	//	fmt.Println(err.Error())
+	//}
 	msg := msgHead.(*zpack.Message)
 	msg.Data = make([]byte, msg.GetDataLen())
 	_, err = io.ReadFull(cli.conn, msg.Data)

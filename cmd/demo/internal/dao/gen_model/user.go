@@ -1,4 +1,4 @@
-package model
+package gen_model
 
 type User struct {
 	ID      int64  `json:"id,omitempty" gorm:"column:id;primary_key"`
