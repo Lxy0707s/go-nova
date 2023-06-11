@@ -1,4 +1,4 @@
-package dao
+package main
 
 import (
 	"github.com/go-nova/cmd/demo/internal/dao/model"
@@ -14,8 +14,9 @@ type Querier interface {
 }
 
 func main() {
+	var moduleName = "demo"
 	g := gen.NewGenerator(gen.Config{
-		OutPath: "./cmd/demo/internal/dao/dal",
+		OutPath: "./cmd/demo/module/" + moduleName + "/query",
 		Mode:    gen.WithoutContext | gen.WithDefaultQuery | gen.WithQueryInterface, // generate mode
 	})
 

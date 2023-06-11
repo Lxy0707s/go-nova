@@ -7,29 +7,31 @@ package graph
 import (
 	"context"
 	"fmt"
+	"github.com/go-nova/cmd/demo/module/demo/user_graphql/user_query"
 
-	"github.com/go-nova/cmd/demo/internal/dao/gen_model"
+	"github.com/go-nova/cmd/demo/internal/dao/model"
 	"github.com/go-nova/cmd/demo/internal/graphql/generated"
 )
 
 // User is the resolver for the User field.
-func (r *mutationResolver) User(ctx context.Context) (*gen_model.UserMutationObject, error) {
-	panic(fmt.Errorf("not implemented: User - User"))
+func (r *mutationResolver) User(ctx context.Context) (*model.UserMutationObject, error) {
+	return &model.UserMutationObject{}, nil
 }
 
 // User is the resolver for the User field.
-func (r *queryResolver) User(ctx context.Context) (*gen_model.UserQueryObject, error) {
-	panic(fmt.Errorf("not implemented: User - User"))
+func (r *queryResolver) User(ctx context.Context) (*model.UserQueryObject, error) {
+	return &model.UserQueryObject{}, nil
 }
 
 // Register is the resolver for the register field.
-func (r *userMutationObjectResolver) Register(ctx context.Context, obj *gen_model.UserMutationObject, input gen_model.NewUser) (*gen_model.User, error) {
+func (r *userMutationObjectResolver) Register(ctx context.Context, obj *model.UserMutationObject, input model.NewUser) (*model.User, error) {
 	panic(fmt.Errorf("not implemented: Register - register"))
 }
 
 // UserList is the resolver for the user_list field.
-func (r *userQueryObjectResolver) UserList(ctx context.Context, obj *gen_model.UserQueryObject, input *gen_model.UserID) ([]*gen_model.User, error) {
-	panic(fmt.Errorf("not implemented: UserList - user_list"))
+func (r *userQueryObjectResolver) UserList(ctx context.Context, obj *model.UserQueryObject, input *model.UserID) ([]*model.User, error) {
+	var res = &user_query.QueryResolver{}
+	return res.UserList(ctx, input)
 }
 
 // Mutation returns generated.MutationResolver implementation.

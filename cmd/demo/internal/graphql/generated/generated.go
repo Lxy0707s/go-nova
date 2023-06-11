@@ -13,7 +13,7 @@ import (
 
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/introspection"
-	"github.com/go-nova/cmd/demo/internal/dao/gen_model"
+	"github.com/go-nova/cmd/demo/internal/dao/model"
 	gqlparser "github.com/vektah/gqlparser/v2"
 	"github.com/vektah/gqlparser/v2/ast"
 )
@@ -62,25 +62,25 @@ type ComplexityRoot struct {
 	}
 
 	UserMutationObject struct {
-		Register func(childComplexity int, input gen_model.NewUser) int
+		Register func(childComplexity int, input model.NewUser) int
 	}
 
 	UserQueryObject struct {
-		UserList func(childComplexity int, input *gen_model.UserID) int
+		UserList func(childComplexity int, input *model.UserID) int
 	}
 }
 
 type MutationResolver interface {
-	User(ctx context.Context) (*gen_model.UserMutationObject, error)
+	User(ctx context.Context) (*model.UserMutationObject, error)
 }
 type QueryResolver interface {
-	User(ctx context.Context) (*gen_model.UserQueryObject, error)
+	User(ctx context.Context) (*model.UserQueryObject, error)
 }
 type UserMutationObjectResolver interface {
-	Register(ctx context.Context, obj *gen_model.UserMutationObject, input gen_model.NewUser) (*gen_model.User, error)
+	Register(ctx context.Context, obj *model.UserMutationObject, input model.NewUser) (*model.User, error)
 }
 type UserQueryObjectResolver interface {
-	UserList(ctx context.Context, obj *gen_model.UserQueryObject, input *gen_model.UserID) ([]*gen_model.User, error)
+	UserList(ctx context.Context, obj *model.UserQueryObject, input *model.UserID) ([]*model.User, error)
 }
 
 type executableSchema struct {
@@ -150,7 +150,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.UserMutationObject.Register(childComplexity, args["input"].(gen_model.NewUser)), true
+		return e.complexity.UserMutationObject.Register(childComplexity, args["input"].(model.NewUser)), true
 
 	case "UserQueryObject.user_list":
 		if e.complexity.UserQueryObject.UserList == nil {
@@ -162,7 +162,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.UserQueryObject.UserList(childComplexity, args["input"].(*gen_model.UserID)), true
+		return e.complexity.UserQueryObject.UserList(childComplexity, args["input"].(*model.UserID)), true
 
 	}
 	return 0, false
@@ -295,10 +295,10 @@ func (ec *executionContext) field_Query___type_args(ctx context.Context, rawArgs
 func (ec *executionContext) field_UserMutationObject_register_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 gen_model.NewUser
+	var arg0 model.NewUser
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNNewUser2githubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋgen_modelᚐNewUser(ctx, tmp)
+		arg0, err = ec.unmarshalNNewUser2githubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋmodelᚐNewUser(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -310,10 +310,10 @@ func (ec *executionContext) field_UserMutationObject_register_args(ctx context.C
 func (ec *executionContext) field_UserQueryObject_user_list_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *gen_model.UserID
+	var arg0 *model.UserID
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalOUserID2ᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋgen_modelᚐUserID(ctx, tmp)
+		arg0, err = ec.unmarshalOUserID2ᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋmodelᚐUserID(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -383,9 +383,9 @@ func (ec *executionContext) _Mutation_User(ctx context.Context, field graphql.Co
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*gen_model.UserMutationObject)
+	res := resTmp.(*model.UserMutationObject)
 	fc.Result = res
-	return ec.marshalOUserMutationObject2ᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋgen_modelᚐUserMutationObject(ctx, field.Selections, res)
+	return ec.marshalOUserMutationObject2ᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋmodelᚐUserMutationObject(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Mutation_User(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -428,9 +428,9 @@ func (ec *executionContext) _Query_User(ctx context.Context, field graphql.Colle
 	if resTmp == nil {
 		return graphql.Null
 	}
-	res := resTmp.(*gen_model.UserQueryObject)
+	res := resTmp.(*model.UserQueryObject)
 	fc.Result = res
-	return ec.marshalOUserQueryObject2ᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋgen_modelᚐUserQueryObject(ctx, field.Selections, res)
+	return ec.marshalOUserQueryObject2ᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋmodelᚐUserQueryObject(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_Query_User(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -579,7 +579,7 @@ func (ec *executionContext) fieldContext_Query___schema(ctx context.Context, fie
 	return fc, nil
 }
 
-func (ec *executionContext) _User_id(ctx context.Context, field graphql.CollectedField, obj *gen_model.User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_id(ctx context.Context, field graphql.CollectedField, obj *model.User) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_User_id(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -623,7 +623,7 @@ func (ec *executionContext) fieldContext_User_id(ctx context.Context, field grap
 	return fc, nil
 }
 
-func (ec *executionContext) _User_name(ctx context.Context, field graphql.CollectedField, obj *gen_model.User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_name(ctx context.Context, field graphql.CollectedField, obj *model.User) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_User_name(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -667,7 +667,7 @@ func (ec *executionContext) fieldContext_User_name(ctx context.Context, field gr
 	return fc, nil
 }
 
-func (ec *executionContext) _User_address(ctx context.Context, field graphql.CollectedField, obj *gen_model.User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_address(ctx context.Context, field graphql.CollectedField, obj *model.User) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_User_address(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -711,7 +711,7 @@ func (ec *executionContext) fieldContext_User_address(ctx context.Context, field
 	return fc, nil
 }
 
-func (ec *executionContext) _User_email(ctx context.Context, field graphql.CollectedField, obj *gen_model.User) (ret graphql.Marshaler) {
+func (ec *executionContext) _User_email(ctx context.Context, field graphql.CollectedField, obj *model.User) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_User_email(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -755,7 +755,7 @@ func (ec *executionContext) fieldContext_User_email(ctx context.Context, field g
 	return fc, nil
 }
 
-func (ec *executionContext) _UserMutationObject_register(ctx context.Context, field graphql.CollectedField, obj *gen_model.UserMutationObject) (ret graphql.Marshaler) {
+func (ec *executionContext) _UserMutationObject_register(ctx context.Context, field graphql.CollectedField, obj *model.UserMutationObject) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_UserMutationObject_register(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -769,7 +769,7 @@ func (ec *executionContext) _UserMutationObject_register(ctx context.Context, fi
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.UserMutationObject().Register(rctx, obj, fc.Args["input"].(gen_model.NewUser))
+		return ec.resolvers.UserMutationObject().Register(rctx, obj, fc.Args["input"].(model.NewUser))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -781,9 +781,9 @@ func (ec *executionContext) _UserMutationObject_register(ctx context.Context, fi
 		}
 		return graphql.Null
 	}
-	res := resTmp.(*gen_model.User)
+	res := resTmp.(*model.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋgen_modelᚐUser(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋmodelᚐUser(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_UserMutationObject_register(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -820,7 +820,7 @@ func (ec *executionContext) fieldContext_UserMutationObject_register(ctx context
 	return fc, nil
 }
 
-func (ec *executionContext) _UserQueryObject_user_list(ctx context.Context, field graphql.CollectedField, obj *gen_model.UserQueryObject) (ret graphql.Marshaler) {
+func (ec *executionContext) _UserQueryObject_user_list(ctx context.Context, field graphql.CollectedField, obj *model.UserQueryObject) (ret graphql.Marshaler) {
 	fc, err := ec.fieldContext_UserQueryObject_user_list(ctx, field)
 	if err != nil {
 		return graphql.Null
@@ -834,7 +834,7 @@ func (ec *executionContext) _UserQueryObject_user_list(ctx context.Context, fiel
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.UserQueryObject().UserList(rctx, obj, fc.Args["input"].(*gen_model.UserID))
+		return ec.resolvers.UserQueryObject().UserList(rctx, obj, fc.Args["input"].(*model.UserID))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -846,9 +846,9 @@ func (ec *executionContext) _UserQueryObject_user_list(ctx context.Context, fiel
 		}
 		return graphql.Null
 	}
-	res := resTmp.([]*gen_model.User)
+	res := resTmp.([]*model.User)
 	fc.Result = res
-	return ec.marshalNUser2ᚕᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋgen_modelᚐUserᚄ(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚕᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋmodelᚐUserᚄ(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) fieldContext_UserQueryObject_user_list(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
@@ -2658,8 +2658,8 @@ func (ec *executionContext) fieldContext___Type_specifiedByURL(ctx context.Conte
 
 // region    **************************** input.gotpl *****************************
 
-func (ec *executionContext) unmarshalInputNewUser(ctx context.Context, obj interface{}) (gen_model.NewUser, error) {
-	var it gen_model.NewUser
+func (ec *executionContext) unmarshalInputNewUser(ctx context.Context, obj interface{}) (model.NewUser, error) {
+	var it model.NewUser
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -2705,8 +2705,8 @@ func (ec *executionContext) unmarshalInputNewUser(ctx context.Context, obj inter
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputUserID(ctx context.Context, obj interface{}) (gen_model.UserID, error) {
-	var it gen_model.UserID
+func (ec *executionContext) unmarshalInputUserID(ctx context.Context, obj interface{}) (model.UserID, error) {
+	var it model.UserID
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -2842,7 +2842,7 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 
 var userImplementors = []string{"User"}
 
-func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj *gen_model.User) graphql.Marshaler {
+func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj *model.User) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, userImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
@@ -2891,7 +2891,7 @@ func (ec *executionContext) _User(ctx context.Context, sel ast.SelectionSet, obj
 
 var userMutationObjectImplementors = []string{"UserMutationObject"}
 
-func (ec *executionContext) _UserMutationObject(ctx context.Context, sel ast.SelectionSet, obj *gen_model.UserMutationObject) graphql.Marshaler {
+func (ec *executionContext) _UserMutationObject(ctx context.Context, sel ast.SelectionSet, obj *model.UserMutationObject) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, userMutationObjectImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
@@ -2932,7 +2932,7 @@ func (ec *executionContext) _UserMutationObject(ctx context.Context, sel ast.Sel
 
 var userQueryObjectImplementors = []string{"UserQueryObject"}
 
-func (ec *executionContext) _UserQueryObject(ctx context.Context, sel ast.SelectionSet, obj *gen_model.UserQueryObject) graphql.Marshaler {
+func (ec *executionContext) _UserQueryObject(ctx context.Context, sel ast.SelectionSet, obj *model.UserQueryObject) graphql.Marshaler {
 	fields := graphql.CollectFields(ec.OperationContext, sel, userQueryObjectImplementors)
 	out := graphql.NewFieldSet(fields)
 	var invalids uint32
@@ -3319,7 +3319,7 @@ func (ec *executionContext) marshalNInt642int64(ctx context.Context, sel ast.Sel
 	return res
 }
 
-func (ec *executionContext) unmarshalNNewUser2githubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋgen_modelᚐNewUser(ctx context.Context, v interface{}) (gen_model.NewUser, error) {
+func (ec *executionContext) unmarshalNNewUser2githubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋmodelᚐNewUser(ctx context.Context, v interface{}) (model.NewUser, error) {
 	res, err := ec.unmarshalInputNewUser(ctx, v)
 	return res, graphql.ErrorOnPath(ctx, err)
 }
@@ -3339,11 +3339,11 @@ func (ec *executionContext) marshalNString2string(ctx context.Context, sel ast.S
 	return res
 }
 
-func (ec *executionContext) marshalNUser2githubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋgen_modelᚐUser(ctx context.Context, sel ast.SelectionSet, v gen_model.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2githubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v model.User) graphql.Marshaler {
 	return ec._User(ctx, sel, &v)
 }
 
-func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋgen_modelᚐUserᚄ(ctx context.Context, sel ast.SelectionSet, v []*gen_model.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋmodelᚐUserᚄ(ctx context.Context, sel ast.SelectionSet, v []*model.User) graphql.Marshaler {
 	ret := make(graphql.Array, len(v))
 	var wg sync.WaitGroup
 	isLen1 := len(v) == 1
@@ -3367,7 +3367,7 @@ func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋ
 			if !isLen1 {
 				defer wg.Done()
 			}
-			ret[i] = ec.marshalNUser2ᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋgen_modelᚐUser(ctx, sel, v[i])
+			ret[i] = ec.marshalNUser2ᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋmodelᚐUser(ctx, sel, v[i])
 		}
 		if isLen1 {
 			f(i)
@@ -3387,7 +3387,7 @@ func (ec *executionContext) marshalNUser2ᚕᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋ
 	return ret
 }
 
-func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋgen_modelᚐUser(ctx context.Context, sel ast.SelectionSet, v *gen_model.User) graphql.Marshaler {
+func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *model.User) graphql.Marshaler {
 	if v == nil {
 		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
 			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
@@ -3692,7 +3692,7 @@ func (ec *executionContext) marshalOString2ᚖstring(ctx context.Context, sel as
 	return res
 }
 
-func (ec *executionContext) unmarshalOUserID2ᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋgen_modelᚐUserID(ctx context.Context, v interface{}) (*gen_model.UserID, error) {
+func (ec *executionContext) unmarshalOUserID2ᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋmodelᚐUserID(ctx context.Context, v interface{}) (*model.UserID, error) {
 	if v == nil {
 		return nil, nil
 	}
@@ -3700,14 +3700,14 @@ func (ec *executionContext) unmarshalOUserID2ᚖgithubᚗcomᚋgoᚑnovaᚋcmd�
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) marshalOUserMutationObject2ᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋgen_modelᚐUserMutationObject(ctx context.Context, sel ast.SelectionSet, v *gen_model.UserMutationObject) graphql.Marshaler {
+func (ec *executionContext) marshalOUserMutationObject2ᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋmodelᚐUserMutationObject(ctx context.Context, sel ast.SelectionSet, v *model.UserMutationObject) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}
 	return ec._UserMutationObject(ctx, sel, v)
 }
 
-func (ec *executionContext) marshalOUserQueryObject2ᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋgen_modelᚐUserQueryObject(ctx context.Context, sel ast.SelectionSet, v *gen_model.UserQueryObject) graphql.Marshaler {
+func (ec *executionContext) marshalOUserQueryObject2ᚖgithubᚗcomᚋgoᚑnovaᚋcmdᚋdemoᚋinternalᚋdaoᚋmodelᚐUserQueryObject(ctx context.Context, sel ast.SelectionSet, v *model.UserQueryObject) graphql.Marshaler {
 	if v == nil {
 		return graphql.Null
 	}

@@ -3,7 +3,7 @@ package user_service
 import (
 	"github.com/go-nova/cmd/demo/internal/dao"
 	"github.com/go-nova/cmd/demo/internal/dao/model"
-	"github.com/go-nova/cmd/demo/module/demo/dal"
+	"github.com/go-nova/cmd/demo/module/demo/query"
 )
 
 func QueryUser() *model.User {
@@ -13,10 +13,10 @@ func QueryUser() *model.User {
 	// 连接数据库
 	db := dao.NovaDao()
 
-	dal.SetDefault(db)
+	query.SetDefault(db)
 
 	// query the first user
-	user, _ := dal.Q.User.First()
+	user, _ := query.Q.User.First()
 
 	return user
 }

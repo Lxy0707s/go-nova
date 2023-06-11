@@ -24,5 +24,6 @@ func useGinHttpServer(httpSrv *khttp.Server) {
 	// 使用kratos中间件
 	r.Use(kgin.Middlewares(recovery.Recovery(), middleware.CustomMiddleware)) //middleware.CustomMiddleware
 	go RegisterRestfulRouteV1(r, nil)
+	go RegisterGraphqlRoute(r)
 	httpSrv.HandlePrefix("/", r)
 }
