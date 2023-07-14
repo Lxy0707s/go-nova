@@ -1,4 +1,4 @@
-import {CrownFilled, SmileFilled} from "@ant-design/icons";
+import {SmileFilled} from "@ant-design/icons";
 import React from "react";
 
 

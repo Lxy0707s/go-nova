@@ -25,7 +25,7 @@ const UserList: React.FC<ManagerProps> = inject("managerStore")(
 
         return (
             <ProTable<UserType>
-                rowKey="key"
+                rowKey="id"
                 columns={userColumns}
                 pagination={{
                     showSizeChanger: true,

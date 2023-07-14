@@ -1,6 +1,6 @@
 
 export interface UserType {
-    key?:      number;
+    id?:      number;
     username?: string;
     password?: string;
     email?: string;
@@ -12,6 +12,7 @@ export interface UserType {
 export const defaultDatas = {
     userList: [
         {
+            id: 1,
             username: "张三",
             password: "********",
             email: "1234@qq.com",
@@ -20,6 +21,7 @@ export const defaultDatas = {
             status: "请假"
         },
         {
+            id: 2,
             username: "李四",
             password: "********",
             email: "2353454@qq.com",
@@ -28,6 +30,7 @@ export const defaultDatas = {
             status: "正常"
         },
         {
+            id: 3,
             username: "王风",
             password: "********",
             email: "5457687686@qq.com",
@@ -36,6 +39,7 @@ export const defaultDatas = {
             status: "出差"
         },
         {
+            id: 4,
             username: "西奥",
             password: "********",
             email: "5645765765@qq.com",

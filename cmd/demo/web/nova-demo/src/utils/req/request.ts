@@ -57,7 +57,6 @@ export default class HttpReq {
                 .then(response => {
                     return response.data;
                 }).catch((err)=>{
-                    console.log("请求出错",this.url)
                     return null
                 });
         }

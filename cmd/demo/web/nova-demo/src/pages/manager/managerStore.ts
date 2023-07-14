@@ -17,8 +17,9 @@ class ManagerStore {
         this.loading = true;
         const dataJson = await userDataApi();
         action(() => {
-            this.userList = dataJson ? dataJson: defaultDatas.userList;
+            this.userList = dataJson != null ? dataJson: defaultDatas.userList;
         })();
+        console.log("user: ",this.userList)
     }
 
 }
