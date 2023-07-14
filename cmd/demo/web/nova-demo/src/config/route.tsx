@@ -1,6 +1,6 @@
 import {RouteObject} from "react-router-dom";
 import {useRoutesWithMiddleware} from 'react-router-middleware-plus';
-import {HomeRoute} from "@/config/app";
+import {HomeRoute, ManagerRoute} from "@/config/app";
 import {AppLayout} from "@/components/layout";
 
 
@@ -10,6 +10,7 @@ const routes: RouteObject[] = [
         element: <AppLayout/>,
         children: [
             ...HomeRoute,
+            ...ManagerRoute,
             {
                 path: '/*',
                 element: <div>NotFound</div>,

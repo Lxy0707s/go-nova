@@ -5,6 +5,7 @@ import {BrowserRouter} from "react-router-dom";
 import AppRoute from "@/config/route";
 import {Provider} from "mobx-react";
 import './index.css';
+import {rootStore} from "@/pages/rootStore";
 
 
 const root = ReactDOM.createRoot(
@@ -12,7 +13,7 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-    <Provider>
+    <Provider {...rootStore}>
         <BrowserRouter>
             <AppRoute/>
         </BrowserRouter>

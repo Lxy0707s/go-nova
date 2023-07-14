@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.extend.json",
   "compilerOptions": {
+    "experimentalDecorators": true,
     "target": "es5",
     "lib": [
       "dom",
