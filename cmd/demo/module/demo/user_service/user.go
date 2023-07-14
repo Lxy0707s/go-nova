@@ -6,7 +6,7 @@ import (
 	"github.com/go-nova/cmd/demo/module/demo/query"
 )
 
-func QueryUser() *model.User {
+func QueryUser() []model.User {
 	// 数据库连接信息
 	// dsn := "root:admin123@tcp(127.0.0.1:3306)/nova?charset=utf8mb4&parseTime=True&loc=Local"
 
@@ -15,8 +15,12 @@ func QueryUser() *model.User {
 
 	query.SetDefault(db)
 
+	var User []model.User
 	// query the first user
-	user, _ := query.Q.User.First()
+	err := query.Q.User.Scan(&User)
+	if err != nil {
+		return nil
+	}
 
-	return user
+	return User
 }

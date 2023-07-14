@@ -1,5 +1,6 @@
 import HttpReq, {GqlReq} from "@/utils/req/request";
 import {gql} from "apollo-boost";
+import {ContentType} from "@/utils/req/rest.fun";
 
 
 export const detailsApi = () => {
@@ -12,7 +13,13 @@ export const detailsApi = () => {
 
 export const userDataApi = () => {
     return new HttpReq().withMethod("GET")
-        .withUrl("/api/v1/user-list")
+        .withUrl("/api/v1/user")
+        .withHeader({
+            'Content-Type': ContentType.json,
+            'Access-Control-Allow-Origin':'*',
+            'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
+            'Access-Control-Allow-Methods': 'PUT,POST,GET,DELETE,OPTIONS'
+        })
         .withBody(null)
         .withDataType("json")
         .reqFun();

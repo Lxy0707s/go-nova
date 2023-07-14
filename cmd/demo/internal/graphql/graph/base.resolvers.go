@@ -7,10 +7,9 @@ package graph
 import (
 	"context"
 	"fmt"
-	"github.com/go-nova/cmd/demo/module/demo/user_graphql/user_query"
-
 	"github.com/go-nova/cmd/demo/internal/dao/model"
 	"github.com/go-nova/cmd/demo/internal/graphql/generated"
+	"github.com/go-nova/cmd/demo/module/demo/user_graphql/user_query"
 )
 
 // User is the resolver for the User field.
@@ -30,8 +29,8 @@ func (r *userMutationObjectResolver) Register(ctx context.Context, obj *model.Us
 
 // UserList is the resolver for the user_list field.
 func (r *userQueryObjectResolver) UserList(ctx context.Context, obj *model.UserQueryObject, input *model.UserID) ([]*model.User, error) {
-	var res = &user_query.QueryResolver{}
-	return res.UserList(ctx, input)
+	var userQuery = &user_query.QueryResolver{}
+	return userQuery.UserList(ctx, input)
 }
 
 // Mutation returns generated.MutationResolver implementation.

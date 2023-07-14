@@ -6,12 +6,24 @@ import (
 	"github.com/go-nova/pkg/common/middleware"
 	thttp "github.com/go-nova/pkg/core/transport/http"
 	"github.com/go-nova/pkg/utils/errors"
+	"net/http"
 )
 
 // Middlewares return middlewares wrapper
 func Middlewares(m ...middleware.Middleware) gin.HandlerFunc {
 	chain := middleware.Chain(m...)
 	return func(c *gin.Context) {
+		method := c.Request.Method
+
+		c.Header("Access-Control-Allow-Origin", "*")
+		c.Header("Access-Control-Allow-Headers", "Content-Type,AccessToken,X-CSRF-Token, Authorization, Token")
+		c.Header("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+		c.Header("Access-Control-Expose-Headers", "Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type")
+		c.Header("Access-Control-Allow-Credentials", "true")
+		if method == "OPTIONS" {
+			c.AbortWithStatus(http.StatusNoContent)
+		}
+		c.Next()
 		next := func(ctx context.Context, req interface{}) (interface{}, error) {
 			c.Next()
 			var err error

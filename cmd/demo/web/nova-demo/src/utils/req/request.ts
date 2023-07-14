@@ -1,7 +1,7 @@
 import {IHeader, IReqConfig, promiseTimeOut, request} from './rest.fun';
 import {newGqlClient} from "@/utils/req/gql.fun";
 
-export const  base_url = "http://127.0.0.1:8080"
+export const  base_url = "http://localhost:8089"
 
 
 // 通用fetch请求封装
@@ -55,7 +55,7 @@ export default class HttpReq {
         if (this.timeout === 0) {
             return request(this.url, this.reqConfig)
                 .then(response => {
-                    return response.data;
+                    return response;
                 }).catch((err)=>{
                     return null
                 });
@@ -63,7 +63,7 @@ export default class HttpReq {
         // 超时封装
         return promiseTimeOut(this.timeout, request(this.url, this.reqConfig)
             .then(response => {
-                return response.data;
+                return response;
             }).catch((err)=>{
                 console.log("请求出错",this.url)
                 return null

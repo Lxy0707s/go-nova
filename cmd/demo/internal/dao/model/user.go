@@ -3,16 +3,21 @@
 package model
 
 type NewUser struct {
-	Name    string `json:"name"`
-	Address string `json:"address"`
-	Email   string `json:"email"`
+	Username string `json:"username"`
+	Address  string `json:"address"`
+	Email    string `json:"email"`
+	Phone    string `json:"phone"`
+	Status   string `json:"status"`
 }
 
 type User struct {
-	ID      int64  `json:"id"`
-	Name    string `json:"name"`
-	Address string `json:"address"`
-	Email   string `json:"email"`
+	ID       int64  `json:"id"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+	Address  string `json:"address"`
+	Email    string `json:"email"`
+	Phone    string `json:"phone"`
+	Status   string `json:"status"`
 }
 
 type UserID struct {

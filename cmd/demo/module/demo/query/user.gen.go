@@ -170,7 +170,7 @@ func (u userDo) FilterWithNameAndRole(name string, role string) (result []model.
 
 	var generateSQL strings.Builder
 	params = append(params, name)
-	generateSQL.WriteString("SELECT * FROM users WHERE name = ? ")
+	generateSQL.WriteString("SELECT * FROM user WHERE name = ? ")
 	if role != "" {
 		params = append(params, role)
 		generateSQL.WriteString("AND role = ? ")

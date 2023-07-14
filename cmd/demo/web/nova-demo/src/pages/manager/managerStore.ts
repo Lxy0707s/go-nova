@@ -15,11 +15,10 @@ class ManagerStore {
 
     @action async queryUserList (){
         this.loading = true;
-        const dataJson = await userDataApi();
+        const dataJson  = await userDataApi();
         action(() => {
             this.userList = dataJson != null ? dataJson: defaultDatas.userList;
         })();
-        console.log("user: ",this.userList)
     }
 
 }

@@ -1,15 +1,20 @@
 
 type User {
     id: Int64!
-    name: String!
+    username: String!
+    password: String!
     address: String!
     email: String!
+    phone: String!
+    status: String!
 }
 
 input NewUser {
-    name: String!
+    username: String!
     address: String!
     email: String!
+    phone: String!
+    status: String!
 }
 
 input UserID {
