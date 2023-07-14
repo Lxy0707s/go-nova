@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/go-nova/cmd/demo/curtain"
+	"github.com/go-nova/cmd/demo/app/curtain"
 	"github.com/go-nova/cmd/demo/internal/api_server"
 	"github.com/go-nova/cmd/demo/internal/config"
 	"github.com/go-nova/cmd/demo/internal/server/sync_client"
