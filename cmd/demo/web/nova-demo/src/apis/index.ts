@@ -1,6 +1,7 @@
-import {detailsApi,userDataApi} from "@/apis/CoreApi";
+import {detailsApi,userDataApi,galApi} from "@/apis/CoreApi";
 
 export {
     userDataApi,
     detailsApi,
+    galApi,
 }

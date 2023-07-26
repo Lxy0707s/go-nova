@@ -29,6 +29,7 @@ func playgroundHandler() gin.HandlerFunc {
 }
 
 func RegisterGraphqlRoute(r *gin.Engine) {
+	//gqlR := r.Group("/graphql")
 	r.POST("/query", graphqlHandler())
 	r.GET("/", playgroundHandler())
 }

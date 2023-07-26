@@ -112,10 +112,9 @@ func (m *Manager) refresh(t int64) {
 }
 
 func (t *target) refresh() bool {
-	st := time.Now()
 	address := t.opt.Address
 	body := t.opt.Body
-	if t.opt.SpecialDeal != nil && t.opt.Name != "all_endpoints" {
+	if t.opt.SpecialDeal != nil {
 		optBak := t.opt.SpecialDeal(t.opt)
 		address = optBak.Address
 		body = optBak.Body
@@ -149,6 +148,5 @@ func (t *target) refresh() bool {
 		}
 		t.opt.Update(result, t.opt.Name)
 	}
-	log.Println("synchronizer : get api data", "api name", t.opt.Name, "address", address, "duration", time.Since(st), "body", string(body), "len", len(result))
 	return true
 }

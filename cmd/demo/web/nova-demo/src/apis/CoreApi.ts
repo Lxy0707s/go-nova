@@ -25,19 +25,15 @@ export const userDataApi = () => {
         .reqFun();
 }
 
-export const galApi = (params: any) => {
+export const galApi = () => {
     const query = gql`
-        query($organization: String!) {
-            organization(login: $organization) {
-                name
-                url
-                repositories(first: 5) {
-                    edges {
-                        node {
-                            name
-                            url
-                        }
-                    }
+        query {
+            User {
+                user_list(input: {id: 1}){
+                    id
+                    username
+                    password
+                    address
                 }
             }
         }
@@ -45,11 +41,16 @@ export const galApi = (params: any) => {
     const client = new GqlReq().gqlClient()
     return client.query({
         query: query,
-        variables: {
-            ...params,
-        },
     })
-        .then(console.log)
+        .then(
+            ({
+                 data: {
+                     User: { user_list },
+                 },
+             }) => {
+                console.log("gql-data: ",user_list[0])
+            }
+        )
         .catch(()=>{
             console.log("gql-err:",query)
         });

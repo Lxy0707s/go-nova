@@ -7,6 +7,7 @@ import (
 	"github.com/go-nova/pkg/common/datas/base_struct"
 	"github.com/go-nova/pkg/core/transport/http_client"
 	"github.com/go-nova/pkg/infrastructure/hash"
+	"log"
 	"sync"
 )
 
@@ -14,10 +15,9 @@ var instance *SyncServer
 
 type (
 	SyncServer struct {
-		lock         sync.RWMutex
-		syncInstance *http_client.Manager
-		apiDataHash  map[string]string
-		//profCount         map[string]*prof.CountBase
+		lock            sync.RWMutex
+		syncInstance    *http_client.Manager
+		apiDataHash     map[string]string
 		getResourceData map[string]RefreshResourceData
 		apiResource     test_api.ApiRes
 		options         Options
@@ -43,8 +43,6 @@ func NewServer(apis Options) *SyncServer {
 		if api.Body != "[]" {
 			if len(api.Token) != 0 {
 				body = []byte(fmt.Sprintf(api.Body, api.Token))
-			} else {
-				body = []byte(fmt.Sprintf(api.Body, "opt.ResourceToken"))
 			}
 		}
 
@@ -71,7 +69,7 @@ func NewServer(apis Options) *SyncServer {
 }
 
 func (sync *SyncServer) Start(ctx context.Context) error {
-	fmt.Println("api sync server start now.")
+	log.Println("api sync server start now.")
 	instance.statusLock.Lock()
 	defer instance.statusLock.Unlock()
 	if !instance.isRunning {
@@ -102,7 +100,7 @@ func (sync *SyncServer) serverBind() {
 // Update be called when synchronizer return message
 func (sync *SyncServer) Update(data []byte, apiName string) {
 	if !instance.refreshHashValue(data, apiName) {
-		//s.log.Info("resource data not fresh:", "apiName: ", apiName)
+		log.Println("resource data not fresh:", "apiName: ", apiName)
 		return
 	}
 	//资源接口数据处理

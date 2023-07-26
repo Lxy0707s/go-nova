@@ -1,5 +1,5 @@
 import {observable, action, makeObservable} from 'mobx';
-import {userDataApi} from "@/apis/CoreApi";
+import {userDataApi,galApi} from "@/apis/CoreApi";
 import {defaultDatas, UserType} from "@/pages/manager/model.interface";
 
 class ManagerStore {
@@ -16,6 +16,7 @@ class ManagerStore {
     @action async queryUserList (){
         this.loading = true;
         const dataJson  = await userDataApi();
+        await galApi()
         action(() => {
             this.userList = dataJson != null ? dataJson: defaultDatas.userList;
         })();
