@@ -49,20 +49,23 @@ func GenServer() []transport.Server {
 	var servers []transport.Server
 	// 加载配置
 	config.InitConfig(configName)
+
 	port := defaultPort
 	if config.AppCfg.Server.Port != 0 {
 		port = ":" + strconv.Itoa(config.AppCfg.Server.Port)
 	}
+
 	// 创建http服务
 	httpSrv := http.NewServer(http.Address(port))
-	// grpcSrv
-	grpcSrv := grpc.NewServer()
-	// tcpServer服务
-	tcpServer := tcp_server.NewServer(config.AppCfg.Zinx)
-	// 自定义服务,用于根据配置的apis发起请求，同步资源
-	selfServ := sync_client.NewServer(config.AppCfg.Apis)
+
 	// 服务列表
-	servers = append(servers, httpSrv, grpcSrv, selfServ, tcpServer)
+	servers = append(
+		servers,
+		httpSrv,
+		grpc.NewServer(), // grpcSrv
+		sync_client.NewServer(config.AppCfg.Apis), // 自定义服务,用于根据配置的apis发起请求，同步资源
+		tcp_server.NewServer(config.AppCfg.Zinx),  // tcpServer服务
+	)
 
 	// 加载数据库
 	dao.Setup(config.AppCfg.Database)
