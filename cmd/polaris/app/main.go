@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/go-nova/cmd/polaris/app/app_log"
 	"github.com/go-nova/cmd/polaris/app/curtain"
 	"github.com/go-nova/cmd/polaris/internal/api_server"
 	"github.com/go-nova/cmd/polaris/internal/config"
@@ -23,17 +22,17 @@ const (
 
 /**
  * 基于kratos开源方案、使用http服务整合gin框架服务
- * 日志常规日志采用各自开源组件自带日志，比如gin, 系统指标日志采用基于zap的json格式，方便后期采集入库
+ * 日志常规日志采用各自开源组件自带日志，比如gin, 系统日志采用基于zap的json格式，方便后期采集入库
  */
 func main() {
 	// 展示欢迎logo
 	curtain.CurtainGenerator(appName, "xuanyu.li", release, buildTime, "")
+	// 设置全局自定义日志组件-zap-json格式
+	app.SetGlobalLogger()
 	// 服务生成，初始化，特殊服务启动
-	logger := app_log.InitLogInstance()
 	servers := GenServer()
 	// 服务集成
 	exec := app.New(
-		app.Logger(*logger),
 		app.Name(appName),
 		app.Version(release),
 		app.BuildTime(buildTime),

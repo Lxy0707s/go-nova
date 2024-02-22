@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"github.com/go-nova/cmd/polaris/internal/server/test_api"
 	"github.com/go-nova/pkg/common/datas/base_struct"
+	"github.com/go-nova/pkg/core/log"
 	"github.com/go-nova/pkg/core/transport/http_client"
 	"github.com/go-nova/pkg/infrastructure/hash"
-	"log"
 	"sync"
 )
 
@@ -69,7 +69,7 @@ func NewServer(apis Options) *SyncServer {
 }
 
 func (sync *SyncServer) Start(ctx context.Context) error {
-	log.Println("api sync server start now.")
+	log.Info("api sync server start now.")
 	instance.statusLock.Lock()
 	defer instance.statusLock.Unlock()
 	if !instance.isRunning {
@@ -102,7 +102,7 @@ func (sync *SyncServer) serverBind() {
 // Update be called when synchronizer return message
 func (sync *SyncServer) Update(data []byte, apiName string) {
 	if !instance.refreshHashValue(data, apiName) {
-		log.Println("resource data not fresh:", "apiName: ", apiName)
+		log.Warn("resource data not fresh:", "apiName: ", apiName)
 		return
 	}
 	//资源接口数据处理
