@@ -27,8 +27,7 @@ const (
 func main() {
 	// 展示欢迎logo
 	curtain.CurtainGenerator(appName, "xuanyu.li", release, buildTime, "")
-	// 设置全局自定义日志组件-zap-json格式
-	app.SetGlobalLogger()
+
 	// 服务生成，初始化，特殊服务启动
 	servers := GenServer()
 	// 服务集成
@@ -36,6 +35,7 @@ func main() {
 		app.Name(appName),
 		app.Version(release),
 		app.BuildTime(buildTime),
+		app.Logger(app.NewAppLogger(appName)),
 		app.Server(
 			servers...,
 		),
@@ -66,7 +66,7 @@ func GenServer() []transport.Server {
 		httpSrv,
 		grpc.NewServer(), // grpcSrv
 		sync_client.NewServer(config.AppCfg.Apis), // 自定义服务,用于根据配置的apis发起请求，同步资源
-		tcp_server.NewServer(config.AppCfg.Zinx),  // tcpServer服务
+		tcp_server.NewServer(config.AppCfg.Zinx),  // tcpServer服务，基于zinx
 	)
 
 	// 加载数据库

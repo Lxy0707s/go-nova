@@ -2,11 +2,12 @@ package app
 
 import (
 	myzap "github.com/go-nova/pkg/contrib/log/zap"
-	"github.com/go-nova/pkg/core/log"
 )
 
-func SetGlobalLogger() {
-	zlog := myzap.NewLoggerInstance("level", "note", "app_log")
+// NewAppLogger 可以单独使用，也可以集成进go-nove的server中作为全局logger使用
+func NewAppLogger(appName string) *myzap.Logger {
+	zlog := myzap.NewLoggerInstance(appName)
 	defer func() { _ = zlog.Close() }()
-	log.SetLogger(zlog)
+
+	return zlog
 }

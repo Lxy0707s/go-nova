@@ -3,7 +3,7 @@ package app
 import (
 	"context"
 	"errors"
-	"github.com/go-nova/pkg/core/log"
+	log2 "github.com/go-nova/pkg/core/log"
 	"os"
 	"os/signal"
 	"sync"
@@ -50,7 +50,7 @@ func New(opts ...Option) *App {
 		opt(&o)
 	}
 	if o.logger != nil {
-		log.SetLogger(o.logger)
+		log2.SetLogger(o.logger)
 	}
 	ctx, cancel := context.WithCancel(o.ctx)
 	return &App{

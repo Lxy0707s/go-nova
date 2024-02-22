@@ -1,6 +1,8 @@
 package test_api
 
-import "fmt"
+import (
+	log2 "github.com/go-nova/pkg/core/log"
+)
 
 type ApiRes struct {
 }
@@ -10,5 +12,5 @@ func (api ApiRes) ApiName() string {
 }
 
 func (api ApiRes) Refresh(data []byte) {
-	fmt.Println("收到测试结果: ", string(data))
+	log2.Infow("fetch_data", string(data))
 }

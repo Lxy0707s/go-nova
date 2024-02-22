@@ -1,18 +1,18 @@
 package config
 
 import (
-	"fmt"
 	"github.com/aceld/zinx/zconf"
 	"github.com/go-nova/pkg/common/config"
 	"github.com/go-nova/pkg/common/config/file"
 	"github.com/go-nova/pkg/common/dao"
 	"github.com/go-nova/pkg/common/datas/base_struct"
+	log2 "github.com/go-nova/pkg/core/log"
 	"github.com/go-nova/pkg/utils/fileops"
 	"github.com/tomwright/dasel"
 	"github.com/tomwright/dasel/storage"
 )
 
-const defaultConfigName = "./cmd/demo/config.yml"
+const defaultConfigName = "./cmd/polaris/config.yml"
 
 var AppCfg *Config
 
@@ -60,13 +60,13 @@ func InitConfig(configName string) {
 	)
 
 	if err := c.Load(); err != nil {
-		fmt.Println(err.Error())
+		log2.Errorw("error", err.Error())
 		return
 	}
 	// 解析配置文件
 	var cfg Config
 	if err := c.Scan(&cfg); err != nil {
-		fmt.Println(err.Error())
+		log2.Errorw("error", err.Error())
 		return
 	}
 	if &cfg.Server != nil {
@@ -89,13 +89,13 @@ func UpdateWithDasel(fileName string) {
 	}
 	parser, err := storage.NewReadParserFromFilename(filePath)
 	if err != nil {
-		fmt.Println("could not get parser: ", err.Error())
+		log2.Errorw("error", "could not get parser, "+err.Error())
 		return
 	}
 
 	data, err := storage.LoadFromFile(filePath, parser)
 	if err != nil {
-		fmt.Println("could not load value from file:", err.Error())
+		log2.Errorw("error", "could not load value from file, "+err.Error())
 		return
 	}
 
@@ -106,7 +106,7 @@ func UpdateWithDasel(fileName string) {
 
 	err = rootNode.WriteToFile("new_"+filePath, "json", nil)
 	if err != nil {
-		fmt.Println(err.Error())
+		log2.Errorw("error", err.Error())
 	}
 
 	// k, err := dasel.New(value).Query(".colourCodes")
