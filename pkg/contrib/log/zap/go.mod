@@ -1,4 +1,4 @@
-module github.com/go-nova/pkg/contrib/log/zap/v2
+module github.com/go-nova/pkg/contrib/log/zap
 
 go 1.16
 

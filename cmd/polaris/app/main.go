@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/go-nova/cmd/polaris/app/app_log"
 	"github.com/go-nova/cmd/polaris/app/curtain"
 	"github.com/go-nova/cmd/polaris/internal/api_server"
 	"github.com/go-nova/cmd/polaris/internal/config"
@@ -28,9 +29,11 @@ func main() {
 	// 展示欢迎logo
 	curtain.CurtainGenerator(appName, "xuanyu.li", release, buildTime, "")
 	// 服务生成，初始化，特殊服务启动
+	logger := app_log.InitLogInstance()
 	servers := GenServer()
 	// 服务集成
 	exec := app.New(
+		app.Logger(*logger),
 		app.Name(appName),
 		app.Version(release),
 		app.BuildTime(buildTime),
