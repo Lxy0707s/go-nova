@@ -18,7 +18,7 @@ func TestServer(t *testing.T) {
 		WithAddress(":8800"),
 	)
 
-	srv.Handle("/query", nil) //api.NewExecutableSchema(api.Config{Resolvers: &resolver{}}))
+	srv.Handle("/query") //api.NewExecutableSchema(api.Config{Resolvers: &resolver{}}))
 
 	if err := srv.Start(ctx); err != nil {
 		panic(err)

@@ -4,7 +4,6 @@ import (
 	"context"
 	"crypto/tls"
 	"errors"
-	"github.com/99designs/gqlgen/graphql"
 	"github.com/go-nova/pkg/core/log"
 	"github.com/gorilla/mux"
 	"net"
@@ -14,7 +13,6 @@ import (
 
 type Server struct {
 	*http.Server
-	es graphql.ExecutableSchema
 
 	lis     net.Listener
 	tlsConf *tls.Config

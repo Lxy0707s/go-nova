@@ -1,0 +1,34 @@
+type User {
+    # uid
+    uid: Int
+    # 用户名
+    username: String!
+    # 用户密码
+    password: String!
+    # 地址
+    address: String!
+    # 邮箱
+    email: String!
+    # 联系电话
+    phone: String!
+    # 是否启用
+    conditions: Int!
+    # 角色id
+    role_id: Int!
+    # 简介
+    desc: String
+}
+
+input NewUser {
+    username: String!
+    password: String!
+    address: String!
+    email: String!
+    phone: String!
+    conditions: Int!
+}
+
+input UserID {
+    # 查询ID
+    id: Int!
+}

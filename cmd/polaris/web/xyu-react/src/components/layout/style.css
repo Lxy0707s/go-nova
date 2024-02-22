@@ -1,0 +1,14 @@
+.footer-bar {
+    margin: auto 0;
+    padding-bottom: 20px;
+    text-align: center;
+    text-size-adjust: inherit;
+    align-items: center;
+}
+
+.ant-menu-title-content {
+    margin: auto 0;
+    text-align: center;
+    text-size-adjust: inherit;
+    align-items: center;
+}

@@ -3,18 +3,15 @@ module github.com/go-nova
 go 1.20
 
 require (
-	github.com/99designs/gqlgen v0.17.31
 	github.com/fatih/color v1.15.0
 	github.com/fsnotify/fsnotify v1.5.4
 	github.com/gin-gonic/gin v1.9.0
 	github.com/go-playground/form/v4 v4.2.0
-	// github.com/dgrijalva/jwt-go v3
 	github.com/golang-jwt/jwt/v4 v4.4.1
 	github.com/google/uuid v1.3.0
 	github.com/gorilla/mux v1.8.0
 	github.com/imdario/mergo v0.3.12
 	github.com/tomwright/dasel v1.27.3
-	github.com/vektah/gqlparser/v2 v2.5.1
 	go.opentelemetry.io/otel v1.10.0
 	go.opentelemetry.io/otel/sdk v1.7.0
 	go.opentelemetry.io/otel/trace v1.10.0
@@ -110,14 +107,25 @@ require (
 	gorm.io/plugin/dbresolver v1.3.0
 )
 
-require github.com/olivere/elastic v6.2.37+incompatible
+require (
+	github.com/graph-gophers/dataloader v5.0.0+incompatible
+	github.com/graph-gophers/graphql-go v1.5.0
+	github.com/natefinch/lumberjack v2.0.0+incompatible
+	github.com/olivere/elastic v6.2.37+incompatible
+	github.com/opentracing/opentracing-go v1.2.0
+	github.com/qeelyn/go-common v0.0.0-20181119093842-5117fa99842d
+	github.com/uber/jaeger-client-go v2.30.0+incompatible
+	go.uber.org/zap v1.27.0
+)
 
 require (
-	github.com/agnivade/levenshtein v1.1.1 // indirect
+	github.com/HdrHistogram/hdrhistogram-go v1.1.2 // indirect
 	github.com/fortytw2/leaktest v1.3.0 // indirect
-	github.com/hashicorp/golang-lru/v2 v2.0.1 // indirect
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
-	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
+	github.com/uber/jaeger-lib v2.4.1+incompatible // indirect
+	go.uber.org/atomic v1.3.2 // indirect
+	go.uber.org/multierr v1.10.0 // indirect
+	gopkg.in/natefinch/lumberjack.v2 v2.2.1 // indirect
 )

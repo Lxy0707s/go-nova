@@ -1,0 +1,43 @@
+.page-power-admin {
+  display: flex;
+  border: solid 0.01rem #f0f0f0;
+  .l {
+    width: 12rem;
+    border: solid 0.01rem #f0f0f0;
+    background: #ffffff;
+    flex: none;
+    border-radius: 2%;
+    .title {
+      border-radius: 3%;
+      height: 3.5rem;
+      line-height: 3rem;
+      box-sizing: border-box;
+      font-size: 1rem;
+      padding: 0 0.51rem;
+      border-bottom: 0.5rem solid #f0f0f0;
+    }
+    .tree {
+      padding-top: 1rem;
+    }
+  }
+  .r {
+    border: solid 0.01rem #f0f0f0;
+    margin-left: 0.55rem;
+    background: #ffffff;
+    border-radius: 1%;
+    flex: auto;
+    .searchBox {
+      padding: 0.56rem;
+      & > ul {
+        display: flex;
+        & > li + li {
+          margin-left: 0.2rem;
+          flex: none;
+        }
+      }
+    }
+    .ant-table-pagination.ant-pagination {
+      margin-right: 2rem;
+    }
+  }
+}

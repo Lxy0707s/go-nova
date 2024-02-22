@@ -1,0 +1,13 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+# graphql所有查询接口
+type Query {
+    user: UserQueryObjType
+}
+# graphql所有修改接口
+type Mutation {
+    user: UserMutationObjType
+}
+

@@ -1,6 +1,7 @@
 package zap
 
 import (
+	"os"
 	"testing"
 
 	"go.uber.org/zap"
@@ -20,6 +21,31 @@ func (x *testWriteSyncer) Write(p []byte) (n int, err error) {
 
 func (x *testWriteSyncer) Sync() error {
 	return nil
+}
+
+func TestLoggerPrint(t *testing.T) {
+	encoderCfg := zapcore.EncoderConfig{
+		LevelKey:       "level",
+		MessageKey:     "note",
+		NameKey:        "logger",
+		EncodeLevel:    zapcore.LowercaseLevelEncoder,
+		EncodeTime:     zapcore.ISO8601TimeEncoder,
+		EncodeDuration: zapcore.StringDurationEncoder,
+	}
+	core := zapcore.NewCore(zapcore.NewJSONEncoder(encoderCfg), os.Stdout, zap.DebugLevel)
+	zlogger := zap.New(core).WithOptions()
+	logger := NewLogger(zlogger)
+
+	defer func() { _ = logger.Close() }()
+
+	zlog := log.NewHelper(logger)
+
+	zlog.Debugw("log", "hello world", "value", "test value")
+	zlog.Infow("log", "hello world")
+	zlog.Warnw("log", "hello world")
+	zlog.Errorw("log", "hello world")
+	zlog.Errorw("log", "error", "except warn")
+
 }
 
 func TestLogger(t *testing.T) {

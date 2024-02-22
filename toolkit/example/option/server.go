@@ -1,8 +1,6 @@
 package option
 
 import (
-	"github.com/99designs/gqlgen/graphql"
-	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/gorilla/mux"
 	"net"
 	"net/http"
@@ -44,8 +42,8 @@ func (s *Server) init(opts ...ServerOption) {
 	}
 }
 
-func (s *Server) Handle(path string, es graphql.ExecutableSchema) {
-	s.router.Handle(path, handler.NewDefaultServer(es))
+func (s *Server) Handle(path string) {
+	s.router.Handle(path, nil)
 }
 
 func (s *Server) listenAndEndpoint() error {

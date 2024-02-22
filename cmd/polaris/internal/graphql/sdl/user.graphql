@@ -1,0 +1,7 @@
+type UserQueryObjType{
+    userList(id: UserID): [User]
+}
+
+type UserMutationObjType{
+    addUser: String
+}

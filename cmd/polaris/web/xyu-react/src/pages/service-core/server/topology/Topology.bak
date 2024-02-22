@@ -1,0 +1,58 @@
+import {PowerTreeDefault, TreeTable} from "@/components/tree-box/TreeTable";
+import {getAllMenusAndPowers} from "@/pages/manager/info-core/index.type";
+import {Res} from "@/models/response.type";
+import {useSetState} from "react-use";
+import {Button} from "antd";
+
+// 权限树相关参数
+export type PowerTreeInfo = {
+    treeOnOkLoading: boolean; // 是否正在分配权限
+    powerTreeShow: boolean; // 权限树是否显示
+    powerTreeDefault: PowerTreeDefault; // 树默认需要选中的项
+};
+
+export const Topology = () => {
+    // 权限树相关参数
+    const [power, setPower] = useSetState<PowerTreeInfo>({
+        treeOnOkLoading: false,
+        powerTreeShow: true,
+        powerTreeDefault: { menus: [], powers: [] },
+    });
+
+    // 关闭菜单树
+    const onPowerTreeClose = () => {
+        setPower({
+            powerTreeShow: false,
+        });
+    };
+
+    const btnClick= () =>{
+        setPower({
+            powerTreeShow: true,
+        });
+    }
+
+    const Ok = (res: PowerTreeDefault) => {
+        console.log("oook",res)
+    }
+
+    const res: Res = getAllMenusAndPowers();
+    // if (res && res.status === 200) {
+    //     return { ...res.data.state, powerTreeData: res.data }
+    //     // dispatch.sys.reducerSetAllPowers(res.data);
+    // }
+    return(
+        <>
+            <Button onClick={btnClick}>显示tree-table</Button>
+            <TreeTable
+                data={res.data}
+                loading={false}
+                onOk={Ok}
+                modalShow={power.powerTreeShow}
+                onClose={onPowerTreeClose}
+                title={"tree-table"}
+                defaultChecked={power.powerTreeDefault}
+            />
+        </>
+        )
+}

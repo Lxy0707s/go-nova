@@ -1,4 +1,4 @@
-module github.com/go-nova/pkg/third_party/contrib/log/logrus/v2
+module github.com/go-nova/pkg/contrib/log/logrus/v2
 
 go 1.16
 

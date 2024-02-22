@@ -1,4 +1,4 @@
-module github.com/go-nova/pkg/third_party/contrib/log/aliyun/v2
+module github.com/go-nova/pkg/contrib/log/aliyun/v2
 
 go 1.16
 

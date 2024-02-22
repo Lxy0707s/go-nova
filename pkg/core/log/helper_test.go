@@ -11,10 +11,10 @@ func TestHelper(_ *testing.T) {
 	logger := With(DefaultLogger, "ts", DefaultTimestamp, "caller", DefaultCaller)
 	log := NewHelper(logger)
 
-	log.Log(LevelDebug, "msg", "test debug")
+	log.Log(LevelDebug, "msg", "test debug", "ss", "111")
+	log.Debugw("log", "test debug", "s", "111")
 	log.Debug("test debug")
 	log.Debugf("test %s", "debug")
-	log.Debugw("log", "test debug")
 
 	log.Warn("test warn")
 	log.Warnf("test %s", "warn")

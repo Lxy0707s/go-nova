@@ -13,6 +13,7 @@ var (
 	DefaultCaller = Caller(4)
 
 	// DefaultTimestamp is a Valuer that returns the current wallclock time.
+	// 可以定义时间格式，默认time.RFC3339
 	DefaultTimestamp = Timestamp(time.RFC3339)
 )
 

@@ -1,0 +1,33 @@
+app:
+  name: "My_App"
+  version: "1.0.0"
+  debug: true
+
+server:
+  host: "127.0.0.1"
+  port: 8089
+  profile_switch: true
+  profile_port: 8081
+
+database:
+  driver: "mysql"
+  db_names: ["polaris"]
+  username: "root"
+  password: "admin123"
+  network: "127.0.0.1:3306"
+
+zinx:
+  Name: "nova-zinx"
+  Host: "0.0.0.0"
+  TCPPort: 8889
+  MaxConn: 20
+  WorkerPoolSize: 5
+
+apis:
+  - { name: "test",
+      address: "http://127.0.0.1:8089/api/v1/user",
+      token: "",
+      timeout: 60,
+      interval: 30,
+      type: "GET",
+  }
