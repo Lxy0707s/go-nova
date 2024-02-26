@@ -3,11 +3,10 @@ package dao
 import (
 	"context"
 	"fmt"
-	"log"
 	"time"
 
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mysql" // gorm 的 MySQL 驱动
+	_ "gorm.io/driver/sqlite" // gorm 的 MySQL 驱动
+	"gorm.io/gorm"
 )
 
 var (
@@ -42,41 +41,43 @@ type Extra struct {
 func Setup(option interface{}, debug bool) map[string]*gorm.DB {
 	switch option.(type) {
 	case Option:
-		DBMap = initDbConfig(option.(Option), debug)
+		//DBMap = initDbConfig(option.(Option), debug)
 	case []Option:
 		MysqlStore = option.([]Option)
 		for _, dbConfig := range option.([]Option) {
-			DBMap = initDbConfig(dbConfig, debug)
+			fmt.Println(dbConfig)
+			//	DBMap = initDbConfig(dbConfig, debug)
 		}
 	}
 	return DBMap
 }
 
-func initDbConfig(option Option, debug bool) map[string]*gorm.DB {
-	if option.Addr == "" {
-		return nil
-	}
-	if DBMap == nil {
-		DBMap = make(map[string]*gorm.DB)
-	}
-	var err error
-	for _, name := range option.DBNames {
-		key := option.DatabasePrefix + name
-		DBMap[key], err = gorm.Open(option.Driver, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local&maxAllowedPacket=%d",
-			option.Username,
-			option.Password,
-			option.Addr,
-			key,
-			0,
-		))
-		if err != nil {
-			panic(fmt.Errorf("db '%s' error: %v", key, err))
-		}
-		//是否开启日志
-		DBMap[key].LogMode(debug)
-	}
-	return DBMap
-}
+//
+//func initDbConfig(option Option, debug bool) map[string]*gorm.DB {
+//	if option.Addr == "" {
+//		return nil
+//	}
+//	if DBMap == nil {
+//		DBMap = make(map[string]*gorm.DB)
+//	}
+//	var err error
+//	for _, name := range option.DBNames {
+//		key := option.DatabasePrefix + name
+//		DBMap[key], err = gorm.Open(option.Driver, fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8&parseTime=True&loc=Local&maxAllowedPacket=%d",
+//			option.Username,
+//			option.Password,
+//			option.Addr,
+//			key,
+//			0,
+//		))
+//		if err != nil {
+//			panic(fmt.Errorf("db '%s' error: %v", key, err))
+//		}
+//		//是否开启日志
+//		DBMap[key].LogMode(debug)
+//	}
+//	return DBMap
+//}
 
 // CloseDB 关闭数据库
 func CloseDB(option interface{}) {
@@ -90,12 +91,12 @@ func CloseDB(option interface{}) {
 	}
 }
 
-func _closeDB(option Option) {
-	for _, name := range option.DBNames {
-		key := option.DatabasePrefix + name
-		err := DBMap[key].Close()
-		if err != nil {
-			log.Fatalf("close err: %v", err)
-		}
-	}
-}
+//func _closeDB(option Option) {
+//	for _, name := range option.DBNames {
+//		key := option.DatabasePrefix + name
+//		err := DBMap[key]
+//		if err != nil {
+//			log.Fatalf("close err: %v", err)
+//		}
+//	}
+//}
