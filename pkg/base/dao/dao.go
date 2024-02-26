@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	_ "gorm.io/driver/sqlite" // gorm 的 MySQL 驱动
+	_ "gorm.io/driver/mysql" // gorm 的 MySQL 驱动
 	"gorm.io/gorm"
 )
 
@@ -80,16 +80,16 @@ func Setup(option interface{}, debug bool) map[string]*gorm.DB {
 //}
 
 // CloseDB 关闭数据库
-func CloseDB(option interface{}) {
-	switch option.(type) {
-	case Option:
-		_closeDB(option.(Option))
-	case []Option:
-		for _, dbConfig := range option.([]Option) {
-			_closeDB(dbConfig)
-		}
-	}
-}
+//func CloseDB(option interface{}) {
+//	switch option.(type) {
+//	case Option:
+//		_closeDB(option.(Option))
+//	case []Option:
+//		for _, dbConfig := range option.([]Option) {
+//			_closeDB(dbConfig)
+//		}
+//	}
+//}
 
 //func _closeDB(option Option) {
 //	for _, name := range option.DBNames {
