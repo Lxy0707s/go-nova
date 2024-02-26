@@ -28,6 +28,8 @@ func newSysUser(db *gorm.DB, opts ...gen.DOOption) sysUser {
 
 	tableName := _sysUser.sysUserDo.TableName()
 	_sysUser.ALL = field.NewAsterisk(tableName)
+	_sysUser.CreatedAt = field.NewTime(tableName, "created_at")
+	_sysUser.UpdatedAt = field.NewTime(tableName, "updated_at")
 	_sysUser.PID = field.NewInt64(tableName, "id")
 	_sysUser.PUid = field.NewInt64(tableName, "uid")
 	_sysUser.PUserName = field.NewString(tableName, "username")
@@ -38,8 +40,6 @@ func newSysUser(db *gorm.DB, opts ...gen.DOOption) sysUser {
 	_sysUser.PRoleId = field.NewInt64(tableName, "role_id")
 	_sysUser.PConditions = field.NewInt64(tableName, "conditions")
 	_sysUser.PDescription = field.NewString(tableName, "desc")
-	_sysUser.PCreatedAt = field.NewTime(tableName, "created_at")
-	_sysUser.PUpdatedAt = field.NewTime(tableName, "updated_at")
 
 	_sysUser.fillFieldMap()
 
@@ -50,6 +50,8 @@ type sysUser struct {
 	sysUserDo
 
 	ALL          field.Asterisk
+	CreatedAt    field.Time
+	UpdatedAt    field.Time
 	PID          field.Int64
 	PUid         field.Int64
 	PUserName    field.String
@@ -60,8 +62,6 @@ type sysUser struct {
 	PRoleId      field.Int64
 	PConditions  field.Int64
 	PDescription field.String
-	PCreatedAt   field.Time
-	PUpdatedAt   field.Time
 
 	fieldMap map[string]field.Expr
 }
@@ -78,6 +78,8 @@ func (s sysUser) As(alias string) *sysUser {
 
 func (s *sysUser) updateTableName(table string) *sysUser {
 	s.ALL = field.NewAsterisk(table)
+	s.CreatedAt = field.NewTime(table, "created_at")
+	s.UpdatedAt = field.NewTime(table, "updated_at")
 	s.PID = field.NewInt64(table, "id")
 	s.PUid = field.NewInt64(table, "uid")
 	s.PUserName = field.NewString(table, "username")
@@ -88,8 +90,6 @@ func (s *sysUser) updateTableName(table string) *sysUser {
 	s.PRoleId = field.NewInt64(table, "role_id")
 	s.PConditions = field.NewInt64(table, "conditions")
 	s.PDescription = field.NewString(table, "desc")
-	s.PCreatedAt = field.NewTime(table, "created_at")
-	s.PUpdatedAt = field.NewTime(table, "updated_at")
 
 	s.fillFieldMap()
 
@@ -107,6 +107,8 @@ func (s *sysUser) GetFieldByName(fieldName string) (field.OrderExpr, bool) {
 
 func (s *sysUser) fillFieldMap() {
 	s.fieldMap = make(map[string]field.Expr, 12)
+	s.fieldMap["created_at"] = s.CreatedAt
+	s.fieldMap["updated_at"] = s.UpdatedAt
 	s.fieldMap["id"] = s.PID
 	s.fieldMap["uid"] = s.PUid
 	s.fieldMap["username"] = s.PUserName
@@ -117,8 +119,6 @@ func (s *sysUser) fillFieldMap() {
 	s.fieldMap["role_id"] = s.PRoleId
 	s.fieldMap["conditions"] = s.PConditions
 	s.fieldMap["desc"] = s.PDescription
-	s.fieldMap["created_at"] = s.PCreatedAt
-	s.fieldMap["updated_at"] = s.PUpdatedAt
 }
 
 func (s sysUser) clone(db *gorm.DB) sysUser {

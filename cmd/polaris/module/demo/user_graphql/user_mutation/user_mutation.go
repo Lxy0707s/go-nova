@@ -5,6 +5,9 @@ import (
 	"github.com/go-nova/cmd/polaris/internal/dao"
 	"github.com/go-nova/cmd/polaris/internal/dao/model"
 	"github.com/go-nova/cmd/polaris/module/demo/dbutils"
+	dao2 "github.com/go-nova/pkg/base/dao"
+	"github.com/go-nova/pkg/core/log"
+	"time"
 )
 
 type MutationUserResolver struct{}
@@ -23,7 +26,13 @@ func (r *MutationUserResolver) AddUser(ctx context.Context) (*string, error) {
 		PPhone:       "test",
 		PConditions:  1,
 		PDescription: "test",
+
+		Model: dao2.Model{
+			CreatedAt: time.Now(),
+			UpdatedAt: time.Now(),
+		},
 	})
+	log.Infow("users", users)
 	// query the first user
 	err := dbutils.Q.SysUser.Create(users...)
 	if err != nil {

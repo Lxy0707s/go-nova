@@ -29,8 +29,8 @@ type Option struct {
 
 // Model 基本类型，自带添加时间和更新时间
 type Model struct {
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	CreatedAt time.Time `gorm:"column:created_at" json:"created_at"`
+	UpdatedAt time.Time `gorm:"column:updated_at" json:"updated_at"`
 }
 
 // Extra 增加外部数据，标记不要 db 查询，json 渲染

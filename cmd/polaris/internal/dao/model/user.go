@@ -2,7 +2,6 @@ package model
 
 import (
 	"github.com/go-nova/pkg/base/dao"
-	"time"
 )
 
 type NewUser struct {
@@ -31,9 +30,6 @@ type SysUser struct {
 	PRoleId      int64  `gorm:"column:role_id" json:"role_id"`       //  角色id
 	PConditions  int64  `gorm:"column:conditions" json:"conditions"` //  部门id
 	PDescription string `gorm:"column:desc" json:"desc"`
-
-	PCreatedAt time.Time `gorm:"column:created_at" json:"created_at"`
-	PUpdatedAt time.Time `gorm:"column:updated_at" json:"updated_at"`
 }
 
 func (SysUser) TableName() string {
@@ -84,4 +80,14 @@ func (u *SysUser) Desc() *string {
 
 func (u *SysUser) Conditions() int32 {
 	return int32(u.PConditions)
+}
+
+func (u *SysUser) CreatedAt() *string {
+	createAt := u.Model.CreatedAt.Format("2006-01-02 15:04:05")
+	return &createAt
+}
+
+func (u *SysUser) UpdatedAt() *string {
+	updateAt := u.Model.CreatedAt.Format("2006-01-02 15:04:05")
+	return &updateAt
 }
