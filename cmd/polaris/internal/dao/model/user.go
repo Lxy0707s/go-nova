@@ -1,6 +1,7 @@
 package model
 
 import (
+	"github.com/go-nova/pkg/base/dao"
 	"time"
 )
 
@@ -16,6 +17,9 @@ type NewUser struct {
 }
 
 type SysUser struct {
+	dao.Extra
+	dao.Model
+
 	PID  int64 `gorm:"column:id" json:"id"`
 	PUid int64 `gorm:"column:uid" json:"uid"`
 
